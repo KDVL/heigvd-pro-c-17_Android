@@ -18,4 +18,8 @@
     <string name="password2_error">Les mots de passes sont différents</string>
     <string name="title_charts">Graphique</string>
 
+    <!-- Expense strings -->
+    <string name="expense">Dépenses</string>
+
+
 </resources>
