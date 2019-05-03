@@ -3,4 +3,18 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="text_login">Se connecter</string>
+    <string name="no_account">Pas encore de compte ? En créer un</string>
+    <string name="title_email">Email</string>
+    <string name="title_password">Mot de passe</string>
+    <string name="title_password_confirmation">Confirmation mot de passe</string>
+    <string name="title_name">Nom</string>
+    <string name="create_account">Créer un compte</string>
+    <string name="already_membre">Déjà membre ? Se connecter</string>
+    <string name="authentification">Connexion...</string>
+    <string name="name_error">Entrez au minimum 3 caractères</string>
+    <string name="email_error">Entrez une adresse mail valide</string>
+    <string name="password_error">Au minimum 6 caractères</string>
+    <string name="password2_error">Les mots de passes sont différents</string>
+
 </resources>
