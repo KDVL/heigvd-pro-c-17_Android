@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,6 +31,8 @@ public class ChartsFragment extends Fragment {
 
     public ChartsFragment() {
         // Required empty public constructor
+
+        setHasOptionsMenu(true);
     }
 
     public static ChartsFragment newInstance() {
@@ -65,8 +69,12 @@ public class ChartsFragment extends Fragment {
         ChartsAdapter adapter = new ChartsAdapter(cats);
         pieList.setAdapter(adapter);
 
+
+        setHasOptionsMenu(true);
+
         return view;
     }
+
 
     private PieData getData() {
         NoOfEmp.add(new PieEntry(10f, 0));
@@ -80,6 +88,13 @@ public class ChartsFragment extends Fragment {
         data.setValueTextSize(10f);
         data.setValueTextColor(Color.YELLOW);
         return data;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.charts_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

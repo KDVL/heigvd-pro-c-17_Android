@@ -140,8 +140,9 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
 
     @Override
     public void authVerification(boolean isLogged) {
-        if(!isLogged)
+        if(!isLogged && TokenHolder.isLogged(getApplicationContext()))
             showLogin();
+
     }
 
     @Override
