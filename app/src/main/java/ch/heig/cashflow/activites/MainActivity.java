@@ -11,9 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import ch.heig.cashflow.fragments.ChartsFragment;
-
 import ch.heig.cashflow.R;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fragment = ChartsFragment.newInstance();
+                    fragment = ExpenseFragment.newInstance();
                 case R.id.navigation_dashboard:
                     return true;
                 case R.id.navigation_notifications:
@@ -47,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, ChartsFragment.newInstance());
+        ft.replace(R.id.content_frame, ExpenseFragment.newInstance());
         ft.commit();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Intent intent = new Intent(this, LoginActivity.class);
-       // startActivity(intent);
+        //startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

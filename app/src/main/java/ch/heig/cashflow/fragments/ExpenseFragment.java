@@ -6,17 +6,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.MainActivity;
+import ch.heig.cashflow.adapters.ExpenseCardsAdapter;
 
 
 public class ExpenseFragment extends Fragment {
-    private static final String TAG = "DepenseFragment";
+    private static final String TAG = "ExpenseFragment";
     private MainActivity mainActivity;
 
-    private TextView depenseView;
+    private TextView expenseView;
 
 
     public ExpenseFragment() {
@@ -38,6 +40,16 @@ public class ExpenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
 
         mainActivity = (MainActivity) getActivity();
+        expenseView = view.findViewById(R.id.totalExpenses);
+        expenseView.setText(mainActivity.getExpenses());
+
+        if (mainActivity.currentMonthExpensesArrayList.isEmpty()) {
+            view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
+        }
+
+        final ListView depensesListView = view.findViewById(R.id.expenseCardView);
+
+        depensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), mainActivity.currentMonthExpensesArrayList));
         depenseView = view.findViewById(R.id.totalExpenses);
         //depenseView.setText(mainActivity.getExpenses());
 
@@ -45,6 +57,7 @@ public class ExpenseFragment extends Fragment {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 */
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_expense, container, false);
     }

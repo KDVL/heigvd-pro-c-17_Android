@@ -30,6 +30,13 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <!-- Divider -->
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">?android:attr/listDivider</item>
+
     <style name="AppTheme.Dark.DarkDialog" parent="Theme.AppCompat.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>
