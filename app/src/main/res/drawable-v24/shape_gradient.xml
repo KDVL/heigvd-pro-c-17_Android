@@ -4,7 +4,7 @@
         <shape>
             <corners android:radius="10dp" />
             <!-- 012 Tempting Azure -->
-            <gradient android:angle="90" android:endColor="#8fd3f4" android:startColor="#84fab0" android:type="linear" />
+            <gradient android:angle="90" android:endColor="#243949" android:startColor="#517fa4" android:type="linear" />
         </shape>
     </item>
 </selector>
