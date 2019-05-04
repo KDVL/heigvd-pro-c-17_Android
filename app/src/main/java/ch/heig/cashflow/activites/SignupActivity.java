@@ -2,6 +2,7 @@ package ch.heig.cashflow.activites;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +11,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.User;
+import ch.heig.cashflow.network.LoginService;
+import ch.heig.cashflow.network.SignupService;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity  implements LoginService.Callback {
     private static final String TAG = "SignupActivity";
 
+
+    @BindView(R.id.input_firstname)
+    EditText firstnameText;
     @BindView(R.id.input_name)
     EditText nameText;
     @BindView(R.id.input_email)
@@ -66,28 +74,14 @@ public class SignupActivity extends AppCompatActivity {
 
         signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage(getString(R.string.authentification));
-        progressDialog.show();
-
+        String firstname = firstnameText.getText().toString();
         String name = nameText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        // TODO: Implement our signup logic
+        User user = new User(firstname, name, email, password);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        new SignupService(this, user);
     }
 
 
@@ -98,16 +92,27 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
+        Toast.makeText(this, getString(R.string.error_signup),
+                Toast.LENGTH_LONG).show();
+
         signupButton.setEnabled(true);
     }
 
     public boolean validate() {
         boolean valid = true;
 
+        String firstname = firstnameText.getText().toString();
         String name = nameText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
         String reEnterPassword = reEnterPasswordText.getText().toString();
+
+        if (firstname.isEmpty() || firstname.length() < 3) {
+            firstnameText.setError(getString(R.string.name_error));
+            valid = false;
+        } else {
+            firstnameText.setError(null);
+        }
 
         if (name.isEmpty() || name.length() < 3) {
             nameText.setError(getString(R.string.name_error));
@@ -139,5 +144,19 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    @Override
+    public void loginFinished(boolean isLogged) {
+        if(isLogged){
+            onSignupSuccess();
+        }else{
+            onSignupFailed();
+        }
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
     }
 }
