@@ -58,7 +58,7 @@ public class ChartsFragment extends Fragment {
         pieChart.animateXY(1000, 1000);
 
         pieList = view.findViewById(R.id.list_charts);
-        Category c = new Category(1,"name", "iconName", Transaction.Type.EXPENSE,100, true);
+        Category c = new Category(1,"name", "iconName", Type.EXPENSE,100, true);
         ArrayList<Category> cats = new ArrayList<>();
         cats.add(c);
       

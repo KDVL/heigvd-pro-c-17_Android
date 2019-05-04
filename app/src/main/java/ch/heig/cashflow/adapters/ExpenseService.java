@@ -35,7 +35,7 @@ public class ExpenseService {
         Date date = new Date();
 
         Expense expense = new Expense(1, sdf.format(date),
-                new Category(1, "Drink", "category_drink_black_24", Transaction.Type.EXPENSE, 100000, true),
+                new Category(1, "Drink", "category_drink_black_24", Type.EXPENSE, 100000, true),
                 120, "My first expense");
 
         list.add(expense);

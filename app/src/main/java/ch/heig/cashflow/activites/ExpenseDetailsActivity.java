@@ -111,7 +111,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String saisi = password.getText().toString();
                         if (saisi.equals("ok")) {
-                            expenseService.deleteExpense(editExpenseAdapter.getTransaction().getId());
+                            expenseService.deleteExpense(editExpenseAdapter.getTransaction().getID());
                             retour();
                         }
                     }
