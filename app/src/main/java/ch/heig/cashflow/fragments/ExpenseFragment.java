@@ -22,6 +22,8 @@ import ch.heig.cashflow.network.services.TransactionsService;
 public class ExpenseFragment extends Fragment implements TransactionsService.Callback {
     private static final String TAG = "ExpenseFragment";
 
+    // TODO: Observable classe date update changement
+
     private View view;
 
     private TextView expenseView;

@@ -136,6 +136,7 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
         context.startActivity(expenseDetails);
     }
 
+    // TODO: Gerer Callback
     @Override
     public void connectionFailed(String error) {
 

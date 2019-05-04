@@ -1,5 +1,6 @@
 package ch.heig.cashflow.activites;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,16 +15,15 @@ import android.widget.TextView;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddOrEditAdapter;
-import ch.heig.cashflow.adapters.EditExpenseAdapter;
-import ch.heig.cashflow.adapters.ExpenseService;
-import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.network.services.TransactionService;
 
-public class ExpenseDetailsActivity extends AppCompatActivity {
+public class ExpenseDetailsActivity extends AppCompatActivity implements TransactionService.Callback {
     private static final String TAG = "ExpenseDetailsActivity";
 
-    private static final String[] TITLE = {"Dépense détails", "Revenu détails"};
+    private TransactionService ts;
 
-    private ExpenseService expenseService = null;
+    private static final String[] TITLE = {"Dépense détails", "Revenu détails"};
 
     private AddOrEditAdapter editExpenseAdapter = null;
 
@@ -45,13 +45,12 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
         }
 
         setTitle(TITLE[editExpenseAdapter.getTransaction().getType().ordinal()]);
+        ts = new TransactionService(this);
 
         expenseIcon = findViewById(R.id.expenseToEditIcon);
         expenseDate = findViewById(R.id.expenseToEditDate);
         expenseAmount = findViewById(R.id.expenseToEditAmount);
         expenseDesc = findViewById(R.id.expenseToEditDesc);
-
-        expenseService = new ExpenseService();
 
         int iconImageId = this.getDrawableResIdByName(editExpenseAdapter.getTransaction().getCategory().getIconName());
         expenseIcon.setImageResource(iconImageId);
@@ -111,7 +110,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String saisi = password.getText().toString();
                         if (saisi.equals("ok")) {
-                            expenseService.deleteExpense(editExpenseAdapter.getTransaction().getID());
+                            ts.delete(editExpenseAdapter.getTransaction());
                             retour();
                         }
                     }
@@ -127,6 +126,37 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
         Intent main = new Intent(this, MainActivity.class);
         main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
+    }
+
+    //TODO: Gerer Calback
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void getFinished(Transaction transaction) {
+
+    }
+
+    @Override
+    public void addFinished(boolean isAdded) {
+
+    }
+
+    @Override
+    public void updateFinished(boolean isUpdated) {
+
+    }
+
+    @Override
+    public void deleteFinished(boolean isDeleted) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
     }
 }
 
