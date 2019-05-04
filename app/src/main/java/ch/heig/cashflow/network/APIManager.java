@@ -1,8 +1,11 @@
 package ch.heig.cashflow.network;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 
@@ -18,9 +21,16 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.X509TrustManager;
 
 public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
 
@@ -39,6 +49,9 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         setCallback(callback);
         this.authNeeded = authNeeded;
         method = m;
+
+        //Used with https test server (localhost)
+        trustEveryone();
     }
 
     public void setPostParams(HashMap<String, String> postParams) {
@@ -46,23 +59,8 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     private String getPostParams(){
-        StringBuilder sbParams = new StringBuilder();
-        int i = 0;
-        for (String key : postParams.keySet()) {
-            try {
-                if (i != 0){
-                    sbParams.append("&");
-                }
-                sbParams.append(key).append("=")
-                        .append(URLEncoder.encode(postParams.get(key), "UTF-8"));
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            i++;
-        }
-
-        return sbParams.toString();
+        Gson gson = new Gson();
+        return gson.toJson(postParams);
     }
 
     void setCallback(DownloadCallback<APIManager.Result> callback) {
@@ -75,7 +73,10 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     @Override
     protected void onPreExecute() {
         if (mCallback != null) {
-            NetworkInfo networkInfo = mCallback.getActiveNetworkInfo();
+            Context c = mCallback.getContext();
+            ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
             if (networkInfo == null || !networkInfo.isConnected() ||
                     (networkInfo.getType() != ConnectivityManager.TYPE_WIFI
                             && networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
@@ -147,6 +148,8 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
             connection.setReadTimeout(3000);
             connection.setConnectTimeout(3000);
             connection.setRequestMethod(method.toString());
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
 
             if(method != METHOD.GET){
                 // Send post request
@@ -155,9 +158,9 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 wr.writeBytes(getPostParams());
                 wr.flush();
                 wr.close();
+            }else{
+                connection.connect();
             }
-
-            connection.connect();
 
             publishProgress(DownloadCallback.Progress.CONNECT_SUCCESS);
             responseCode = connection.getResponseCode();
@@ -171,7 +174,10 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 // Converts Stream to String with max
                 result = readStream(stream, 1000000);
             }
-        } finally {
+        } catch (Exception e) {
+            System.out.println(e);
+        }   finally
+         {
             // Close Stream and disconnect HTTPS connection.
             if (stream != null) {
                 stream.close();
@@ -226,6 +232,29 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         }
     }
 
+
+    //Used for testing
+    private void trustEveryone() {
+        try {
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier(){
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }});
+            SSLContext context = SSLContext.getInstance("TLS");
+            context.init(null, new X509TrustManager[]{new X509TrustManager(){
+                public void checkClientTrusted(X509Certificate[] chain,
+                                               String authType) throws CertificateException {}
+                public void checkServerTrusted(X509Certificate[] chain,
+                                               String authType) throws CertificateException {}
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }}}, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(
+                    context.getSocketFactory());
+        } catch (Exception e) { // should never happen
+            e.printStackTrace();
+        }
+    }
 }
 
 

@@ -1,7 +1,7 @@
 package ch.heig.cashflow.network;
 
 
-import android.net.NetworkInfo;
+import android.content.Context;
 
 public interface DownloadCallback<T> {
     interface Progress {
@@ -19,8 +19,8 @@ public interface DownloadCallback<T> {
     void updateFromDownload(T result);
 
     /**
-     * Get the device's active network status in the form of a NetworkInfo object.
+     * Get the device context
      */
-    NetworkInfo getActiveNetworkInfo();
+    Context getContext();
 }
 

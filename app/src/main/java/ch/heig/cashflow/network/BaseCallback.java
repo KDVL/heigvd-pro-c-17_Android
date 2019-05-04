@@ -1,7 +1,7 @@
 package ch.heig.cashflow.network;
 
-import android.net.NetworkInfo;
+import android.content.Context;
 
 public interface BaseCallback {
-    NetworkInfo getActiveNetworkInfo();
+    Context getContext();
 }

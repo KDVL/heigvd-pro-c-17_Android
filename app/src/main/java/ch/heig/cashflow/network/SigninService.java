@@ -1,5 +1,6 @@
 package ch.heig.cashflow.network;
 
+import android.content.Context;
 import android.net.NetworkInfo;
 
 public class SigninService  implements  DownloadCallback<APIManager.Result> {
@@ -20,9 +21,10 @@ public class SigninService  implements  DownloadCallback<APIManager.Result> {
         callback.loginFinished(true);
     }
 
+
     @Override
-    public NetworkInfo getActiveNetworkInfo() {
-        return callback.getActiveNetworkInfo();
+    public Context getContext() {
+        return callback.getContext();
     }
 
     public interface Callback extends BaseCallback{

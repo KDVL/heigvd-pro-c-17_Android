@@ -1,5 +1,6 @@
 package ch.heig.cashflow.network;
 
+import android.content.Context;
 import android.net.NetworkInfo;
 
 import java.util.ArrayList;
@@ -26,17 +27,15 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
-
         callback.loginFinished(result.responseCode == 200);
-
     }
 
     @Override
-    public NetworkInfo getActiveNetworkInfo() {
-        return callback.getActiveNetworkInfo();
+    public Context getContext() {
+        return callback.getContext();
     }
 
-    public interface Callback extends BaseCallback{
+    public interface Callback extends BaseCallback {
         void loginFinished(boolean isLogged);
     }
 }

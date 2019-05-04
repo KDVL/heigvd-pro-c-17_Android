@@ -22,7 +22,6 @@ import ch.heig.cashflow.network.LoginService;
 public class LoginActivity extends AppCompatActivity implements LoginService.Callback {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    ProgressDialog progressDialog;
 
     @BindView(R.id.input_email)
     EditText emailText;
@@ -32,6 +31,8 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     Button loginButton;
     @BindView(R.id.link_signup)
     TextView signupButton;
+
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,9 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+        progressDialog = new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
     }
 
     public void login() {
@@ -70,8 +74,6 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
 
         loginButton.setEnabled(false);
 
-        progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getString(R.string.authentification));
         progressDialog.show();
@@ -133,9 +135,8 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     }
 
     @Override
-    public NetworkInfo getActiveNetworkInfo() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo();
+    public Context getContext() {
+        return getApplicationContext();
     }
 }
 
