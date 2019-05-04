@@ -24,6 +24,6 @@ public class TokenHolder {
     }
 
     public static boolean isLogged(Context context){
-       return getToken(context) == null || getToken(context) == "";
+       return getToken(context) != null && getToken(context) != "";
     }
 }

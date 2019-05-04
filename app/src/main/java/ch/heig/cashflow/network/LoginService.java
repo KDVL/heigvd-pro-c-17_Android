@@ -35,6 +35,11 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
         HashMap<String,String> res = new HashMap<>();
         res = gson.fromJson(result.resultString, res.getClass());
 
+        if(res == null){
+            callback.loginFinished(false);
+            return;
+        }
+
         String accessToken = res.get("accessToken");
 
         if(accessToken != "" && accessToken != null){

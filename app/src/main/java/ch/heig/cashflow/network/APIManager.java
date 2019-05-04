@@ -37,7 +37,8 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     public enum METHOD {
             GET,
             POST,
-            DELETE
+            DELETE,
+            PUT
     }
 
     public APIManager(DownloadCallback<APIManager.Result> callback, boolean authNeeded, METHOD m) {

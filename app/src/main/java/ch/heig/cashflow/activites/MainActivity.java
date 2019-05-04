@@ -64,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(TokenHolder.isLogged()){
-
-            if()
+        if(!TokenHolder.isLogged(getApplicationContext())){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
