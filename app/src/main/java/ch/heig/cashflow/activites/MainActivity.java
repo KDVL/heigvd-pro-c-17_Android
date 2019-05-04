@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
     @Override
     protected void onResume() {
         super.onResume();
-        showLogin();
     }
 
     /**

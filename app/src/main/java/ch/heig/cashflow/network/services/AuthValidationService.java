@@ -32,7 +32,7 @@ public class AuthValidationService implements DownloadCallback<APIManager.Result
 
         APIManager manager = new APIManager(this,
                 true,
-                APIManager.METHOD.POST);
+                APIManager.METHOD.GET);
         manager.execute(Config.AUTH_VERIF);
     }
 
