@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.ChartsAdapter;
 import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.Transaction;
 
 public class ChartsFragment extends Fragment {
 
@@ -57,9 +58,8 @@ public class ChartsFragment extends Fragment {
         pieChart.animateXY(1000, 1000);
 
         pieList = view.findViewById(R.id.list_charts);
-        Category c = new Category("name", "color", "icon", 123);
         ArrayList<Category> cats = new ArrayList<>();
-        cats.add(c);
+        cats.add(new Category(1, "Carte de Crédit", "carte", Transaction.Type.EXPENSE, 123, true));
         ChartsAdapter adapter = new ChartsAdapter(cats);
         pieList.setAdapter(adapter);
 
