@@ -5,13 +5,13 @@
     <!-- ifRoom affiche un élément cliquable dans la bar, never menu deroulant avec 3 points-->
     <item
         android:id="@+id/expense_edit"
-        android:icon="@drawable/appbar_edit_white_24"
+        android:icon="@drawable/appbar_edit"
         android:title="@string/item_edit"
         app:showAsAction="ifRoom"/>
 
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/expense_delete"
-        android:icon="@drawable/appbar_delete_white_24"
+        android:icon="@drawable/appbar_delete"
         android:title="@string/item_delete"
         app:showAsAction="ifRoom"/>
 

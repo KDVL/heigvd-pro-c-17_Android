@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,8 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
         this.currentMonthExpenses = currentMonthExpenses;
         layoutInflater = LayoutInflater.from(context);
 
+        currentMonthExpensesGroupeByDay = new ArrayList<>();
+        expensesDailyList = new ArrayList<>();
         groupByDay();
     }
 
@@ -88,7 +91,7 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
 
         expensesDailyList.clear();
         for(Transaction t: currentMonthExpenses){
-            if(t.getDate().equals(expense)){
+            if(t.getDate().equals(expense.getDate())){
                 expensesDailyList.add(t);
             }
         }
@@ -140,11 +143,6 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
 
     @Override
     public void getAllFinished(List<Transaction> transactions) {
-
-    }
-
-    @Override
-    public void getMonthFinished(List<Transaction> transactions) {
 
     }
 
