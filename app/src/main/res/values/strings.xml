@@ -17,4 +17,9 @@
     <string name="password_error">Au minimum 6 caractères</string>
     <string name="password2_error">Les mots de passes sont différents</string>
 
+    <string name="title_activity_expense">Dépenses</string>
+    <string name="add_price">Montant</string>
+    <string name="add_description">Description</string>
+    <string name="add">Ajouter</string>
+
 </resources>
