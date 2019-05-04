@@ -3,10 +3,10 @@ package ch.heig.cashflow.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -17,12 +17,14 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.adapters.ChartsAdapter;
+import ch.heig.cashflow.models.Category;
 
 public class ChartsFragment extends Fragment {
 
     private ArrayList NoOfEmp = new ArrayList();
     private PieChart pieChart = null;
-    private ListView pieList = null;
+    private RecyclerView pieList = null;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -54,9 +56,12 @@ public class ChartsFragment extends Fragment {
         pieChart.setRotationEnabled(false);
         pieChart.animateXY(1000, 1000);
 
-        pieList = view.findViewById(R.id.pie_chart_list);
-        //ChartsAdapters adapter = new ChartsAdapters(ChartsFragment.this, NoOfEmp);
-        //pieList.setAdapter(adapter);
+        pieList = view.findViewById(R.id.list_charts);
+        Category c = new Category("name", "color", "icon", 123);
+        ArrayList<Category> cats = new ArrayList<>();
+        cats.add(c);
+        ChartsAdapter adapter = new ChartsAdapter(cats);
+        pieList.setAdapter(adapter);
 
         return view;
     }
