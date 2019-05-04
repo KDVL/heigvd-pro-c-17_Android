@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.activites.ExpenseEditActivity;
+import ch.heig.cashflow.activites.ExpenseDetailsActivity;
 import ch.heig.cashflow.models.Expense;
 
 public class ExpenseCardsAdapter extends BaseAdapter {
@@ -94,7 +94,7 @@ public class ExpenseCardsAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = holder.dayList.getItemAtPosition(position);
                 Expense e = (Expense) o;
-                editExpense(e);
+                getExpenseDetails(e);
             }
         });
 
@@ -102,10 +102,13 @@ public class ExpenseCardsAdapter extends BaseAdapter {
     }
 
 
-    private void editExpense(Expense e) {
-        Intent expenseEdit = new Intent(context, ExpenseEditActivity.class);
-        expenseEdit.putExtra("expenseId", e.getId());
-        context.startActivity(expenseEdit);
+    private void getExpenseDetails(Expense e) {
+        Intent expenseDetails = new Intent(context, ExpenseDetailsActivity.class);
+
+        AddOrEditAdapter editExpenseAdapter = new EditExpenseAdapter(e);
+
+        expenseDetails.putExtra(context.getString(R.string.transaction_adapter_key), editExpenseAdapter);
+        context.startActivity(expenseDetails);
     }
 
     static class ViewHolder {

@@ -21,6 +21,9 @@
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
 
+    <!-- AddOrEditActivity -->
+    <string name="spiner_title">Choisir la catégorie</string>
+
     <!-- menu_expense_edit -->
     <string name="item_edit">Edit</string>
     <string name="item_delete">Delete</string>
@@ -30,5 +33,9 @@
     <string name="add_price">Montant</string>
     <string name="add_description">Description</string>
     <string name="add">Ajouter</string>
+
+
+    <!-- Constants general values -->
+    <string name="transaction_adapter_key">transaction</string>
 
 </resources>

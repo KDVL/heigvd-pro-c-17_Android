@@ -38,6 +38,7 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <!-- Date picker dialog theme -->
     <style name="AppTheme.Dark.DarkDialog" parent="Theme.AppCompat.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>

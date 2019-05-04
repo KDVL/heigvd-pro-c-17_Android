@@ -3,9 +3,9 @@ package ch.heig.cashflow.activites;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -13,35 +13,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.adapters.AddOrEditAdapter;
+import ch.heig.cashflow.adapters.EditExpenseAdapter;
 import ch.heig.cashflow.adapters.ExpenseService;
 import ch.heig.cashflow.models.Expense;
 
-public class ExpenseEditActivity extends AppCompatActivity {
-    private static final String TAG = "ExpenseEditActivity";
-    private long expenseId = 0;
+public class ExpenseDetailsActivity extends AppCompatActivity {
+    private static final String TAG = "ExpenseDetailsActivity";
+
+    private static final String[] TITLE = {"Dépense détails", "Revenu détails"};
 
     private ExpenseService expenseService = null;
+
+    private AddOrEditAdapter editExpenseAdapter = null;
 
     private ImageView expenseIcon = null;
     private TextView expenseDate = null;
     private TextView expenseAmount = null;
     private TextView expenseDesc = null;
 
-    private Expense expenseToEdit = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expense_edit);
-
-        setTitle("Dépense détails");
+        setContentView(R.layout.activity_expense_details);
 
         Intent i = getIntent();
         if (i != null) {
-            if (i.hasExtra("expenseId")) {
-                expenseId = i.getLongExtra("expenseId", 0);
+            if (i.hasExtra(getResources().getString(R.string.transaction_adapter_key))) {
+                editExpenseAdapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
             }
         }
+
+        setTitle(TITLE[editExpenseAdapter.getTransaction().getType().ordinal()]);
 
         expenseIcon = findViewById(R.id.expenseToEditIcon);
         expenseDate = findViewById(R.id.expenseToEditDate);
@@ -49,15 +52,14 @@ public class ExpenseEditActivity extends AppCompatActivity {
         expenseDesc = findViewById(R.id.expenseToEditDesc);
 
         expenseService = new ExpenseService();
-        expenseToEdit = expenseService.getExpenseById(expenseId);
 
-        int iconImageId = this.getDrawableResIdByName(expenseToEdit.getCategory().getIconName());
+        int iconImageId = this.getDrawableResIdByName(editExpenseAdapter.getTransaction().getCategory().getIconName());
         expenseIcon.setImageResource(iconImageId);
-        expenseIcon.getDrawable().setTint(Color.parseColor("#222222"));
+        expenseIcon.getDrawable().setTint(Color.parseColor("#FFFFFF"));
 
-        expenseDate.setText(expenseToEdit.getDate());
-        expenseAmount.setText(String.valueOf(expenseToEdit.getAmount()));
-        expenseDesc.setText(expenseToEdit.getDescription());
+        expenseDate.setText(editExpenseAdapter.getTransaction().getDate());
+        expenseAmount.setText(String.valueOf(editExpenseAdapter.getTransaction().getAmount()));
+        expenseDesc.setText(editExpenseAdapter.getTransaction().getDescription());
     }
 
     public int getDrawableResIdByName(String resName) {
@@ -90,8 +92,8 @@ public class ExpenseEditActivity extends AppCompatActivity {
     }
 
     private void modifierDepense() {
-        Intent categorieChoice = new Intent(this, CategoryChoiceActivity.class);
-        categorieChoice.putExtra("expenseId", expenseId);
+        Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
+        categorieChoice.putExtra(getResources().getString(R.string.transaction_adapter_key), editExpenseAdapter);
         startActivity(categorieChoice);
     }
 
@@ -109,7 +111,7 @@ public class ExpenseEditActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String saisi = password.getText().toString();
                         if (saisi.equals("ok")) {
-                            expenseService.deleteExpense(expenseId);
+                            expenseService.deleteExpense(editExpenseAdapter.getTransaction().getId());
                             retour();
                         }
                     }

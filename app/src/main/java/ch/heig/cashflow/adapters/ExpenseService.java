@@ -13,8 +13,8 @@ import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Transaction;
 
 public class ExpenseService {
-    private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-    List<Expense> list = null;
+    private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private List<Expense> list;
 
     public ExpenseService() {
         list = new ArrayList<>();

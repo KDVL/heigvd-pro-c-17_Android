@@ -4,7 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
 
-
     <!-- Fragment expense margins -->
     <dimen name="fragment_extern_margin">16dp</dimen>
     <dimen name="fragment_medium_margin">8dp</dimen>

@@ -12,12 +12,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.adapters.AddAdapter;
+import ch.heig.cashflow.adapters.AddExpenseAdapter;
+import ch.heig.cashflow.adapters.AddIncomeAdapter;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private AddAdapter addAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -28,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_expense:
                     fragment = ExpenseFragment.newInstance();
+                    addAdapter = new AddExpenseAdapter();
                     break;
                 case R.id.navigation_earning:
                     fragment = ExpenseFragment.newInstance();
+                    addAdapter = new AddIncomeAdapter();
                     break;
                 case R.id.navigation_charts:
                     fragment = ChartsFragment.newInstance();
@@ -54,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.content_frame, ExpenseFragment.newInstance());
         ft.commit();
 
+        addAdapter = new AddExpenseAdapter();
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -68,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.actionbar_add:
-                startActivity(new Intent(this, AddActivity.class));
+                Intent addOrEdit = new Intent(this, AddOrEditActivity.class);
+                addOrEdit.putExtra(getResources().getString(R.string.transaction_adapter_key), addAdapter);
+                startActivity(addOrEdit);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

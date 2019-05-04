@@ -1,6 +1,9 @@
 package ch.heig.cashflow.models;
 
-public class Budget {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Budget implements Serializable {
 
     private final long ID;
     private final String date;

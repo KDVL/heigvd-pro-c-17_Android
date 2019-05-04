@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activites.ExpenseEditActivity">
+    tools:context=".activites.ExpenseDetailsActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@drawable/expense_edit_background"
+        android:background="@drawable/shape_gradient"
         android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,6 +38,7 @@
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="Date :"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_big" />
 
             <TextView
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text=""
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
@@ -63,6 +65,7 @@
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="Montant :"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_big" />
 
             <TextView
@@ -71,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text=""
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_big" />
         </LinearLayout>
 
@@ -89,6 +93,7 @@
                 android:layout_height="50dp"
                 android:gravity="start|center_vertical"
                 android:text="Note :"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_big" />
 
             <TextView
@@ -97,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text=""
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_big" />
         </LinearLayout>
 
