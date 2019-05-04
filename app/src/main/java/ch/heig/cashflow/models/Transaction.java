@@ -2,10 +2,6 @@ package ch.heig.cashflow.models;
 
 public abstract class Transaction {
 
-    public enum Type {
-        EXPENSE, INCOME;
-    }
-
     private final long ID;
     private String date;
     private Category category;
@@ -22,7 +18,7 @@ public abstract class Transaction {
         this.description = description;
     }
 
-    public long getId() {
+    public long getID() {
         return ID;
     }
 
