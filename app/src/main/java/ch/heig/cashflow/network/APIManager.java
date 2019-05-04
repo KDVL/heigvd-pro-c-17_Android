@@ -30,6 +30,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     private HashMap<String, String> postParams;
 
     public enum METHOD {
+            GET,
             POST,
             DELETE
     }
