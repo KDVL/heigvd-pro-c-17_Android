@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
 
 
@@ -25,12 +26,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment = null;
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_expense:
                     fragment = ExpenseFragment.newInstance();
-                case R.id.navigation_dashboard:
-                    return true;
-                case R.id.navigation_notifications:
-                    return true;
+                    break;
+                case R.id.navigation_earning:
+                    fragment = ExpenseFragment.newInstance();
+                    break;
+                case R.id.navigation_charts:
+                    fragment = ChartsFragment.newInstance();
+                    break;
             }
             if (fragment != null) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
