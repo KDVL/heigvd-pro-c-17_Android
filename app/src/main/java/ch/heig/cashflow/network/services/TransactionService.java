@@ -13,13 +13,12 @@ import ch.heig.cashflow.network.callbacks.BaseCallback;
 import ch.heig.cashflow.network.callbacks.DownloadCallback;
 import ch.heig.cashflow.network.utils.Config;
 
-
 public class TransactionService implements DownloadCallback<APIManager.Result> {
 
     private Callback callback;
     private Gson gson = new Gson();
 
-    public TransactionService(Callback call, long id) {
+    public TransactionService(Callback call) {
         callback = call;
     }
 
@@ -53,7 +52,8 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
     public void updateFromDownload(APIManager.Result result) {
 
         if (result.responseCode != 200) {
-            callback.connectionFailed(result.exception.toString());
+            String exception = result.exception == null ? "" : result.exception.toString();
+            callback.connectionFailed(exception);
             return;
         }
 

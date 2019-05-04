@@ -24,4 +24,7 @@ public final class Config {
     public final static String CATEGORIES_TYPE = CATEGORIES + "/type/";
     public final static String CATEGORY = CATEGORIES + "/";
 
+    public final static String BUDGETS = BASE_URL + "/budgets";
+    public final static String BUDGET = BUDGETS + "/";
+
 }
