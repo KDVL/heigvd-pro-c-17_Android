@@ -9,6 +9,7 @@
 
 package ch.heig.cashflow.activites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,10 +24,11 @@ import android.view.MenuItem;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
+import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements AuthValidationService.Callback {
     private static final String TAG = "MainActivity";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -71,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        new AuthValidationService(this);
+
+        if(!TokenHolder.isLogged(getApplicationContext())){
+            showLogin();
+        }
+
     }
 
     /**
@@ -80,13 +89,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        if(!TokenHolder.isLogged(getApplicationContext())){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
+        showLogin();
     }
 
+    /**
+     * show login Activity
+     */
+    private void showLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
     /**
      * onCreateOptionsMenu
      * @param menu the menu
@@ -111,5 +123,16 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void authVerification(boolean isLogged) {
+        if(!isLogged)
+            showLogin();
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
     }
 }
