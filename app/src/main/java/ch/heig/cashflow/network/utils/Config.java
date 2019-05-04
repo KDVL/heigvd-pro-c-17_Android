@@ -14,6 +14,7 @@ public final class Config {
     public final static String AUTH = BASE_URL + "/auth";
     public final static String AUTH_SIGNIN =  AUTH + "/signin";
     public final static String AUTH_SIGNUP =  AUTH + "/signup";
+    public final static String AUTH_VERIF =  AUTH + "/validate";
 
     public final static String TRANSACTIONS = BASE_URL + "/transactions";
     public final static String TRANSACTIONS_TYPE = TRANSACTIONS + "/type/";

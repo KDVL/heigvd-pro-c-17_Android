@@ -20,7 +20,6 @@ import ch.heig.cashflow.models.Expense;
 
 public class ExpenseFragment extends Fragment {
     private static final String TAG = "ExpenseFragment";
-    private MainActivity mainActivity;
 
     private TextView expenseView;
 
@@ -44,13 +43,13 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
 
         expenseService = new ExpenseService();
 
         currentMonthExpensesArrayList = expenseService.getAll().get("05");
 
-        mainActivity = (MainActivity) getActivity();
         expenseView = view.findViewById(R.id.totalExpenses);
         expenseView.setText(String.valueOf(currentMonthExpensesArrayList.get(0).getAmount()));
 
@@ -58,11 +57,10 @@ public class ExpenseFragment extends Fragment {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 
-        final ListView depensesListView = view.findViewById(R.id.expenseCardView);
+        final ListView expensesListView = view.findViewById(R.id.expenseCardView);
 
-        depensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpensesArrayList));
+        expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpensesArrayList));
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense, container, false);
+        return view;
     }
 }

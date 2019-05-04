@@ -1,6 +1,9 @@
 package ch.heig.cashflow.models;
 
-public class Category {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Category implements Serializable {
 
     private final long ID;
     private String name;

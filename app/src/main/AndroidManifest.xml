@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activites.CategoryChoiceActivity"></activity>
+        <activity android:name=".activites.ExpenseDetailsActivity" />
         <activity
             android:name=".activites.MainActivity"
             android:label="@string/app_name">
@@ -29,8 +31,8 @@
             android:name=".activites.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".activites.AddActivity"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:name=".activites.AddOrEditActivity"
+            android:theme="@style/FullscreenTheme" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package ch.heig.cashflow.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
         int imageId = this.getDrawableResIdByName(expense.getCategory().getIconName());
 
         holder.categorieImageView.setImageResource(imageId);
-        //holder.categorieImageView.getDrawable().setTint(Color.parseColor(expense.getCategory().getColor()));
+        holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
 
         return convertView;
     }
