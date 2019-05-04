@@ -4,15 +4,39 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+
+import com.github.mikephil.charting.charts.Chart;
+
+import ch.heig.cashflow.fragments.ChartsFragment;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Earning;
+import ch.heig.cashflow.models.Expense;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
+    private static final int REQUEST_ID_READ_PERMISSION = 100;
+    private static final int REQUEST_ID_WRITE_PERMISSION = 200;
+
+    public static final DecimalFormat df = new DecimalFormat("#.00");
+
+    public ArrayList<Earning> earningsArrayList = null;
+    public ArrayList<Expense> expensesArrayList = null;
+
+    private float earnings = 0.f;
+    private float expenses = 0.f;
 
     private TextView mTextMessage;
 
@@ -21,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    fragment = ChartsFragment.newInstance();
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
@@ -32,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
-            return false;
+            if (fragment != null) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
+            return true;
         }
     };
 
@@ -41,10 +70,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, ChartsFragment.newInstance());
+        ft.commit();
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
 
         Intent intent = new Intent(this, LoginActivity.class);
        // startActivity(intent);
@@ -55,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
+    }
+    public String getExpenses() {
+        return df.format(expenses);
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
