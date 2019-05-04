@@ -3,11 +3,11 @@ package ch.heig.cashflow.network;
 import android.content.Context;
 import android.net.NetworkInfo;
 
-public class SigninService  implements  DownloadCallback<APIManager.Result> {
+public class SignupService implements  DownloadCallback<APIManager.Result> {
 
     Callback callback;
 
-    SigninService(Callback call, String login, String password, String name){
+    SignupService(Callback call, String login, String password, String name){
         callback = call;
 
         APIManager manager = new APIManager(this,
