@@ -32,7 +32,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     private DownloadCallback<APIManager.Result> mCallback;
     private boolean authNeeded;
     private METHOD method;
-    private HashMap<String, String> postParams;
+    private String postParams;
 
     public enum METHOD {
             GET,
@@ -50,13 +50,8 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         trustEveryone();
     }
 
-    public void setPostParams(HashMap<String, String> postParams) {
+    public void setPostParams(String postParams) {
         this.postParams = postParams;
-    }
-
-    private String getPostParams(){
-        Gson gson = new Gson();
-        return gson.toJson(postParams);
     }
 
     void setCallback(DownloadCallback<APIManager.Result> callback) {
@@ -151,7 +146,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 // Send post request
                 connection.setDoOutput(true);
                 DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-                wr.writeBytes(getPostParams());
+                wr.writeBytes(postParams);
                 wr.flush();
                 wr.close();
             }else{

@@ -23,7 +23,9 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
         params.put("usernameOrEmail", login);
         params.put("password", password);
 
-        manager.setPostParams(params);
+        Gson gson = new Gson();
+
+        manager.setPostParams(gson.toJson(params));
         manager.execute(Config.AUTH_SIGNIN);
     }
 
