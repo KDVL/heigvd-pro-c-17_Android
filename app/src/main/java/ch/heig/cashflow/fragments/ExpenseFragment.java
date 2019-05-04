@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.MainActivity;
 import ch.heig.cashflow.adapters.ExpenseCardsAdapter;
+import ch.heig.cashflow.adapters.ExpenseService;
+import ch.heig.cashflow.models.Expense;
 
 
 public class ExpenseFragment extends Fragment {
@@ -19,6 +23,9 @@ public class ExpenseFragment extends Fragment {
     private MainActivity mainActivity;
 
     private TextView expenseView;
+
+    private ExpenseService expenseService = null;
+    private List<Expense> currentMonthExpensesArrayList = null;
 
 
     public ExpenseFragment() {
@@ -39,27 +46,23 @@ public class ExpenseFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
 
+        expenseService = new ExpenseService();
+
+        currentMonthExpensesArrayList = expenseService.getAll().get("05");
+
         mainActivity = (MainActivity) getActivity();
         expenseView = view.findViewById(R.id.totalExpenses);
-       /* expenseView.setText(mainActivity.getExpenses());
+        expenseView.setText(String.valueOf(currentMonthExpensesArrayList.get(0).getMontant()));
 
-        if (mainActivity.currentMonthExpensesArrayList.isEmpty()) {
+        if (currentMonthExpensesArrayList.isEmpty()) {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 
         final ListView depensesListView = view.findViewById(R.id.expenseCardView);
 
-        depensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), mainActivity.currentMonthExpensesArrayList));
-        depenseView = view.findViewById(R.id.totalExpenses);
-        //depenseView.setText(mainActivity.getExpenses());*/
-
-       /* if (mainActivity.expensesArrayList.isEmpty()) {
-            view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
-        }
-*/
+        depensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpensesArrayList));
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_expense, container, false);
     }
-
 }

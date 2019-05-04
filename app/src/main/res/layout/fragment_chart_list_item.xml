@@ -22,7 +22,7 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/cat_ammount"
+        android:id="@+id/cat_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

@@ -22,7 +22,7 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ExpenseCardItemsAdapter(Context context, List<Expense> expensesListData){
+    public ExpenseCardItemsAdapter(Context context, List<Expense> expensesListData) {
         this.context = context;
         this.expensesListData = expensesListData;
         layoutInflater = LayoutInflater.from(context);
@@ -62,10 +62,10 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
         holder.depenseNoteView.setText(expense.getDescription());
         holder.depenseMontantView.setText(String.valueOf(expense.getMontant()));
 
-        //int imageId = this.getDrawableResIdByName(expense.getCategory().getIcon());
+        int imageId = this.getDrawableResIdByName(expense.getCategory().getIcon());
 
-        //holder.categorieImageView.setImageResource(imageId);
-        //holder.categorieImageView.getDrawable().setTint(Color.parseColor(expense.getCategory().getColor()));
+        holder.categorieImageView.setImageResource(imageId);
+        holder.categorieImageView.getDrawable().setTint(Color.parseColor(expense.getCategory().getColor()));
 
         return convertView;
     }

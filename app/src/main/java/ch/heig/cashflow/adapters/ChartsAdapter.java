@@ -23,7 +23,7 @@ public class ChartsAdapter extends RecyclerView.Adapter<ChartsAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_charts, parent, false);
+                .inflate(R.layout.fragment_chart, parent, false);
         return new ViewHolder(view);
     }
 
@@ -33,7 +33,7 @@ public class ChartsAdapter extends RecyclerView.Adapter<ChartsAdapter.ViewHolder
         holder.icon.setImageResource(Integer.parseInt(cat.getIcon()));
         holder.icon.getDrawable().setTint(0);
         holder.name.setText(cat.getName());
-        holder.ammount.setText(cat.getAmount());
+        holder.amount.setText(String.valueOf(cat.getAmount()));
     }
 
     @Override
@@ -44,13 +44,13 @@ public class ChartsAdapter extends RecyclerView.Adapter<ChartsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView icon;
         public final TextView name;
-        public final TextView ammount;
+        public final TextView amount;
 
         public ViewHolder(View view) {
             super(view);
             icon = view.findViewById(R.id.cat_icon);
             name = view.findViewById(R.id.cat_name);
-            ammount = view.findViewById(R.id.cat_ammount);
+            amount = view.findViewById(R.id.cat_amount);
         }
     }
 }

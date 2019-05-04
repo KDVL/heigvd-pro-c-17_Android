@@ -5,9 +5,9 @@ public class Category {
     private String name;
     private String color;
     private String icon;
-    private int amount;
+    private long amount;
 
-    public Category(String name, String color, String icon, int amount) {
+    public Category(String name, String color, String icon, long amount) {
         this.name = name;
         this.color = color;
         this.icon = icon;
@@ -38,11 +38,11 @@ public class Category {
         this.icon = icon;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 }

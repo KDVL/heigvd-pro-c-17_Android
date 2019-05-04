@@ -5,11 +5,11 @@ import java.util.Date;
 public class Expense {
     private long id;
 
-    //private Category category;
+    private Category category;
 
     private Date date;
 
-    private float montant;
+    private long montant;
 
     private String description;
 
@@ -17,9 +17,9 @@ public class Expense {
 
     }
 
-    public Expense(long id, /*Category category,*/ Date date, float montant, String description) {
+    public Expense(long id, Category category, Date date, long montant, String description) {
         this.id = id;
-       // this.category = category;
+        this.category = category;
         this.date = date;
         this.montant = montant;
         this.description = description;
@@ -33,7 +33,6 @@ public class Expense {
         this.id = id;
     }
 
-    /*
     public Category getCategory() {
         return category;
     }
@@ -41,7 +40,6 @@ public class Expense {
     public void setCategory(Category category) {
         this.category = category;
     }
-    */
 
     public Date getDate() {
         return date;
@@ -51,11 +49,11 @@ public class Expense {
         this.date = date;
     }
 
-    public float getMontant() {
+    public long getMontant() {
         return montant;
     }
 
-    public void setMontant(float montant) {
+    public void setMontant(long montant) {
         this.montant = montant;
     }
 

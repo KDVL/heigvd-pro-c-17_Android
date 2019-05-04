@@ -50,7 +50,7 @@ public class ExpenseCardsAdapter extends BaseAdapter {
     public View getView(int pos, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.fragment_expense_listview_item, null);
+            convertView = layoutInflater.inflate(R.layout.fragment_expense_list_item, null);
             holder = new ViewHolder();
             holder.dateView = convertView.findViewById(R.id.expenseDate);
             holder.dayList = convertView.findViewById(R.id.dayList);

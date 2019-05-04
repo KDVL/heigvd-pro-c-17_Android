@@ -2,11 +2,10 @@ package ch.heig.cashflow.activites;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +19,14 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @BindView(R.id.input_email) EditText emailText;
-    @BindView(R.id.input_password) EditText passwordText;
-    @BindView(R.id.btn_login) Button loginButton;
-    @BindView(R.id.link_signup) TextView signupButton;
+    @BindView(R.id.input_email)
+    EditText emailText;
+    @BindView(R.id.input_password)
+    EditText passwordText;
+    @BindView(R.id.btn_login)
+    Button loginButton;
+    @BindView(R.id.link_signup)
+    TextView signupButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
