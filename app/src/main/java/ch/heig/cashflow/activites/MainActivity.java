@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
+import ch.heig.cashflow.network.LoginService;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
