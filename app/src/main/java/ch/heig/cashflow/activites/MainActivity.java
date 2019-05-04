@@ -9,17 +9,20 @@
 
 package ch.heig.cashflow.activites;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddAdapter;
@@ -27,12 +30,14 @@ import ch.heig.cashflow.adapters.AddExpenseAdapter;
 import ch.heig.cashflow.adapters.AddIncomeAdapter;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;
+import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
+import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
 
 
-public class MainActivity extends AppCompatActivity  implements AuthValidationService.Callback {
+public class MainActivity extends AppCompatActivity  implements AuthValidationService.Callback  {
     private static final String TAG = "MainActivity";
     private AddAdapter addAdapter;
 
@@ -126,6 +131,10 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.actionbar_calendar:
+                DialogFragment datePicker = new MonthFragment();
+                datePicker.show(getSupportFragmentManager(), "picker");
+                return true;
             case R.id.actionbar_add:
                 Intent addOrEdit = new Intent(this, AddOrEditActivity.class);
                 addOrEdit.putExtra(getResources().getString(R.string.transaction_adapter_key), addAdapter);
