@@ -1,6 +1,13 @@
 package ch.heig.cashflow.models;
 
-public abstract class Transaction {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public abstract class Transaction implements Serializable {
+
+    public enum Type {
+        EXPENSE, INCOME
+    }
 
     private final long ID;
     private String date;
