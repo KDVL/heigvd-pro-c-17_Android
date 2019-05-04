@@ -31,9 +31,12 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.TokenHolder;
+
 public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
 
-    private DownloadCallback<APIManager.Result> mCallback;
+    private DownloadCallback<Result> mCallback;
     private boolean authNeeded;
     private METHOD method;
     private String postParams;

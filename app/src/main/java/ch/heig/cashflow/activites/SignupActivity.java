@@ -9,7 +9,6 @@
 package ch.heig.cashflow.activites;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.User;
-import ch.heig.cashflow.network.LoginService;
-import ch.heig.cashflow.network.SignupService;
+import ch.heig.cashflow.network.services.LoginService;
+import ch.heig.cashflow.network.services.SignupService;
 
 public class SignupActivity extends AppCompatActivity  implements LoginService.Callback {
     private static final String TAG = "SignupActivity";

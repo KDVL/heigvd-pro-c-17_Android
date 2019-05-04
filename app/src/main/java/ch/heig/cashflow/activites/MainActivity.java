@@ -23,8 +23,7 @@ import android.view.MenuItem;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
-import ch.heig.cashflow.network.LoginService;
-import ch.heig.cashflow.network.TokenHolder;
+import ch.heig.cashflow.network.utils.TokenHolder;
 
 
 public class MainActivity extends AppCompatActivity {

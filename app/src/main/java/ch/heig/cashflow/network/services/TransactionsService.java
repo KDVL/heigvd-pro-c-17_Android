@@ -1,14 +1,18 @@
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.services;
 
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import ch.heig.cashflow.network.APIManager;
+import ch.heig.cashflow.network.callbacks.BaseCallback;
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.Config;
 
 // GetAll : GET /api/transactions
 // Add : POST /api/transactions
 
-public class TransactionsService implements  DownloadCallback<APIManager.Result> {
+public class TransactionsService implements DownloadCallback<APIManager.Result> {
 
     Callback callback;
 

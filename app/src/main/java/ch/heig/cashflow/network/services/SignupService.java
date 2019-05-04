@@ -6,14 +6,17 @@
  * @authors Kevin DO VALE
  * @version 1.0
  */
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.services;
 
 import android.content.Context;
 
 import com.google.gson.Gson;
 import ch.heig.cashflow.models.User;
+import ch.heig.cashflow.network.APIManager;
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.Config;
 
-public class SignupService implements  DownloadCallback<APIManager.Result> {
+public class SignupService implements DownloadCallback<APIManager.Result> {
 
     private LoginService.Callback callback;
     private User user;

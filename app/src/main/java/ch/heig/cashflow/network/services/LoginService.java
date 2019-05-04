@@ -7,14 +7,20 @@
  * @version 1.0
  */
 
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.services;
 
 import android.content.Context;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
 
-public class LoginService implements  DownloadCallback<APIManager.Result> {
+import ch.heig.cashflow.network.APIManager;
+import ch.heig.cashflow.network.callbacks.BaseCallback;
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.Config;
+import ch.heig.cashflow.network.utils.TokenHolder;
+
+public class LoginService implements DownloadCallback<APIManager.Result> {
 
     Callback callback;
 
