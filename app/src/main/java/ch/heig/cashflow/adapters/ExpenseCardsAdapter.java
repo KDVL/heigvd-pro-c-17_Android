@@ -12,35 +12,56 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.ExpenseDetailsActivity;
 import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.network.services.TransactionsService;
 
-public class ExpenseCardsAdapter extends BaseAdapter {
+public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsService.Callback {
     private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
             ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
-    private ExpenseService expenseService = null;
-
-    private List<Expense> currentMonthExpensesArrayList;
+    private List<Transaction> currentMonthExpenses;
+    private List<Transaction> currentMonthExpensesGroupeByDay;
+    private List<Transaction> expensesDailyList;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ExpenseCardsAdapter(Context context, List<Expense> currentMonthExpensesArrayList) {
+    public ExpenseCardsAdapter(Context context, List<Transaction> currentMonthExpenses) {
         this.context = context;
-        this.currentMonthExpensesArrayList = currentMonthExpensesArrayList;
+        this.currentMonthExpenses = currentMonthExpenses;
         layoutInflater = LayoutInflater.from(context);
+
+        groupByDay();
+    }
+
+    private void groupByDay() {
+        Transaction cur;
+        for (int i = 0; i < currentMonthExpenses.size(); ++i) {
+            cur = currentMonthExpenses.get(i);
+            for (int j = i + 1; j < currentMonthExpenses.size(); ++j) {
+                if (currentMonthExpenses.get(j).getDate().equals(cur.getDate())) {
+                    cur.setAmount(cur.getAmount() + currentMonthExpenses.get(j).getAmount());
+                } else {
+                    break;
+                }
+            }
+            currentMonthExpensesGroupeByDay.add(cur);
+        }
+
     }
 
     @Override
     public int getCount() {
-        return currentMonthExpensesArrayList.size();
+        return currentMonthExpensesGroupeByDay.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return currentMonthExpensesArrayList.get(pos);
+        return currentMonthExpensesGroupeByDay.get(pos);
     }
 
     @Override
@@ -61,17 +82,18 @@ public class ExpenseCardsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Expense expense = this.currentMonthExpensesArrayList.get(pos);
 
+        Transaction expense = currentMonthExpensesGroupeByDay.get(pos);
         holder.dateView.setText(expense.getDate());
 
-        if (expenseService == null)
-            expenseService = new ExpenseService();
+        expensesDailyList.clear();
+        for(Transaction t: currentMonthExpenses){
+            if(t.getDate().equals(expense)){
+                expensesDailyList.add(t);
+            }
+        }
 
-        // Uniquement les dépense pour le jour donnée
-        List<Expense> myDailyList = expenseService.getAll().get("05");
-
-        holder.dayList.setAdapter(new ExpenseCardItemsAdapter(context, myDailyList));
+        holder.dayList.setAdapter(new ExpenseCardItemsAdapter(context, expensesDailyList));
 
         // ADAPTE LA HAUTEUR DE LIST VIEW
         ListAdapter listadp = holder.dayList.getAdapter();
@@ -109,6 +131,31 @@ public class ExpenseCardsAdapter extends BaseAdapter {
 
         expenseDetails.putExtra(context.getString(R.string.transaction_adapter_key), editExpenseAdapter);
         context.startActivity(expenseDetails);
+    }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void getAllFinished(List<Transaction> transactions) {
+
+    }
+
+    @Override
+    public void getMonthFinished(List<Transaction> transactions) {
+
+    }
+
+    @Override
+    public void getTypeFinished(List<Transaction> transactions) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return null;
     }
 
     static class ViewHolder {

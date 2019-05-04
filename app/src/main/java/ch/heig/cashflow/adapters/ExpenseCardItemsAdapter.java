@@ -13,29 +13,30 @@ import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Transaction;
 
 public class ExpenseCardItemsAdapter extends BaseAdapter {
     private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
             ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
-    private List<Expense> expensesListData;
+    private List<Transaction> expensesDailyList;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ExpenseCardItemsAdapter(Context context, List<Expense> expensesListData) {
+    public ExpenseCardItemsAdapter(Context context, List<Transaction> expensesListData) {
         this.context = context;
-        this.expensesListData = expensesListData;
+        this.expensesDailyList = expensesListData;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return expensesListData.size();
+        return expensesDailyList.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return expensesListData.get(pos);
+        return expensesDailyList.get(pos);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Expense expense = this.expensesListData.get(pos);
+        Transaction expense = this.expensesDailyList.get(pos);
 
         holder.depenseNoteView.setText(expense.getDescription());
         holder.depenseMontantView.setText(String.valueOf(expense.getAmount()));
