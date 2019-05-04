@@ -2,27 +2,67 @@ package ch.heig.cashflow.network;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
-// GetAll : GET /api/transactions
-// Add : POST /api/transactions
+import java.util.Arrays;
+import java.util.List;
 
-public class TransactionsService implements  DownloadCallback<APIManager.Result> {
+import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Income;
+import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.models.Type;
 
-    Callback callback;
 
-    public TransactionsService(Callback call){
+public class TransactionsService implements DownloadCallback<APIManager.Result> {
+
+    private Callback callback;
+    private Gson gson = new Gson();
+
+    public TransactionsService(Callback call) {
         callback = call;
+    }
 
+    // GetAll : GET /api/transactions
+    public void getAll() {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
         manager.execute(Config.TRANSACTIONS);
     }
 
+    // PerType : GET /api/transactions/type/{type}
+    public void getType(Type type) {
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.TRANSACTIONS_TYPE + type);
+    }
+
     @Override
     public void updateFromDownload(APIManager.Result result) {
-        callback.transactionsReceived(result.responseCode == 200);
-        //callback.getAll(result.);
+
+        Transaction[] transactions = new Transaction[0];
+
+        if (result.responseCode != 200) {
+            callback.connectionFailed(result.exception.toString());
+            return;
+        }
+
+        switch (result.tag) {
+            case Config.TRANSACTIONS: // GetAll : GET /api/transactions
+                transactions = gson.fromJson(result.resultString, Transaction[].class);
+                callback.getAllFinished(Arrays.asList(transactions));
+                break;
+            case Config.TRANSACTIONS_TYPE: // PerType : GET /api/transactions/type/{type}
+                switch (gson.fromJson(result.resultString, JsonObject.class).get("type").toString()) {
+                    case "EXPENSE":
+                        transactions = gson.fromJson(result.resultString, Expense[].class);
+                        break;
+                    case "INCOME":
+                        transactions = gson.fromJson(result.resultString, Income[].class);
+                        break;
+                }
+                callback.getTypeFinished(Arrays.asList(transactions));
+                break;
+        }
+
     }
 
     @Override
@@ -31,7 +71,10 @@ public class TransactionsService implements  DownloadCallback<APIManager.Result>
     }
 
     public interface Callback extends BaseCallback {
-        void transactionsReceived(boolean isReceived);
-        void getAll(ArrayList transactions);
+        void connectionFailed(String error);
+
+        void getAllFinished(List<Transaction> transactions);
+
+        void getTypeFinished(List<Transaction> transactions);
     }
 }
