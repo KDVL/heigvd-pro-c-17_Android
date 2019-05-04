@@ -12,4 +12,11 @@
 
     </com.github.mikephil.charting.charts.PieChart>
 
+    <ListView
+        android:id="@+id/pie_chart_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_below="@id/pie_chart" />
+
 </FrameLayout>
