@@ -52,7 +52,7 @@ public class ExpenseFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
         expenseView = view.findViewById(R.id.totalExpenses);
-        expenseView.setText(String.valueOf(currentMonthExpensesArrayList.get(0).getMontant()));
+        expenseView.setText(String.valueOf(currentMonthExpensesArrayList.get(0).getAmount()));
 
         if (currentMonthExpensesArrayList.isEmpty()) {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));

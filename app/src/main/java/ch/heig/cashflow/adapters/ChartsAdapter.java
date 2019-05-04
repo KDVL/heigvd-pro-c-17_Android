@@ -30,10 +30,10 @@ public class ChartsAdapter extends RecyclerView.Adapter<ChartsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Category cat = this.categories.get(position);
-        holder.icon.setImageResource(Integer.parseInt(cat.getIcon()));
+        holder.icon.setImageResource(Integer.parseInt(cat.getIconName()));
         holder.icon.getDrawable().setTint(0);
         holder.name.setText(cat.getName());
-        holder.amount.setText(String.valueOf(cat.getAmount()));
+        holder.amount.setText(String.valueOf(cat.getQuota()));
     }
 
     @Override
