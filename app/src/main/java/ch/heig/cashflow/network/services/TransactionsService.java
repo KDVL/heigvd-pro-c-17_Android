@@ -1,10 +1,14 @@
 package ch.heig.cashflow.network.services;
 
 import android.content.Context;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +37,7 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
     }
 
     // ByMonth : GET /api/transactions/YYYY/MM
-    public void getAll(String year, String month) {
+    public void getAll(int year, int month) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
         manager.execute(Config.TRANSACTIONS + "/" + year + "/" + month);
     }
@@ -45,15 +49,13 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
     }
 
     // PerTypeByMonth : GET /api/transactions/type/{type}/YYYY/MM
-    public void getType(Type type, String year, String month) {
+    public void getType(Type type, int year, int month) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
         manager.execute(Config.TRANSACTIONS_TYPE + type + "/" + year + "/" + month);
     }
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
-
-        Transaction[] transactions = new Transaction[0];
 
         if (result.responseCode != 200) {
             String exception = result.exception == null ? "" : result.exception.toString();
@@ -64,20 +66,31 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
         switch (result.tag) {
 
             case Config.TRANSACTIONS: // GetAll : GET /api/transactions
-                transactions = gson.fromJson(result.resultString, Transaction[].class);
-                callback.getAllFinished(Arrays.asList(transactions));
+                List<Transaction> transactions = new ArrayList<>();
+                JsonArray jsonArray = gson.fromJson(result.resultString, JsonArray.class);
+                for (JsonElement obj : jsonArray) {
+                    JsonElement element = ((JsonObject) obj).get("type");
+                    switch (gson.fromJson(element, String.class)) {
+                        case "EXPENSE":
+                            transactions.add(gson.fromJson(obj.toString(), Expense.class));
+                            break;
+                        case "INCOME":
+                            transactions.add(gson.fromJson(obj.toString(), Income.class));
+                            break;
+                    }
+                }
+
+                callback.getAllFinished(transactions);
                 break;
 
-            case Config.TRANSACTIONS_TYPE: // PerType : GET /api/transactions/type/{type}
-                switch (gson.fromJson(result.resultString, JsonObject.class).get("type").toString()) {
-                    case "EXPENSE":
-                        transactions = gson.fromJson(result.resultString, Expense[].class);
-                        break;
-                    case "INCOME":
-                        transactions = gson.fromJson(result.resultString, Income[].class);
-                        break;
-                }
-                callback.getTypeFinished(Arrays.asList(transactions));
+            case Config.TRANSACTIONS_TYPE_EXPENSE: // PerType : GET /api/transactions/type/EXPENSE
+                Transaction[] expenses = gson.fromJson(result.resultString, Expense[].class);
+                callback.getTypeFinished(Arrays.asList(expenses));
+                break;
+
+            case Config.TRANSACTIONS_TYPE_INCOME: // PerType : GET /api/transactions/type/INCOME
+                Transaction[] incomes = gson.fromJson(result.resultString, Income[].class);
+                callback.getTypeFinished(Arrays.asList(incomes));
                 break;
         }
 

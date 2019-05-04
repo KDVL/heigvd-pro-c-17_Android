@@ -18,13 +18,14 @@ public final class Config {
 
     public final static String TRANSACTIONS = BASE_URL + "/transactions";
     public final static String TRANSACTIONS_TYPE = TRANSACTIONS + "/type/";
+    public final static String TRANSACTIONS_TYPE_EXPENSE = TRANSACTIONS + "/type/EXPENSE";
+    public final static String TRANSACTIONS_TYPE_INCOME = TRANSACTIONS + "/type/INCOME";
     public final static String TRANSACTION = TRANSACTIONS + "/";
 
     public final static String CATEGORIES = BASE_URL + "/categories";
     public final static String CATEGORIES_TYPE = CATEGORIES + "/type/";
     public final static String CATEGORY = CATEGORIES + "/";
 
-    public final static String BUDGETS = BASE_URL + "/budgets";
-    public final static String BUDGET = BUDGETS + "/";
+    public final static String DASHBOARD = BASE_URL + "/dashboard";
 
 }
