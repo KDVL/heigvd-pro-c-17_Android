@@ -3,6 +3,8 @@ package ch.heig.cashflow.network;
 import android.content.Context;
 import android.net.NetworkInfo;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,8 +30,19 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
+        Gson gson = new Gson();
 
-        callback.loginFinished(result.responseCode == 200);
+        HashMap<String,String> res = new HashMap<>();
+        res = gson.fromJson(result.resultString, res.getClass());
+
+        String accessToken = res.get("accessToken");
+
+        if(accessToken != "" && accessToken != null){
+            TokenHolder.saveToken(getContext(), accessToken);
+            callback.loginFinished(result.responseCode == 200);
+        }else{
+            callback.loginFinished(false);
+        }
     }
 
     @Override

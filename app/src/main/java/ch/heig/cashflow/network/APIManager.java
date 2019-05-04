@@ -181,6 +181,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         }
 
         Result r = new Result(result);
+        r.method = method;
         r.responseCode = responseCode;
         return r;
     }
@@ -214,6 +215,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         public Exception exception;
         public String resultString;
         public int responseCode;
+        public METHOD method;
         public String tag;
 
         public Result(String result) {

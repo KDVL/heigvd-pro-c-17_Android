@@ -15,6 +15,7 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
 import ch.heig.cashflow.network.LoginService;
+import ch.heig.cashflow.network.TokenHolder;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -57,9 +58,18 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(TokenHolder.isLogged()){
+
+            if()
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

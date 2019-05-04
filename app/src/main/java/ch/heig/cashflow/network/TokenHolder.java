@@ -22,4 +22,8 @@ public class TokenHolder {
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getString(MY_PREFS_NAME, "");
     }
+
+    public static boolean isLogged(Context context){
+       return getToken(context) == null || getToken(context) == "";
+    }
 }
