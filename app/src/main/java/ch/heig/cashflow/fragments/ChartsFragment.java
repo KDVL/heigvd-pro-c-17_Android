@@ -17,13 +17,16 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.ChartsAdapter;
 import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.network.services.TransactionsService;
 
-public class ChartsFragment extends Fragment {
+public class ChartsFragment extends Fragment implements TransactionsService.Callback {
 
     private ArrayList NoOfEmp = new ArrayList();
     private PieChart pieChart = null;
@@ -42,6 +45,8 @@ public class ChartsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TransactionsService ts = new TransactionsService(this);
+        ts.getType(Type.EXPENSE);
     }
 
     @Override
@@ -98,4 +103,18 @@ public class ChartsFragment extends Fragment {
     }
 
 
+    @Override
+    public void connectionFailed(String error) {
+        System.out.println(error);
+    }
+
+    @Override
+    public void getAllFinished(List<Transaction> transactions) {
+        System.out.println(transactions);
+    }
+
+    @Override
+    public void getTypeFinished(List<Transaction> transactions) {
+        System.out.println(transactions);
+    }
 }
