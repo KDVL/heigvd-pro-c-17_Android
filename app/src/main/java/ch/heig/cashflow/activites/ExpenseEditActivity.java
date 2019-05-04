@@ -51,9 +51,9 @@ public class ExpenseEditActivity extends AppCompatActivity {
         expenseService = new ExpenseService();
         expenseToEdit = expenseService.getExpenseById(expenseId);
 
-        int iconImageId = this.getDrawableResIdByName(expenseToEdit.getCategory().getIcon());
+        int iconImageId = this.getDrawableResIdByName(expenseToEdit.getCategory().getIconName());
         expenseIcon.setImageResource(iconImageId);
-        expenseIcon.getDrawable().setTint(Color.parseColor(expenseToEdit.getCategory().getColor()));
+        expenseIcon.getDrawable().setTint(Color.parseColor("#222222"));
 
         expenseDate.setText(expenseToEdit.getDate());
         expenseAmount.setText(String.valueOf(expenseToEdit.getAmount()));

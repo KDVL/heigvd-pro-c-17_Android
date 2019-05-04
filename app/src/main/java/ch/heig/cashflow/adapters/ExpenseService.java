@@ -10,6 +10,7 @@ import java.util.Map;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Transaction;
 
 public class ExpenseService {
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -33,8 +34,9 @@ public class ExpenseService {
 
         Date date = new Date();
 
-        Expense expense = new Expense(1, new Category("Drink", "#222222", "category_drink_black_24", 100000),
-                sdf.format(date), 120, "My first expense");
+        Expense expense = new Expense(1, sdf.format(date),
+                new Category(1, "Drink", "category_drink_black_24", Transaction.Type.EXPENSE, 100000, true),
+                120, "My first expense");
 
         list.add(expense);
 

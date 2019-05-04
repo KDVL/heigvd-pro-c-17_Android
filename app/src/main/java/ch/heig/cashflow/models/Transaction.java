@@ -3,7 +3,7 @@ package ch.heig.cashflow.models;
 public abstract class Transaction {
 
     public enum Type {
-        EXPENSE, INCOME;
+        EXPENSE, INCOME
     }
 
     private final long ID;
