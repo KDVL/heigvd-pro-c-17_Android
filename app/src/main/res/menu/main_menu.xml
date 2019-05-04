@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/actionbar_calendar"
-        android:icon="@drawable/ic_alarm_black_24dp"
+        android:id="@+id/actionbar_add"
+        android:icon="@drawable/ic_add"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/actionbar_add"
-        android:icon="@drawable/ic_add"
+        android:id="@+id/actionbar_calendar"
+        android:icon="@drawable/ic_alarm_black_24dp"
         app:showAsAction="always" />
 
     <item

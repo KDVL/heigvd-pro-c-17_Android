@@ -19,9 +19,6 @@ import ch.heig.cashflow.adapters.ExpenseService;
 import ch.heig.cashflow.models.Expense;
 
 public class ExpenseDetailsActivity extends AppCompatActivity {
-    private static final String TAG = "ExpenseDetailsActivity";
-
-    private static final String[] TITLE = {"Dépense détails", "Revenu détails"};
 
     private ExpenseService expenseService = null;
 
@@ -44,7 +41,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
             }
         }
 
-        setTitle(TITLE[editExpenseAdapter.getTransaction().getType().ordinal()]);
+        setTitle(editExpenseAdapter.getViewTitle(getApplicationContext()));
 
         expenseIcon = findViewById(R.id.expenseToEditIcon);
         expenseDate = findViewById(R.id.expenseToEditDate);
@@ -112,7 +109,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
                         String saisi = password.getText().toString();
                         if (saisi.equals("ok")) {
                             expenseService.deleteExpense(editExpenseAdapter.getTransaction().getID());
-                            retour();
+                            finish();
                         }
                     }
                 })
@@ -121,12 +118,6 @@ public class ExpenseDetailsActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-    }
-
-    private void retour() {
-        Intent main = new Intent(this, MainActivity.class);
-        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(main);
     }
 }
 

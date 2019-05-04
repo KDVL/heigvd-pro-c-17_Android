@@ -19,7 +19,6 @@ import ch.heig.cashflow.models.Expense;
 
 
 public class ExpenseFragment extends Fragment {
-    private static final String TAG = "ExpenseFragment";
 
     private TextView expenseView;
 
@@ -51,7 +50,7 @@ public class ExpenseFragment extends Fragment {
         currentMonthExpensesArrayList = expenseService.getAll().get("05");
 
         expenseView = view.findViewById(R.id.totalExpenses);
-        expenseView.setText(String.valueOf(currentMonthExpensesArrayList.get(0).getAmount()));
+        //expenseView.setText(String.valueOf(currentMonthExpensesArrayList.get(0).getAmount()));
 
         if (currentMonthExpensesArrayList.isEmpty()) {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));

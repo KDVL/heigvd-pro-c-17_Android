@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Cashflow</string>
-    <string name="title_home">Dépenses</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_expenses">Dépenses</string>
     <string name="title_earning">Revenus</string>
     <string name="title_charts">Statistiques</string>
     <string name="title_categories">Catégories</string>
@@ -21,6 +22,8 @@
     <string name="error_signin">Utilisateur ou mot de passe incorrect</string>
     <string name="error_signup">Email déjà utilisé</string>
     <string name="title_disconnect">Déconnexion</string>
+    <string name="title_expense_details">Dépense détail</string>
+    <string name="title_income_details">Revenu détail</string>
 
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
