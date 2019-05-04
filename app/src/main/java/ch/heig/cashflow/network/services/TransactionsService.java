@@ -1,4 +1,4 @@
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.services;
 
 import android.content.Context;
 
@@ -12,7 +12,10 @@ import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Income;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
-
+import ch.heig.cashflow.network.APIManager;
+import ch.heig.cashflow.network.callbacks.BaseCallback;
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.Config;
 
 public class TransactionsService implements DownloadCallback<APIManager.Result> {
 

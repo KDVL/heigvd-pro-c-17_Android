@@ -1,10 +1,14 @@
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.services;
 
 import android.content.Context;
 
 import com.google.gson.Gson;
 
 import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.network.APIManager;
+import ch.heig.cashflow.network.callbacks.BaseCallback;
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.Config;
 
 
 public class CategoryService implements DownloadCallback<APIManager.Result> {

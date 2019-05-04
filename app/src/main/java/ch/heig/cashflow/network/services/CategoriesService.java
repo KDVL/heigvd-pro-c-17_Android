@@ -1,4 +1,4 @@
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.services;
 
 import android.content.Context;
 
@@ -9,6 +9,10 @@ import java.util.List;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.network.APIManager;
+import ch.heig.cashflow.network.callbacks.BaseCallback;
+import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.utils.Config;
 
 
 public class CategoriesService implements DownloadCallback<APIManager.Result> {

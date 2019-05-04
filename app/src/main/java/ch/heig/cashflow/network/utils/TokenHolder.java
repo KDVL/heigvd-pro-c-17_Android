@@ -5,7 +5,7 @@
  * @authors Kevin DO VALE
  * @version 1.0
  */
-package ch.heig.cashflow.network;
+package ch.heig.cashflow.network.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -3,7 +3,7 @@
  *
  * Used by Signup class
  * @see ch.heig.cashflow.activites.SignupActivity
- * @see ch.heig.cashflow.network.SignupService
+ * @see ch.heig.cashflow.network.services.SignupService
  *
  * @authors Kevin DO VALE
  * @version 1.0

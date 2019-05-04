@@ -18,11 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.network.LoginService;
+import ch.heig.cashflow.network.services.LoginService;
 
 public class LoginActivity extends AppCompatActivity implements LoginService.Callback {
     private static final String TAG = "LoginActivity";
@@ -110,6 +111,8 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
      * login failed
      */
     public void onLoginFailed() {
+        Toast.makeText(this, getString(R.string.error_signin),
+                Toast.LENGTH_LONG).show();
         loginButton.setEnabled(true);
     }
 
