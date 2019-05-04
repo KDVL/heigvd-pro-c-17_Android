@@ -32,16 +32,22 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
         manager.execute(Config.TRANSACTIONS);
     }
 
-    // PerMonth : GET /api/transactions/YYYY/MM
-    public void getMonth(String year, String month) {
+    // ByMonth : GET /api/transactions/YYYY/MM
+    public void getAll(String year, String month) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTION + year + "/" + month);
+        manager.execute(Config.TRANSACTIONS + "/" + year + "/" + month);
     }
 
     // PerType : GET /api/transactions/type/{type}
     public void getType(Type type) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
         manager.execute(Config.TRANSACTIONS_TYPE + type);
+    }
+
+    // PerTypeByMonth : GET /api/transactions/type/{type}/YYYY/MM
+    public void getType(Type type, String year, String month) {
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.TRANSACTIONS_TYPE + type + "/" + year + "/" + month);
     }
 
     @Override
@@ -60,11 +66,6 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
             case Config.TRANSACTIONS: // GetAll : GET /api/transactions
                 transactions = gson.fromJson(result.resultString, Transaction[].class);
                 callback.getAllFinished(Arrays.asList(transactions));
-                break;
-
-            case Config.TRANSACTION: // PerMonth : GET /api/transactions/YYYY/MM
-                transactions = gson.fromJson(result.resultString, Transaction[].class);
-                callback.getMonthFinished(Arrays.asList(transactions));
                 break;
 
             case Config.TRANSACTIONS_TYPE: // PerType : GET /api/transactions/type/{type}
@@ -91,8 +92,6 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
         void connectionFailed(String error);
 
         void getAllFinished(List<Transaction> transactions);
-
-        void getMonthFinished(List<Transaction> transactions);
 
         void getTypeFinished(List<Transaction> transactions);
     }
