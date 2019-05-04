@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Transaction;
 
 public class ExpenseService {
 
@@ -16,9 +18,8 @@ public class ExpenseService {
         HashMap<String, ArrayList<Expense>> map = new HashMap<>();
 
         ArrayList<Expense> list = new ArrayList<>();
-
-        Expense expense = new Expense();
-
+        Category cat = new Category(1, "Carte de Crédit", "carte", Transaction.Type.EXPENSE, 123, true);
+        Expense expense = new Expense(1, "2019-05-04", cat, 12345, "des");
         list.add(expense);
 
         map.put("05", list);

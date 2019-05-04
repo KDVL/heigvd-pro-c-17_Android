@@ -2,16 +2,24 @@ package ch.heig.cashflow.models;
 
 public class Category {
 
+    private final long ID;
     private String name;
-    private String color;
-    private String icon;
-    private long amount;
+    private String iconName;
+    private Transaction.Type type;
+    private long quota;
+    private boolean enabled;
 
-    public Category(String name, String color, String icon, long amount) {
+    public Category(long id, String name, String iconName, Transaction.Type type, long quota, boolean enabled) {
+        this.ID = id;
         this.name = name;
-        this.color = color;
-        this.icon = icon;
-        this.amount = amount;
+        this.iconName = iconName;
+        this.type = type;
+        this.quota = quota;
+        this.enabled = enabled;
+    }
+
+    public long getID() {
+        return ID;
     }
 
     public String getName() {
@@ -22,27 +30,35 @@ public class Category {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getIconName() {
+        return iconName;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
 
-    public String getIcon() {
-        return icon;
+    public Transaction.Type getType() {
+        return type;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setType(Transaction.Type type) {
+        this.type = type;
     }
 
-    public long getAmount() {
-        return amount;
+    public long getQuota() {
+        return quota;
     }
 
-    public void setAmount(long amount) {
-        this.amount = amount;
+    public void setQuota(long quota) {
+        this.quota = quota;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

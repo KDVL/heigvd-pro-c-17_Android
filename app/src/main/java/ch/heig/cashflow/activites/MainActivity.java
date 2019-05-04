@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.actionbar_add:
                 startActivity(new Intent(this, AddActivity.class));
                 return true;
