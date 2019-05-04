@@ -129,6 +129,10 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
                 addOrEdit.putExtra(getResources().getString(R.string.transaction_adapter_key), addAdapter);
                 startActivity(addOrEdit);
                 return true;
+            case R.id.actionbar_disconnect:
+                TokenHolder.saveToken(getApplicationContext(), "");
+                showLogin();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

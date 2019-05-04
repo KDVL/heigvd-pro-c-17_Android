@@ -20,6 +20,7 @@
     <string name="password2_error">Les mots de passes sont différents</string>
     <string name="error_signin">Utilisateur ou mot de passe incorrect</string>
     <string name="error_signup">Email déjà utilisé</string>
+    <string name="title_disconnect">Déconnexion</string>
 
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
