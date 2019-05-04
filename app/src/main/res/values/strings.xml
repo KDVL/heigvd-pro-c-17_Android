@@ -22,4 +22,9 @@
     <string name="expense">Dépenses</string>
 
 
+    <string name="title_activity_expense">Dépenses</string>
+    <string name="add_price">Montant</string>
+    <string name="add_description">Description</string>
+    <string name="add">Ajouter</string>
+
 </resources>

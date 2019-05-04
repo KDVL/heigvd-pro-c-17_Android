@@ -18,9 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activites.LoginActivity" android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".activites.SignupActivity" android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activites.LoginActivity"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activites.SignupActivity"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".activites.AddActivity"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

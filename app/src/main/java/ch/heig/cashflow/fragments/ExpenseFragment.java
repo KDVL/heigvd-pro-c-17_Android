@@ -50,6 +50,13 @@ public class ExpenseFragment extends Fragment {
         final ListView depensesListView = view.findViewById(R.id.expenseCardView);
 
         depensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), mainActivity.currentMonthExpensesArrayList));
+        depenseView = view.findViewById(R.id.totalExpenses);
+        //depenseView.setText(mainActivity.getExpenses());
+
+       /* if (mainActivity.expensesArrayList.isEmpty()) {
+            view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
+        }
+*/
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_expense, container, false);
