@@ -1,7 +1,14 @@
+/**
+ * Network config
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.network;
 
 public final class Config {
-
     protected final static String BASE_URL = "https://192.168.1.148:5000/api";
 
     protected final static String AUTH = BASE_URL + "/auth";
@@ -13,5 +20,4 @@ public final class Config {
 
     protected final static String CATEGORIES = BASE_URL + "/categories";
     protected final static String CATEGORIES_TYPE = CATEGORIES + "/type";
-
 }

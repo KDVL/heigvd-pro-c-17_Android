@@ -1,3 +1,12 @@
+/**
+ * The main activity of project
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
+
+
 package ch.heig.cashflow.activites;
 
 import android.content.Intent;
@@ -47,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+    /**
+     * onCreate
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    /**
+     * onResume
+     *
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -70,12 +88,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onCreateOptionsMenu
+     * @param menu the menu
+     *
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
+    /**
+     *
+     * @param item menuitem selected
+     *
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.actionbar_add:

@@ -1,12 +1,17 @@
+/**
+ * The API manager, handle requests
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-
-import com.google.gson.Gson;
-
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,7 +24,6 @@ import java.net.URL;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.HashMap;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -41,8 +45,15 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
             PUT
     }
 
+    /**
+     * Constructor
+     *
+     * @param callback the callback object
+     * @param authNeeded true if authentification is need with this endpont
+     * @param m the HTTP method
+     */
     public APIManager(DownloadCallback<APIManager.Result> callback, boolean authNeeded, METHOD m) {
-        setCallback(callback);
+        mCallback = callback;
         this.authNeeded = authNeeded;
         method = m;
 
@@ -50,12 +61,13 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         trustEveryone();
     }
 
+    /**
+     * set a JSON String to post
+     *
+     * @param postParams the string
+     */
     public void setPostParams(String postParams) {
         this.postParams = postParams;
-    }
-
-    void setCallback(DownloadCallback<APIManager.Result> callback) {
-        mCallback = callback;
     }
 
     /**
@@ -105,7 +117,6 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
      * */
     @Override
     protected void onPostExecute(Result result) {
-        //return result
         mCallback.updateFromDownload(result);
     }
 
@@ -117,8 +128,6 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
 
     /**
      * Given a URL, sets up a connection and gets the HTTP response body from the server.
-     * If the network request is successful, it returns the response body in String form. Otherwise,
-     * it will throw an IOException.
      */
     private Result downloadUrl(URL url) throws IOException {
         InputStream stream = null;
@@ -143,7 +152,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
             connection.setRequestProperty("Accept", "application/json");
 
             if(method != METHOD.GET){
-                // Send post request
+                // put JSON content
                 connection.setDoOutput(true);
                 DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
                 wr.writeBytes(postParams);
@@ -203,9 +212,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Wrapper class that serves as a union of a result value and an exception. When the download
-     * task has completed, either the result value or exception can be a non-null value.
-     * This allows you to pass exceptions to the UI thread that were thrown during doInBackground().
+     * Wrapper class that serves the result informations
      */
     static public class Result {
         public Exception exception;
@@ -223,8 +230,11 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         }
     }
 
-
-    //Used for testing
+    /**
+     * Used in dev environment only !
+     * TODO : Delete in PROD
+     *
+     */
     private void trustEveryone() {
         try {
             HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier(){

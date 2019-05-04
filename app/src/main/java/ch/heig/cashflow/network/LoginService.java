@@ -1,18 +1,31 @@
+/**
+ * Login service used by LoginActivity
+ * @see ch.heig.cashflow.activites.LoginActivity
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.network;
 
 import android.content.Context;
-import android.net.NetworkInfo;
-
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginService implements  DownloadCallback<APIManager.Result> {
 
     Callback callback;
 
-    public LoginService(Callback call, String login, String password){
+    /**
+     * Constructor
+     * @param call the callback
+     * @param email email user
+     * @param password password user
+     *
+     */
+    public LoginService(Callback call, String email, String password){
         callback = call;
 
         APIManager manager = new APIManager(this,
@@ -20,7 +33,7 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
                                         APIManager.METHOD.POST);
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("usernameOrEmail", login);
+        params.put("usernameOrEmail", email);
         params.put("password", password);
 
         Gson gson = new Gson();
@@ -29,6 +42,10 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
         manager.execute(Config.AUTH_SIGNIN);
     }
 
+    /**
+     * Save token result if user is logged successfully
+     * @param result the request result from APIManager
+     */
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
@@ -52,11 +69,18 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
         }
     }
 
+    /**
+     * get context application
+     */
     @Override
     public Context getContext() {
         return callback.getContext();
     }
 
+    /**
+     * Callback interface used by client
+     *
+     */
     public interface Callback extends BaseCallback {
         void loginFinished(boolean isLogged);
     }
