@@ -28,7 +28,6 @@ public class DashboardFragment extends Fragment {
 
     public DashboardFragment() {
         // Required empty public constructor
-
         setHasOptionsMenu(true);
     }
 
@@ -61,6 +60,8 @@ public class DashboardFragment extends Fragment {
         final ListView expensesListView = view.findViewById(R.id.expenseCardView);
 
         expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpensesArrayList));
+
+        getActivity().setTitle(R.string.title_dashboard);
 
         return view;
     }

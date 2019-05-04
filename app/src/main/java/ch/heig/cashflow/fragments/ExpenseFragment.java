@@ -60,6 +60,9 @@ public class ExpenseFragment extends Fragment {
 
         expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpensesArrayList));
 
+        getActivity().setTitle(R.string.title_expenses);
+        setHasOptionsMenu(true);
+
         return view;
     }
 }
