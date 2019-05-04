@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.fragments.ExpenseFragment;
 
 
 public class MainActivity extends AppCompatActivity {

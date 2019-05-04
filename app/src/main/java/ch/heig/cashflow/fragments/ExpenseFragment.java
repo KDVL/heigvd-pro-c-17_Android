@@ -41,7 +41,7 @@ public class ExpenseFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
         expenseView = view.findViewById(R.id.totalExpenses);
-        expenseView.setText(mainActivity.getExpenses());
+       /* expenseView.setText(mainActivity.getExpenses());
 
         if (mainActivity.currentMonthExpensesArrayList.isEmpty()) {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
@@ -51,7 +51,7 @@ public class ExpenseFragment extends Fragment {
 
         depensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), mainActivity.currentMonthExpensesArrayList));
         depenseView = view.findViewById(R.id.totalExpenses);
-        //depenseView.setText(mainActivity.getExpenses());
+        //depenseView.setText(mainActivity.getExpenses());*/
 
        /* if (mainActivity.expensesArrayList.isEmpty()) {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
