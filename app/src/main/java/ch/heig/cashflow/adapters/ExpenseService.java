@@ -10,7 +10,7 @@ import java.util.Map;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Expense;
-import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.models.Type;
 
 public class ExpenseService {
     private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

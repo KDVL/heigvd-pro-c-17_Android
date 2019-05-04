@@ -25,7 +25,7 @@ public abstract class Transaction implements Serializable {
         this.description = description;
     }
 
-    public long getId() {
+    public long getID() {
         return ID;
     }
 

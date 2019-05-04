@@ -8,11 +8,11 @@ public class Category implements Serializable {
     private final long ID;
     private String name;
     private String iconName;
-    private Transaction.Type type;
+    private Type type;
     private long quota;
     private boolean enabled;
 
-    public Category(long id, String name, String iconName, Transaction.Type type, long quota, boolean enabled) {
+    public Category(long id, String name, String iconName, Type type, long quota, boolean enabled) {
         this.ID = id;
         this.name = name;
         this.iconName = iconName;
@@ -41,11 +41,11 @@ public class Category implements Serializable {
         this.iconName = iconName;
     }
 
-    public Transaction.Type getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(Transaction.Type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
