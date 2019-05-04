@@ -1,9 +1,17 @@
+/**
+ * Download callback used by APIManager
+ * @see ch.heig.cashflow.network.APIManager
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
 package ch.heig.cashflow.network;
-
 
 import android.content.Context;
 
 public interface DownloadCallback<T> {
+
     interface Progress {
         int ERROR = -1;
         int CONNECT_SUCCESS = 0;

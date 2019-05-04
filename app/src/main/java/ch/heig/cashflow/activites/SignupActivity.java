@@ -1,3 +1,11 @@
+/**
+ * The signup activity
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 
@@ -39,6 +47,11 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
     @BindView(R.id.link_login)
     TextView loginButton;
 
+
+    /**
+     * onCreate
+     *
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +77,11 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
         });
     }
 
+
+    /**
+     * try to signup
+     *
+     */
     public void signup() {
         Log.d(TAG, "Signup");
 
@@ -85,12 +103,21 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
     }
 
 
+    /**
+     * success signup
+     *
+     */
     public void onSignupSuccess() {
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
+
+    /**
+     * signup failed
+     *
+     */
     public void onSignupFailed() {
         Toast.makeText(this, getString(R.string.error_signup),
                 Toast.LENGTH_LONG).show();
@@ -98,6 +125,11 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
         signupButton.setEnabled(true);
     }
 
+
+    /**
+     * validate signup informations
+     *
+     */
     public boolean validate() {
         boolean valid = true;
 
@@ -146,6 +178,11 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
         return valid;
     }
 
+
+    /**
+     * on login finished
+     *
+     */
     @Override
     public void loginFinished(boolean isLogged) {
         if(isLogged){
@@ -155,6 +192,11 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
         }
     }
 
+
+    /**
+     * @return context of application
+     *
+     */
     @Override
     public Context getContext() {
         return getApplicationContext();

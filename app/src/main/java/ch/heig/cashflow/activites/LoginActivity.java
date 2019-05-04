@@ -1,11 +1,16 @@
-package ch.heig.cashflow.activites;
+/**
+ * The signin activity
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
 
+package ch.heig.cashflow.activites;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -34,6 +39,9 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
 
     ProgressDialog progressDialog;
 
+    /**
+     * onCreate
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +72,10 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
                 R.style.AppTheme_Dark_Dialog);
     }
 
+
+    /**
+     * called to log user
+     */
     public void login() {
         Log.d(TAG, "Login");
 
@@ -85,21 +97,25 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
         new LoginService(this, email, password);
     }
 
-    @Override
-    public void onBackPressed() {
-        // Disable going back to the MainActivity
-        moveTaskToBack(true);
-    }
 
+    /**
+     * login success
+     */
     public void onLoginSuccess() {
         loginButton.setEnabled(true);
         finish();
     }
 
+    /**
+     * login failed
+     */
     public void onLoginFailed() {
         loginButton.setEnabled(true);
     }
 
+    /**
+     * called to log user
+     */
     public boolean validate() {
         boolean valid = true;
 
@@ -123,6 +139,9 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
         return valid;
     }
 
+    /**
+     * login is finished
+     */
     @Override
     public void loginFinished(boolean isLogged) {
 
@@ -134,9 +153,18 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
         }
     }
 
+    /**
+     * @return the Application context
+     */
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Disable going back to the MainActivity
+        moveTaskToBack(true);
     }
 }
 

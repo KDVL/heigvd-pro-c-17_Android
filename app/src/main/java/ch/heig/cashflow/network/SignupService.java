@@ -1,3 +1,11 @@
+/**
+ * Signup service used by SignupActivity
+ * @see ch.heig.cashflow.activites.SignupActivity
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
 package ch.heig.cashflow.network;
 
 import android.content.Context;
@@ -10,6 +18,11 @@ public class SignupService implements  DownloadCallback<APIManager.Result> {
     private LoginService.Callback callback;
     private User user;
 
+    /**
+     * Constructor
+     * @param call the callback
+     * @param user user informations
+     */
     public SignupService(LoginService.Callback call, User user){
         callback = call;
         this.user = user;
@@ -24,6 +37,10 @@ public class SignupService implements  DownloadCallback<APIManager.Result> {
         manager.execute(Config.AUTH_SIGNUP);
     }
 
+    /**
+     * call LoginService if user is correctly Signup
+     * @param result the request result from APIManager
+     */
     @Override
     public void updateFromDownload(APIManager.Result result) {
         if( result.responseCode == 201){
@@ -33,6 +50,10 @@ public class SignupService implements  DownloadCallback<APIManager.Result> {
         }
     }
 
+
+    /**
+     * get context application
+     */
     @Override
     public Context getContext() {
         return callback.getContext();
