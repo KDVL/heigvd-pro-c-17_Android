@@ -27,19 +27,6 @@ import ch.heig.cashflow.models.Expense;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    private static final int REQUEST_ID_READ_PERMISSION = 100;
-    private static final int REQUEST_ID_WRITE_PERMISSION = 200;
-
-    public static final DecimalFormat df = new DecimalFormat("#.00");
-
-    public ArrayList<Earning> earningsArrayList = null;
-    public ArrayList<Expense> expensesArrayList = null;
-
-    private float earnings = 0.f;
-    private float expenses = 0.f;
-
-    private TextView mTextMessage;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -50,10 +37,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     fragment = ChartsFragment.newInstance();
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             if (fragment != null) {
@@ -87,11 +72,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
-    public String getExpenses() {
-        return df.format(expenses);
-
-    }
-
+    
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.actionbar_add:
