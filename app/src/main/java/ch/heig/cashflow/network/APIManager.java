@@ -1,7 +1,6 @@
 /**
  * The API manager, handle requests
  *
- *
  * @authors Kevin DO VALE
  * @version 1.0
  */
@@ -19,7 +18,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-
 import java.net.URL;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -40,13 +38,6 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     private boolean authNeeded;
     private METHOD method;
     private String postParams;
-
-    public enum METHOD {
-            GET,
-            POST,
-            DELETE,
-            PUT
-    }
 
     /**
      * Constructor
@@ -105,7 +96,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
             try {
                 URL url = new URL(urlString);
                 result = downloadUrl(url);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 result = new Result(e);
                 result.responseCode = -1;
                 System.out.println(urlString);
@@ -127,7 +118,8 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
      * Override to add special behavior for cancelled AsyncTask.
      */
     @Override
-    protected void onCancelled(Result result) {}
+    protected void onCancelled(Result result) {
+    }
 
     /**
      * Given a URL, sets up a connection and gets the HTTP response body from the server.
@@ -141,27 +133,29 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         try {
             connection = (HttpsURLConnection) url.openConnection();
 
-            if(authNeeded) {
-                String token = TokenHolder.getToken(mCallback.getContext());
-
-                if(token != null)
-                    connection.addRequestProperty("Authorization", "Bearer " + token);
-            }
-
             connection.setReadTimeout(3000);
             connection.setConnectTimeout(3000);
             connection.setRequestMethod(method.toString());
-            connection.setRequestProperty("Content-Type", "application/json; utf-8");
-            connection.setRequestProperty("Accept", "application/json");
+            connection.addRequestProperty("Content-Type", "application/json; utf-8");
+            connection.addRequestProperty("Accept", "application/json");
 
-            if(method != METHOD.GET){
+            if (authNeeded) {
+                String token = TokenHolder.getToken(mCallback.getContext());
+
+                if (token != null)
+                    connection.addRequestProperty("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU2OTkyNTUwLCJleHAiOjE1NTc1OTczNTB9.KnXRX9qvmkLvEOLizKYJ56FLtkD_jbJW__zVBbdi97B1Zn-HKClvQ88V0MR9e03ovy_Iz0a2Nx6fdJApEz-ABA");
+
+                System.out.println(token);
+            }
+
+            if (method != METHOD.GET) {
                 // put JSON content
                 connection.setDoOutput(true);
                 DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
                 wr.writeBytes(postParams);
                 wr.flush();
                 wr.close();
-            }else{
+            } else {
                 connection.connect();
             }
 
@@ -177,8 +171,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
             }
         } catch (Exception e) {
             System.out.println(e);
-        }   finally
-         {
+        } finally {
             // Close Stream and disconnect HTTPS connection.
             if (stream != null) {
                 stream.close();
@@ -215,6 +208,46 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
+     * Used in dev environment only !
+     * TODO : Delete in PROD
+     *
+     */
+    private void trustEveryone() {
+        try {
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+            SSLContext context = SSLContext.getInstance("TLS");
+            context.init(null, new X509TrustManager[]{new X509TrustManager() {
+                public void checkClientTrusted(X509Certificate[] chain,
+                                               String authType) throws CertificateException {
+                }
+
+                public void checkServerTrusted(X509Certificate[] chain,
+                                               String authType) throws CertificateException {
+                }
+
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            }}, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(
+                    context.getSocketFactory());
+        } catch (Exception e) { // should never happen
+            e.printStackTrace();
+        }
+    }
+
+    public enum METHOD {
+        GET,
+        POST,
+        DELETE,
+        PUT
+    }
+
+    /**
      * Wrapper class that serves the result informations
      */
     static public class Result {
@@ -230,33 +263,6 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
 
         public Result(Exception e) {
             exception = e;
-        }
-    }
-
-    /**
-     * Used in dev environment only !
-     * TODO : Delete in PROD
-     *
-     */
-    private void trustEveryone() {
-        try {
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier(){
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }});
-            SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, new X509TrustManager[]{new X509TrustManager(){
-                public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
-                public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }}}, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(
-                    context.getSocketFactory());
-        } catch (Exception e) { // should never happen
-            e.printStackTrace();
         }
     }
 }

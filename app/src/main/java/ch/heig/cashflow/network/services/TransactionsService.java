@@ -44,7 +44,8 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
         Transaction[] transactions = new Transaction[0];
 
         if (result.responseCode != 200) {
-            callback.connectionFailed(result.exception.toString());
+            String exception = result.exception == null ? "" : result.exception.toString();
+            callback.connectionFailed(exception);
             return;
         }
 
