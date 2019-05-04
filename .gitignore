@@ -2,11 +2,10 @@
 .DS_Store
 .gradle
 .idea
+.idea/
 .externalNativeBuild
 /local.properties
 /build
 /captures
 gradle/wrapper/gradle-wrapper.properties
-.idea/gradle.xml
-.idea/misc.xml
-.idea/gradle.xml
+build.gradle
