@@ -1,6 +1,7 @@
 package ch.heig.cashflow.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.activites.ExpenseEditActivity;
 import ch.heig.cashflow.models.Expense;
 
 public class ExpenseCardsAdapter extends BaseAdapter {
@@ -61,8 +63,7 @@ public class ExpenseCardsAdapter extends BaseAdapter {
         }
         Expense expense = this.currentMonthExpensesArrayList.get(pos);
 
-        //holder.dateView.setText(String.valueOf(expense.getDay()) + MONTH_ARRAY[depense.getMonth()]);
-        holder.dateView.setText(expense.getDate().toString());
+        holder.dateView.setText(expense.getDate());
 
         if (expenseService == null)
             expenseService = new ExpenseService();
@@ -93,21 +94,19 @@ public class ExpenseCardsAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = holder.dayList.getItemAtPosition(position);
                 Expense e = (Expense) o;
-
-                //editExpense(e);
+                editExpense(e);
             }
         });
 
         return convertView;
     }
 
-    /*
-    private void editExpense(Expense _depense) {
-        Intent depenseEdit = new Intent(context, DepenseEditActivity.class);
-        depenseEdit.putExtra("depenseId", _depense.getDepenseId());
-        context.startActivity(depenseEdit);
+
+    private void editExpense(Expense e) {
+        Intent expenseEdit = new Intent(context, ExpenseEditActivity.class);
+        expenseEdit.putExtra("expenseId", e.getId());
+        context.startActivity(expenseEdit);
     }
-    */
 
     static class ViewHolder {
         TextView dateView;

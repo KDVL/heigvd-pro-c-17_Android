@@ -14,4 +14,8 @@
 
     <dimen name="categorie_icon_small">24dp</dimen>
     <dimen name="categorie_icon_medium">48dp</dimen>
+
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_big">18sp</dimen>
 </resources>

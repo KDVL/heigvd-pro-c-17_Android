@@ -21,6 +21,10 @@
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
 
+    <!-- menu_expense_edit -->
+    <string name="item_edit">Edit</string>
+    <string name="item_delete">Delete</string>
+
 
     <string name="title_activity_expense">Dépenses</string>
     <string name="add_price">Montant</string>
