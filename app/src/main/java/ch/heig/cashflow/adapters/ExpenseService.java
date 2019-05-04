@@ -19,7 +19,7 @@ public class ExpenseService {
 
         ArrayList<Expense> list = new ArrayList<>();
         Category cat = new Category(1, "Carte de Crédit", "carte", Transaction.Type.EXPENSE, 123, true);
-        Expense expense = new Expense(1,"2019-05-04", cat,12345,"des");
+        Expense expense = new Expense(1, "2019-05-04", cat, 12345, "des");
         list.add(expense);
 
         map.put("05", list);
