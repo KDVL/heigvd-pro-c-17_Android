@@ -44,8 +44,10 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
             }
         }
 
-        setTitle(TITLE[editExpenseAdapter.getTransaction().getType().ordinal()]);
         ts = new TransactionService(this);
+
+        setTitle(editExpenseAdapter.getViewTitle(getApplicationContext()));
+
 
         expenseIcon = findViewById(R.id.expenseToEditIcon);
         expenseDate = findViewById(R.id.expenseToEditDate);
@@ -111,7 +113,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
                         String saisi = password.getText().toString();
                         if (saisi.equals("ok")) {
                             ts.delete(editExpenseAdapter.getTransaction());
-                            retour();
+                            finish();
                         }
                     }
                 })

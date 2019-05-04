@@ -47,21 +47,12 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         ButterKnife.bind(this);
 
-        setTitle("Gestion de transaction");
-
         Intent i = getIntent();
         if (i != null) {
-            if (i.hasExtra(getResources().getString(R.string.transaction_adapter_key)))
                 adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
-            /*
-            else if (i.hasExtra("editIncomeAdapter"))
-                adapter = (EditIncomeAdapter) i.getSerializableExtra("editIncomeAdapter");
-            else if (i.hasExtra("addExpenseAdapter"))
-                adapter = (EditIncomeAdapter) i.getSerializableExtra("addExpenseAdapter");
-            else if (i.hasExtra("addIncomeAdapter"))
-                adapter = (EditIncomeAdapter) i.getSerializableExtra("addIncomeAdapter");
-            */
         }
+
+        setTitle(adapter.getViewTitle(getApplicationContext()));
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override

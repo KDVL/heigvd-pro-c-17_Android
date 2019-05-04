@@ -34,7 +34,6 @@ public class ChartsFragment extends Fragment implements TransactionsService.Call
 
     public ChartsFragment() {
         // Required empty public constructor
-
         setHasOptionsMenu(true);
     }
 
@@ -74,7 +73,7 @@ public class ChartsFragment extends Fragment implements TransactionsService.Call
         ChartsAdapter adapter = new ChartsAdapter(cats);
         pieList.setAdapter(adapter);
 
-
+        getActivity().setTitle(R.string.title_charts);
         setHasOptionsMenu(true);
 
         return view;
@@ -98,7 +97,7 @@ public class ChartsFragment extends Fragment implements TransactionsService.Call
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.charts_menu, menu);
+        inflater.inflate(R.menu.dashboard_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
