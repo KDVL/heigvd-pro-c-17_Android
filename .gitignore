@@ -3,9 +3,11 @@
 .gradle
 .idea
 .idea/
+.idea/*
 .externalNativeBuild
 /local.properties
 /build
+/app/build
 /captures
 gradle/wrapper/gradle-wrapper.properties
 build.gradle
