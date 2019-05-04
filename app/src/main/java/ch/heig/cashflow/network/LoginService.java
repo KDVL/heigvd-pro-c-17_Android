@@ -22,11 +22,13 @@ public class LoginService implements  DownloadCallback<APIManager.Result> {
         params.put("password", password);
 
         manager.setPostParams(params);
-        manager.execute(Config.LOGIN);
+        manager.execute(Config.AUTH_SIGNIN);
     }
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
+
+
         callback.loginFinished(result.responseCode == 200);
     }
 

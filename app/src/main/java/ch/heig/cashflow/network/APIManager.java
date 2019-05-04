@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
-import org.json.JSONException;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,11 +15,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
-import java.io.BufferedReader;
-import java.lang.reflect.Method;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -109,7 +104,6 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         return result;
     }
 
-
     /**
      * Updates the DownloadCallback with the result.
      * */
@@ -139,10 +133,11 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         try {
             connection = (HttpsURLConnection) url.openConnection();
 
-
             if(authNeeded) {
-                /*connection.addRequestProperty("ProjectId", DataManager.getProjectID());
-                connection.addRequestProperty("Project-Id", DataManager.getProjectID());*/
+                String token = TokenHolder.getToken(mCallback.getContext());
+
+                if(token != null)
+                    connection.addRequestProperty("Authorization", "Bearer " + token);
             }
 
             connection.setReadTimeout(3000);
@@ -164,9 +159,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
 
             publishProgress(DownloadCallback.Progress.CONNECT_SUCCESS);
             responseCode = connection.getResponseCode();
-            if (responseCode != HttpsURLConnection.HTTP_OK) {
-                throw new IOException("HTTP error code: " + responseCode);
-            }
+
             // Retrieve the response body as an InputStream.
             stream = connection.getInputStream();
             publishProgress(DownloadCallback.Progress.GET_INPUT_STREAM_SUCCESS, 0);

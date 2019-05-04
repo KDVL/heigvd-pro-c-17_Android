@@ -13,7 +13,7 @@ public class SignupService implements  DownloadCallback<APIManager.Result> {
         APIManager manager = new APIManager(this,
                 false,
                 APIManager.METHOD.POST);
-        manager.execute(Config.LOGIN);
+        manager.execute(Config.AUTH_SIGNUP);
     }
 
     @Override
