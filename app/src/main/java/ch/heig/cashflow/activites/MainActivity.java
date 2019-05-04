@@ -10,19 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-
-import com.github.mikephil.charting.charts.Chart;
 
 import ch.heig.cashflow.fragments.ChartsFragment;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Earning;
-import ch.heig.cashflow.models.Expense;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -67,12 +58,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
-    
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.actionbar_add:
