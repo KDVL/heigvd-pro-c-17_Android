@@ -25,13 +25,13 @@ public class BudgetsService implements DownloadCallback<APIManager.Result> {
     // GetAll : GET /api/budgets
     public void getAll() {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.BUDGETS);
+        manager.execute(Config.DASHBOARD);
     }
 
     // PerType : GET /api/budgets/YYYY/MM
-    public void getMonth(String year, String month) {
+    public void getAll(String year, String month) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.BUDGET + year + "/" + month);
+        manager.execute(Config.DASHBOARD + "/" + year + "/" + month);
     }
 
     @Override
@@ -48,11 +48,8 @@ public class BudgetsService implements DownloadCallback<APIManager.Result> {
 
         budgets = gson.fromJson(result.resultString, Budget[].class);
         switch (result.tag) {
-            case Config.BUDGETS: // GetAll : GET /api/categories
+            case Config.DASHBOARD: // GetAll : GET /api/categories
                 callback.getAllFinished(Arrays.asList(budgets));
-                break;
-            case Config.BUDGET: // PerType : GET /api/categories/type/{type}
-                callback.getMonthFinished(gson.fromJson(result.resultString, Budget.class));
                 break;
         }
 
@@ -67,7 +64,5 @@ public class BudgetsService implements DownloadCallback<APIManager.Result> {
         void connectionFailed(String error);
 
         void getAllFinished(List<Budget> budgets);
-
-        void getMonthFinished(Budget budget);
     }
 }
