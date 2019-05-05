@@ -1,4 +1,3 @@
-
 package ch.heig.cashflow.network.services;
 
 import android.content.Context;
@@ -49,13 +48,11 @@ public class CategoriesService implements DownloadCallback<APIManager.Result> {
         }
 
         categories = gson.fromJson(result.resultString, Category[].class);
-        switch (result.tag) {
-            case Config.CATEGORIES: // GetAll : GET /api/categories
-                callback.getAllFinished(Arrays.asList(categories));
-                break;
-            case Config.CATEGORIES_TYPE: // PerType : GET /api/categories/type/{type}
-                callback.getTypeFinished(Arrays.asList(categories));
-                break;
+
+        if (result.tag.contains(Config.CATEGORIES_TYPE)) {
+            callback.getFinished(Arrays.asList(categories));
+        } else if (result.tag.contains(Config.CATEGORIES)) {
+            callback.getFinished(Arrays.asList(categories));
         }
 
     }
@@ -68,8 +65,6 @@ public class CategoriesService implements DownloadCallback<APIManager.Result> {
     public interface Callback extends BaseCallback {
         void connectionFailed(String error);
 
-        void getAllFinished(List<Category> categories);
-
-        void getTypeFinished(List<Category> categories);
+        void getFinished(List<Category> categories);
     }
 }

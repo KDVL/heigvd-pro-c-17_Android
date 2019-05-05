@@ -61,15 +61,15 @@ public class CategoryService implements DownloadCallback<APIManager.Result> {
                 break;
 
             case POST:  // Add : POST /api/categories
-                callback.addFinished(true);
+                callback.operationFinished(true);
                 break;
 
             case PUT: // Update : PUT /api/categories/{id}
-                callback.updateFinished(true);
+                callback.operationFinished(true);
                 break;
 
             case DELETE: // Delete : DELETE /api/categories/{id}
-                callback.deleteFinished(true);
+                callback.operationFinished(true);
                 break;
         }
     }
@@ -84,10 +84,6 @@ public class CategoryService implements DownloadCallback<APIManager.Result> {
 
         void getFinished(Category category);
 
-        void addFinished(boolean isAdded);
-
-        void updateFinished(boolean isUpdated);
-
-        void deleteFinished(boolean isDeleted);
+        void operationFinished(boolean isFinished);
     }
 }

@@ -3,10 +3,12 @@ package ch.heig.cashflow.network.services;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Income;
+import ch.heig.cashflow.models.PostTransaction;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.callbacks.BaseCallback;
@@ -60,7 +62,9 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
         switch (result.method) {
             case GET: // GetOne : GET /api/transactions/{id}
                 Gson gson = new Gson();
-                switch (gson.fromJson(result.resultString, JsonObject.class).get("type").toString()) {
+                JsonElement obj = gson.fromJson(result.resultString, JsonElement.class);
+                JsonElement element = ((JsonObject) obj).get("type");
+                switch (gson.fromJson(element, String.class)) {
                     case "EXPENSE":
                         callback.getFinished(gson.fromJson(result.resultString, Expense.class));
                         break;
@@ -71,15 +75,9 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
                 break;
 
             case POST:  // Add : POST /api/transactions
-                callback.addFinished(true);
-                break;
-
             case PUT: // Update : PUT /api/transactions/{id}
-                callback.updateFinished(true);
-                break;
-
             case DELETE: // Delete : DELETE /api/transactions/{id}
-                callback.deleteFinished(true);
+                callback.operationFinished(true);
                 break;
         }
     }
@@ -90,13 +88,7 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
     }
 
     private String getTransactionParams(Transaction transaction) {
-        switch (transaction.getType()) {
-            case EXPENSE:
-                return gson.toJson(transaction, Expense.class);
-            case INCOME:
-                return gson.toJson(transaction, Income.class);
-        }
-        return null;
+        return gson.toJson(new PostTransaction(transaction));
     }
 
     public interface Callback extends BaseCallback {
@@ -104,10 +96,6 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
 
         void getFinished(Transaction transaction);
 
-        void addFinished(boolean isAdded);
-
-        void updateFinished(boolean isUpdated);
-
-        void deleteFinished(boolean isDeleted);
+        void operationFinished(boolean isFinished);
     }
 }
