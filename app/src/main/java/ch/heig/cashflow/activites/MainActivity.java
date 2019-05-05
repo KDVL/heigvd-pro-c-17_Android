@@ -33,6 +33,7 @@ import ch.heig.cashflow.fragments.DashboardFragment;
 import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
+import ch.heig.cashflow.fragments.ServicesFragment;
 import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
                     fragment = ExpenseFragment.newInstance();
                     break;
                 case R.id.navigation_charts:
-                    fragment = ChartsFragment.newInstance();
+                    fragment = ServicesFragment.newInstance();
                     break;
             }
             if (fragment != null) {

@@ -145,7 +145,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 if (token != null)
                     connection.addRequestProperty("Authorization", "Bearer " + TokenHolder.getToken(mCallback.getContext()));// "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU2OTkyNTUwLCJleHAiOjE1NTc1OTczNTB9.KnXRX9qvmkLvEOLizKYJ56FLtkD_jbJW__zVBbdi97B1Zn-HKClvQ88V0MR9e03ovy_Iz0a2Nx6fdJApEz-ABA");
 
-                System.out.println(token);
+                //System.out.println(token);
             }
 
             if (postParams != null && !postParams.equals("") ) {
