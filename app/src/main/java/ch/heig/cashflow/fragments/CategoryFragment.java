@@ -9,24 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.CategorySelectAdapter;
-import ch.heig.cashflow.adapters.ExpenseCardsAdapter;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
-import ch.heig.cashflow.network.services.TransactionsService;
 
 
 public class CategoryFragment extends Fragment implements CategoriesService.Callback,
-        CategoryService.Callback  {
+        CategoryService.Callback {
     private static final String TAG = "CategoryFragment";
 
     private CategoriesService css = null;
