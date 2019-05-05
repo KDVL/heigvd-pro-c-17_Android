@@ -108,12 +108,8 @@ public class ChartsFragment extends Fragment implements TransactionsService.Call
     }
 
     @Override
-    public void getAllFinished(List<Transaction> transactions) {
+    public void getFinished(List<Transaction> transactions) {
         System.out.println(transactions);
     }
 
-    @Override
-    public void getTypeFinished(List<Transaction> transactions) {
-        System.out.println(transactions);
-    }
 }

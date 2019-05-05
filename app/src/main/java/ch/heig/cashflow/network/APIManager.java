@@ -266,6 +266,3 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         }
     }
 }
-
-
-

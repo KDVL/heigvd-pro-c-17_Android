@@ -5,19 +5,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public abstract class Transaction implements Serializable {
 
-    public enum Type {
-        EXPENSE, INCOME
-    }
-
-    private final long ID;
+    private final long id;
     private String date;
     private Category category;
     private long amount;
     private Type type;
     private String description;
-
     public Transaction(long id, String date, Category category, long amount, Type type, String description) {
-        this.ID = id;
+        this.id = id;
         this.date = date;
         this.category = category;
         this.amount = amount;
@@ -26,7 +21,7 @@ public abstract class Transaction implements Serializable {
     }
 
     public long getID() {
-        return ID;
+        return id;
     }
 
     public String getDate() {
@@ -68,4 +63,11 @@ public abstract class Transaction implements Serializable {
     public void setType(Type type) {
         this.type = type;
     }
+
+    public enum Type {
+        EXPENSE, INCOME
+    }
+
+    // Decorator used to POST/PUT data
+
 }
