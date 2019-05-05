@@ -66,10 +66,10 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
 
             if (result.tag.contains("EXPENSE")) { // PerType : GET /api/transactions/type/EXPENSE
                 Transaction[] expenses = gson.fromJson(result.resultString, Expense[].class);
-                callback.getTypeFinished(Arrays.asList(expenses));
+                callback.getFinished(Arrays.asList(expenses));
             } else if (result.tag.contains("INCOME")) { // PerType : GET /api/transactions/type/INCOME
                 Transaction[] incomes = gson.fromJson(result.resultString, Income[].class);
-                callback.getTypeFinished(Arrays.asList(incomes));
+                callback.getFinished(Arrays.asList(incomes));
             }
 
         } else if (result.tag.contains(Config.TRANSACTIONS)) { // GetAll : GET /api/transactions
@@ -86,7 +86,7 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
                         break;
                 }
             }
-            callback.getAllFinished(transactions);
+            callback.getFinished(transactions);
         }
 
     }
@@ -99,8 +99,6 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
     public interface Callback extends BaseCallback {
         void connectionFailed(String error);
 
-        void getAllFinished(List<Transaction> transactions);
-
-        void getTypeFinished(List<Transaction> transactions);
+        void getFinished(List<Transaction> transactions);
     }
 }
