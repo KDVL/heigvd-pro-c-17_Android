@@ -1,7 +1,6 @@
 /**
  * The main activity of project
  *
- *
  * @authors Kevin DO VALE
  * @version 1.0
  */
@@ -9,7 +8,6 @@
 
 package ch.heig.cashflow.activites;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,22 +20,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddAdapter;
 import ch.heig.cashflow.adapters.AddExpenseAdapter;
 import ch.heig.cashflow.adapters.AddIncomeAdapter;
+import ch.heig.cashflow.fragments.CategoryFragment;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;
-import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.fragments.ExpenseFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
 
 
-public class MainActivity extends AppCompatActivity  implements AuthValidationService.Callback  {
+public class MainActivity extends AppCompatActivity implements AuthValidationService.Callback {
     private static final String TAG = "MainActivity";
     private AddAdapter addAdapter;
 
@@ -62,6 +59,9 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
                 case R.id.navigation_charts:
                     fragment = ChartsFragment.newInstance();
                     break;
+                case R.id.navigation_categories:
+                    fragment = CategoryFragment.newInstance();
+                    break;
             }
             if (fragment != null) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
 
     /**
      * onCreate
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +91,13 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
         //Verify token
         new AuthValidationService(this);
 
-        if(!TokenHolder.isLogged(getApplicationContext())){
+        if (!TokenHolder.isLogged(getApplicationContext())) {
             showLogin();
         }
     }
 
     /**
      * onResume
-     *
      */
     @Override
     protected void onResume() {
@@ -109,14 +107,15 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
     /**
      * show login Activity
      */
-    private void showLogin(){
+    private void showLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
     /**
      * onCreateOptionsMenu
-     * @param menu the menu
      *
+     * @param menu the menu
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -125,9 +124,7 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
     }
 
     /**
-     *
      * @param item menuitem selected
-     *
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -151,7 +148,7 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
 
     @Override
     public void authVerification(boolean isLogged) {
-        if(!isLogged && TokenHolder.isLogged(getApplicationContext()))
+        if (!isLogged && TokenHolder.isLogged(getApplicationContext()))
             showLogin();
 
     }

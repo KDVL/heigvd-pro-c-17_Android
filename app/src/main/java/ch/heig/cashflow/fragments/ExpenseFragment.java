@@ -22,7 +22,6 @@ import ch.heig.cashflow.network.services.TransactionsService;
 public class ExpenseFragment extends Fragment implements TransactionsService.Callback {
     private static final String TAG = "ExpenseFragment";
 
-
     // TODO: Observable classe date update changement
 
     private View view;
@@ -91,7 +90,5 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
         expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpenses));
 
         getActivity().setTitle(R.string.title_expenses);
-
-        return view;
     }
 }
