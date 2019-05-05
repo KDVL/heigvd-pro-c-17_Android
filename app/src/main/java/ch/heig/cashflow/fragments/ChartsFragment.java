@@ -22,11 +22,16 @@ import java.util.List;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.ChartsAdapter;
 import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.network.services.CategoriesService;
+import ch.heig.cashflow.network.services.CategoryService;
+import ch.heig.cashflow.network.services.DashboardService;
+import ch.heig.cashflow.network.services.TransactionService;
 import ch.heig.cashflow.network.services.TransactionsService;
 
-public class ChartsFragment extends Fragment implements TransactionsService.Callback {
+public class ChartsFragment extends Fragment {
 
     private ArrayList NoOfEmp = new ArrayList();
     private PieChart pieChart = null;
@@ -44,8 +49,6 @@ public class ChartsFragment extends Fragment implements TransactionsService.Call
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TransactionsService ts = new TransactionsService(this);
-        ts.getType(Type.EXPENSE);
     }
 
     @Override
@@ -99,17 +102,6 @@ public class ChartsFragment extends Fragment implements TransactionsService.Call
         menu.clear();
         inflater.inflate(R.menu.dashboard_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
-    @Override
-    public void connectionFailed(String error) {
-        System.out.println(error);
-    }
-
-    @Override
-    public void getFinished(List<Transaction> transactions) {
-        System.out.println(transactions);
     }
 
 }

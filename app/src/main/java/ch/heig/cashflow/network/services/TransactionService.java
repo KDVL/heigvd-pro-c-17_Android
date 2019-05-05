@@ -27,7 +27,7 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
     // GetOne : GET /api/transactions/{id}
     public void get(long id) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTION + id);
+        manager.execute(Config.TRANSACTIONS + id);
     }
 
     // Add : POST /api/transactions
@@ -41,13 +41,13 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
     public void update(Transaction transaction) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.PUT);
         manager.setPostParams(getTransactionParams(transaction));
-        manager.execute(Config.TRANSACTION + transaction.getID());
+        manager.execute(Config.TRANSACTIONS + transaction.getID());
     }
 
     // Delete : DELETE /api/transactions/{id}
     public void delete(Transaction transaction) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.DELETE);
-        manager.execute(Config.TRANSACTION + transaction.getID());
+        manager.execute(Config.TRANSACTIONS + transaction.getID());
     }
 
     @Override
