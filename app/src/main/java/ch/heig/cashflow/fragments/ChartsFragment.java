@@ -85,6 +85,12 @@ public class ChartsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //TODO : Call API Service
+    }
 
     private PieData getData() {
         NoOfEmp.add(new PieEntry(10f, 0));

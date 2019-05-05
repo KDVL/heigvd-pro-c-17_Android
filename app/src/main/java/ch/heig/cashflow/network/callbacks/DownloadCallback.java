@@ -1,5 +1,5 @@
 /**
- * Download callback used by APIManager
+ * Download callback generic used by APIManager
  * @see ch.heig.cashflow.network.APIManager
  *
  *
@@ -23,6 +23,7 @@ public interface DownloadCallback<T> {
     /**
      * Indicates that the callback handler needs to update its appearance or information based on
      * the result of the task. Expected to be called from the main thread.
+     * @param result the result
      */
     void updateFromDownload(T result);
 
