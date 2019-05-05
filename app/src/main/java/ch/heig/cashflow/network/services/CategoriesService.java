@@ -49,11 +49,10 @@ public class CategoriesService implements DownloadCallback<APIManager.Result> {
 
         categories = gson.fromJson(result.resultString, Category[].class);
 
-        if (result.tag.contains(Config.CATEGORIES_TYPE)) {
+        if (result.tag.contains(Config.CATEGORIES_TYPE))
             callback.getFinished(Arrays.asList(categories));
-        } else if (result.tag.contains(Config.CATEGORIES)) {
+        else if (result.tag.contains(Config.CATEGORIES))
             callback.getFinished(Arrays.asList(categories));
-        }
 
     }
 

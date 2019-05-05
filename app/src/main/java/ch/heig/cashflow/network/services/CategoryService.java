@@ -22,7 +22,7 @@ public class CategoryService implements DownloadCallback<APIManager.Result> {
     // GetOne : GET /api/categories/{id}
     public void get(long id) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.CATEGORY + id);
+        manager.execute(Config.CATEGORIES + id);
     }
 
     // Add : POST /api/categories
@@ -36,13 +36,13 @@ public class CategoryService implements DownloadCallback<APIManager.Result> {
     public void update(Category category) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.PUT);
         manager.setPostParams(gson.toJson(category, Category.class));
-        manager.execute(Config.CATEGORY + category.getID());
+        manager.execute(Config.CATEGORIES + category.getID());
     }
 
     // Delete : DELETE /api/categories/{id}
     public void delete(Category category) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.DELETE);
-        manager.execute(Config.CATEGORY + category.getID());
+        manager.execute(Config.CATEGORIES + category.getID());
     }
 
     @Override
