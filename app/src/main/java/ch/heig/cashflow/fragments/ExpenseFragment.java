@@ -71,11 +71,7 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
     }
 
     @Override
-    public void getAllFinished(List<Transaction> transactions) {
-    }
-
-    @Override
-    public void getTypeFinished(List<Transaction> transactions) {
+    public void getFinished(List<Transaction> transactions) {
         currentMonthExpenses = transactions;
 
         for (Transaction t : currentMonthExpenses)

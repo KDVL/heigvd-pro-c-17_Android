@@ -1,6 +1,5 @@
 package ch.heig.cashflow.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -88,40 +87,20 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     @Override
-    public void getFinished(Category category) {
-
-    }
-
-    @Override
-    public void addFinished(boolean isAdded) {
-
-    }
-
-    @Override
-    public void updateFinished(boolean isUpdated) {
-
-    }
-
-    @Override
-    public void deleteFinished(boolean isDeleted) {
-
-    }
-
-    @Override
-    public void getAllFinished(List<Category> categories) {
-
-    }
-
-    @Override
-    public void getTypeFinished(List<Category> categories) {
+    public void getFinished(List<Category> categories) {
         categoriesList = categories;
         catSelectListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesList));
         getActivity().setTitle("Liste de catégories");
     }
 
     @Override
-    public Context getContext() {
-        return getContext();
+    public void getFinished(Category category) {
+
+    }
+
+    @Override
+    public void operationFinished(boolean isFinished) {
+
     }
 
 }

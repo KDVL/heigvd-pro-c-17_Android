@@ -143,12 +143,7 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
     }
 
     @Override
-    public void getAllFinished(List<Transaction> transactions) {
-
-    }
-
-    @Override
-    public void getTypeFinished(List<Transaction> transactions) {
+    public void getFinished(List<Transaction> transactions) {
 
     }
 

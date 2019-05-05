@@ -142,17 +142,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
     }
 
     @Override
-    public void addFinished(boolean isAdded) {
-
-    }
-
-    @Override
-    public void updateFinished(boolean isUpdated) {
-
-    }
-
-    @Override
-    public void deleteFinished(boolean isDeleted) {
+    public void operationFinished(boolean isFinished) {
 
     }
 
