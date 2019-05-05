@@ -56,7 +56,7 @@ public class DashboardFragment extends Fragment implements TransactionsService.C
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         ts = new TransactionsService(this);
         ts.getType(Type.EXPENSE);
