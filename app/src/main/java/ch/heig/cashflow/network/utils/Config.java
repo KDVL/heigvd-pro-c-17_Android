@@ -9,7 +9,7 @@
 package ch.heig.cashflow.network.utils;
 
 public final class Config {
-    public final static String BASE_URL = "https://heig-pro-cashflow-api.herokuapp.com/api";
+    public final static String BASE_URL = "https://heig-pro-cashflow-api.herokuapp.com/api/";
 
     public final static String AUTH = BASE_URL + "auth/";
     public final static String AUTH_SIGNIN =  AUTH + "signin";
