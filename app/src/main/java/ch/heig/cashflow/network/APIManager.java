@@ -148,7 +148,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 System.out.println(token);
             }
 
-            if (method != METHOD.GET) {
+            if (postParams != null && !postParams.equals("") ) {
                 // put JSON content
                 connection.setDoOutput(true);
                 DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
