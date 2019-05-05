@@ -17,9 +17,8 @@ public final class Config {
     public final static String AUTH_VERIF =  AUTH + "/validate";
 
     public final static String TRANSACTIONS = BASE_URL + "/transactions";
+    public final static String TRANSACTIONS_DATE = TRANSACTIONS + "/date/";
     public final static String TRANSACTIONS_TYPE = TRANSACTIONS + "/type/";
-    public final static String TRANSACTIONS_TYPE_EXPENSE = TRANSACTIONS + "/type/EXPENSE";
-    public final static String TRANSACTIONS_TYPE_INCOME = TRANSACTIONS + "/type/INCOME";
     public final static String TRANSACTION = TRANSACTIONS + "/";
 
     public final static String CATEGORIES = BASE_URL + "/categories";
