@@ -52,6 +52,12 @@ public class SelectedDate extends Observable {
         return day;
     }
 
+    /**
+     * Set date and notify obeservers
+     * @param year
+     * @param month
+     * @param day
+     */
     public void setDate(int year, int month, int day){
         this.year = year;
         this.month = month;
