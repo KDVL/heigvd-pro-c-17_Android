@@ -5,7 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Category implements Serializable {
 
-    private final long ID;
+    private final long id;
     private String name;
     private String iconName;
     private Type type;
@@ -13,7 +13,7 @@ public class Category implements Serializable {
     private boolean enabled;
 
     public Category(long id, String name, String iconName, Type type, long quota, boolean enabled) {
-        this.ID = id;
+        this.id = id;
         this.name = name;
         this.iconName = iconName;
         this.type = type;
@@ -22,7 +22,7 @@ public class Category implements Serializable {
     }
 
     public long getID() {
-        return ID;
+        return id;
     }
 
     public String getName() {
