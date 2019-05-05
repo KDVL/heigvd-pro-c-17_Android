@@ -103,15 +103,4 @@ public class ChartsFragment extends Fragment {
         inflater.inflate(R.menu.dashboard_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-
-    @Override
-    public void connectionFailed(String error) {
-        System.out.println(error);
-    }
-
-    @Override
-    public void getFinished(List<Transaction> transactions) {
-
-    }
 }
