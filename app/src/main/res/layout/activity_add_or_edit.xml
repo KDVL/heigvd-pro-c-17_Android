@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:prompt="@string/spiner_title"/>
+            android:entries="@array/cat_spiner_items"
+            android:prompt="@string/cat_spiner_prompt"/>
         
         <!-- DatePicker -->
         <Button
@@ -76,6 +77,7 @@
             android:padding="12dp"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/white"
+            android:onClick="saveExpense"
             android:text="@string/add"/>
 
     </LinearLayout>

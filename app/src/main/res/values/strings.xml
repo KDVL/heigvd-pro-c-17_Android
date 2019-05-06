@@ -28,9 +28,6 @@
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
 
-    <!-- AddOrEditActivity -->
-    <string name="spiner_title">Choisir la catégorie</string>
-
     <!-- menu_expense_edit -->
     <string name="item_edit">Edit</string>
     <string name="item_delete">Delete</string>
@@ -44,5 +41,27 @@
 
     <!-- Constants general values -->
     <string name="transaction_adapter_key">transaction</string>
+
+    <!-- AddOrEditActivity -->
+
+    <!-- Catégories spiner -->
+    <string name="cat_spiner_prompt">Choix de catégorie</string>
+
+    <string-array name="cat_spiner_items">
+        <!-- {"cad_drink", "cat_cars", "cat_child", "cat_aliments", "cat_devices", "cat_family", "cat_holiday",
+        "cat_other", "cat_people", "cat_pets", "cat_school", "cat_smoking", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",} -->
+        <item>Boisson</item>
+        <item>Voiture</item>
+        <item>Enfants</item>
+        <item>Aliments</item>
+        <item>Electronique</item>
+        <item>Famille</item>
+        <item>Vacances</item>
+        <item>Autres</item>
+        <item>Social</item>
+        <item>Animaux</item>
+        <item>Education</item>
+        <item>Tabac</item>
+    </string-array>
 
 </resources>

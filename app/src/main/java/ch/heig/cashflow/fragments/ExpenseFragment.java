@@ -31,7 +31,6 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
 
     private TransactionsService ts = null;
 
-    private List<Transaction> currentMonthExpenses = null;
     private String error = "";
 
     private long totalExpenses;
@@ -72,18 +71,17 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
 
     @Override
     public void getFinished(List<Transaction> transactions) {
-        currentMonthExpenses = transactions;
 
-        for (Transaction t : currentMonthExpenses)
+        for (Transaction t : transactions)
             totalExpenses += t.getAmount();
 
         expenseView.setText(String.valueOf(totalExpenses));
 
-        if (currentMonthExpenses.isEmpty()) {
+        if (transactions.isEmpty()) {
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 
-        expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpenses));
+        expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), transactions));
 
         getActivity().setTitle(R.string.title_expenses);
     }

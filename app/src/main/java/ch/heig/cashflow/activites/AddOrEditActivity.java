@@ -1,15 +1,18 @@
 package ch.heig.cashflow.activites;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,13 +23,23 @@ import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddOrEditAdapter;
 import ch.heig.cashflow.fragments.DatePickerFragment;
+import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.CustomOnItemSelectedListener;
+import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.SelectedDate;
+import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.network.services.TransactionService;
 
 
-public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback {
     private static final String TAG = "AddOrEditActivity";
     private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private SelectedDate selectedDate = SelectedDate.getInstance();
+
     String curentDateString = null;
 
+    private TransactionService ts;
     private AddOrEditAdapter adapter = null;
 
     @BindView(R.id.input_categorie)
@@ -46,10 +59,13 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         setContentView(R.layout.activity_add_or_edit);
 
         ButterKnife.bind(this);
+        categoriesSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+
+        ts = new TransactionService(this);
 
         Intent i = getIntent();
         if (i != null) {
-                adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
+            adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
         }
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
@@ -82,5 +98,85 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         curentDateString = sdf.format(c.getTime());
         selectDate.setText(curentDateString);
+    }
+
+    public void saveExpense(View view) {
+        /*
+        private final long id;
+        private String date;
+        private Category category;
+                private final long id;
+                private String name;
+                private String iconName;
+                private Type type;
+                private long quota;
+                private boolean enabled;
+        private long amount;
+        private Type type;
+        private String description;
+        */
+
+        Category c = new Category(1, "Boisson", "cad_drink", Type.EXPENSE, 200, true);
+        Transaction t = new Expense(1, curentDateString, c, 150, "First expense");
+
+        String amount = priceText.getText().toString();
+        Log.i(TAG, "Montant saisi: " + amount);
+
+        if (!amount.equals("")) {
+            if (amount.length() < 7) {
+
+                String selectedCategory = String.valueOf(categoriesSpinner.getSelectedItem());
+                Log.i(TAG, "Catégorie choisie: " + selectedCategory);
+
+                // TODO: Passer montant en long centimes et sécuriser
+                long amountCentimes = Integer.valueOf(amount);
+                Log.i(TAG, "Montant saisi transformé en centimes: " + amountCentimes);
+
+                String note = descriptionText.getText().toString();
+                Log.i(TAG, "La description de la dépense: " + note);
+
+                /*
+                // TODO: Quel ID nouvel dépense? add marche pas pour le moment
+                if (adapter.getTransaction() != null) {
+                    ts.update(t);
+                } else {
+                    ts.add(t);
+                }
+                */
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Montant pas saisi!", Toast.LENGTH_LONG).show();
+        }
+
+        finish();
+    }
+
+    public int getDrawableResIdByName(String resName) {
+        String pkgName = getApplicationContext().getPackageName();
+        // Return 0 if not found.
+        return getApplicationContext().getResources().getIdentifier(resName, "drawable", pkgName);
+    }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void getFinished(Transaction transaction) {
+
+    }
+
+    @Override
+    public void operationFinished(boolean isFinished) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
     }
 }

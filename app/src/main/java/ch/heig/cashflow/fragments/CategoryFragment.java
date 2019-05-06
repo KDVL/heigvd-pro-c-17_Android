@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
@@ -74,9 +75,14 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     private void setActive(Category c) {
+        // TODO: update ne marche pas
+        /*
         cs.update(c);
         categoriesList.clear();
         css.getType(Type.EXPENSE);
+        */
+
+        catSelectListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesList));
     }
 
     // TODO : Gerer Callbacks
@@ -88,7 +94,15 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
     @Override
     public void getFinished(List<Category> categories) {
-        categoriesList = categories;
+        //TODO: Pas de retour pour le moment ajout manuel
+        //categoriesList = categories;
+
+        categoriesList = new ArrayList<>();
+        categoriesList.add(new Category(1, "Boisson", "cat_drink", Type.EXPENSE, 200, true));
+        categoriesList.add(new Category(2, "Voiture", "cat_cars", Type.EXPENSE, 200, true));
+        categoriesList.add(new Category(3, "Enfants", "cat_child", Type.EXPENSE, 200, true));
+        categoriesList.add(new Category(4, "Aliments", "cat_aliments", Type.EXPENSE, 200, true));
+
         catSelectListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesList));
         getActivity().setTitle("Liste de catégories");
     }
