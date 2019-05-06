@@ -50,7 +50,7 @@ public class ChartsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TransactionsCallback tc = new TransactionsCallback(getContext());
+        TransactionsCallback tc = new TransactionsCallback(getContext(), ServicesFragment.newInstance());
         tc.getAll();
     }
 

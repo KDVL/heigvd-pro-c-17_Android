@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        addAdapter = new AddExpenseAdapter(); //TODO: delete test
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, ExpenseFragment.newInstance()); //TODO: begin DashboardFragment
         ft.commit();

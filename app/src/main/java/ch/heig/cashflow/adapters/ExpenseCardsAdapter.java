@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.ExpenseDetailsActivity;
@@ -37,24 +36,23 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
         layoutInflater = LayoutInflater.from(context);
 
         currentMonthExpensesGroupeByDay = new ArrayList<>();
-        expensesDailyList = new ArrayList<>();
         groupByDay();
     }
 
     private void groupByDay() {
-        Transaction cur;
         for (int i = 0; i < currentMonthExpenses.size(); ++i) {
-            cur = currentMonthExpenses.get(i);
             for (int j = i + 1; j < currentMonthExpenses.size(); ++j) {
-                if (currentMonthExpenses.get(j).getDate().equals(cur.getDate())) {
-                    cur.setAmount(cur.getAmount() + currentMonthExpenses.get(j).getAmount());
-                } else {
+                if (!(currentMonthExpenses.get(j).getDate().equals(currentMonthExpenses.get(i).getDate()))) {
+                    i = j - 1;
+                    break;
+                }
+                if (j == currentMonthExpenses.size() - 1) {
+                    i = j;
                     break;
                 }
             }
-            currentMonthExpensesGroupeByDay.add(cur);
+            currentMonthExpensesGroupeByDay.add(currentMonthExpenses.get(i));
         }
-
     }
 
     @Override
@@ -87,14 +85,19 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
         }
 
         Transaction expense = currentMonthExpensesGroupeByDay.get(pos);
-        holder.dateView.setText(expense.getDate());
 
-        expensesDailyList.clear();
-        for(Transaction t: currentMonthExpenses){
-            if(t.getDate().equals(expense.getDate())){
+        long total = 0;
+        expensesDailyList = new ArrayList<>();
+        for (Transaction t : currentMonthExpenses) {
+            if (t.getDate().equals(expense.getDate())) {
+                total += t.getAmount();
                 expensesDailyList.add(t);
             }
         }
+
+
+
+        holder.dateView.setText("Date: " + expense.getDate() + " Total: " + total);
 
         holder.dayList.setAdapter(new ExpenseCardItemsAdapter(context, expensesDailyList));
 
