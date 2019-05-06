@@ -1,7 +1,5 @@
 package ch.heig.cashflow.network.services;
 
-import android.content.Context;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,23 +9,21 @@ import ch.heig.cashflow.models.Income;
 import ch.heig.cashflow.models.PostTransaction;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.callbacks.BaseCallback;
-import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
-public class TransactionService implements DownloadCallback<APIManager.Result> {
+public class TransactionService extends APIService {
 
-    private Callback callback;
-    private Gson gson = new Gson();
+    Callback callback;
 
-    public TransactionService(Callback call) {
-        callback = call;
+    public TransactionService(Callback callback) {
+        super(callback);
+        this.callback = callback;
     }
 
     // GetOne : GET /api/transactions/{id}
     public void get(long id) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTIONS + id);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS + id);
     }
 
     // Add : POST /api/transactions
@@ -46,18 +42,14 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
 
     // Delete : DELETE /api/transactions/{id}
     public void delete(Transaction transaction) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.DELETE);
-        manager.execute(Config.TRANSACTIONS + transaction.getID());
+        new APIManager(this, true, APIManager.METHOD.DELETE).execute(Config.TRANSACTIONS + transaction.getID());
     }
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        if (result.responseCode != 200 || result.resultString.equals("null")) {
-            String exception = result.exception == null ? "" : result.exception.toString();
-            callback.connectionFailed(exception);
+        if (!checkResponse(result))
             return;
-        }
 
         switch (result.method) {
             case GET: // GetOne : GET /api/transactions/{id}
@@ -82,18 +74,11 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
         }
     }
 
-    @Override
-    public Context getContext() {
-        return callback.getContext();
-    }
-
     private String getTransactionParams(Transaction transaction) {
         return gson.toJson(new PostTransaction(transaction));
     }
 
-    public interface Callback extends BaseCallback {
-        void connectionFailed(String error);
-
+    public interface Callback extends APICallback {
         void getFinished(Transaction transaction);
 
         void operationFinished(boolean isFinished);

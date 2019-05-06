@@ -1,52 +1,40 @@
 package ch.heig.cashflow.network.services;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
-
 import java.util.Arrays;
 import java.util.List;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.callbacks.BaseCallback;
-import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
-public class CategoriesService implements DownloadCallback<APIManager.Result> {
+public class CategoriesService extends APIService {
 
-    private Callback callback;
-    private Gson gson = new Gson();
+    Callback callback;
 
-    public CategoriesService(Callback call) {
-        callback = call;
+    public CategoriesService(Callback callback) {
+        super(callback);
+        this.callback = callback;
     }
 
     // GetAll : GET /api/categories
     public void getAll() {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.CATEGORIES);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.CATEGORIES);
     }
 
     // PerType : GET /api/categories/type/{type}
     public void getType(Type type) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.CATEGORIES_TYPE + type);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.CATEGORIES_TYPE + type);
     }
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        Gson gson = new Gson();
-        Category[] categories;
-
-        if (result.responseCode != 200 || result.resultString.equals("null")) {
-            String exception = result.exception == null ? "" : result.exception.toString();
-            callback.connectionFailed(exception);
+        if (!checkResponse(result))
             return;
-        }
 
+        Category[] categories;
         categories = gson.fromJson(result.resultString, Category[].class);
 
         if (result.tag.contains(Config.CATEGORIES_TYPE))
@@ -56,14 +44,7 @@ public class CategoriesService implements DownloadCallback<APIManager.Result> {
 
     }
 
-    @Override
-    public Context getContext() {
-        return callback.getContext();
-    }
-
-    public interface Callback extends BaseCallback {
-        void connectionFailed(String error);
-
+    public interface Callback extends APICallback {
         void getFinished(List<Category> categories);
     }
 }

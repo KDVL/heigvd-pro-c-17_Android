@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity  implements AuthValidationSe
                     break;
                 case R.id.navigation_charts:
                     fragment = ServicesFragment.newInstance();
-                    fragment = ChartsFragment.newInstance();
+                    //fragment = ChartsFragment.newInstance();
                     break;
             }
             if (fragment != null) {
