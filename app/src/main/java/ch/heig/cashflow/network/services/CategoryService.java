@@ -1,28 +1,24 @@
 package ch.heig.cashflow.network.services;
 
-import android.content.Context;
-
 import com.google.gson.Gson;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.callbacks.BaseCallback;
-import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
-public class CategoryService implements DownloadCallback<APIManager.Result> {
+public class CategoryService extends APIService {
 
-    private Callback callback;
-    private Gson gson = new Gson();
+    Callback callback;
 
-    public CategoryService(Callback call) {
-        callback = call;
+    public CategoryService(Callback callback) {
+        super(callback);
+        this.callback = callback;
     }
 
     // GetOne : GET /api/categories/{id}
     public void get(long id) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.CATEGORIES + id);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.CATEGORIES + id);
     }
 
     // Add : POST /api/categories
@@ -41,18 +37,14 @@ public class CategoryService implements DownloadCallback<APIManager.Result> {
 
     // Delete : DELETE /api/categories/{id}
     public void delete(Category category) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.DELETE);
-        manager.execute(Config.CATEGORIES + category.getID());
+        new APIManager(this, true, APIManager.METHOD.DELETE).execute(Config.CATEGORIES + category.getID());
     }
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        if (result.responseCode != 200 || result.resultString.equals("null")) {
-            String exception = result.exception == null ? "" : result.exception.toString();
-            callback.connectionFailed(exception);
+        if (!checkResponse(result))
             return;
-        }
 
         switch (result.method) {
             case GET: // GetOne : GET /api/categories/{id}
@@ -74,13 +66,7 @@ public class CategoryService implements DownloadCallback<APIManager.Result> {
         }
     }
 
-    @Override
-    public Context getContext() {
-        return callback.getContext();
-    }
-
-    public interface Callback extends BaseCallback {
-        void connectionFailed(String error);
+    public interface Callback extends APIService.APICallback {
 
         void getFinished(Category category);
 

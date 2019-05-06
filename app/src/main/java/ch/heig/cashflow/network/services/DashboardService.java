@@ -1,65 +1,46 @@
 package ch.heig.cashflow.network.services;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
-
 import java.util.Arrays;
 import java.util.List;
 
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.callbacks.BaseCallback;
-import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
-public class DashboardService implements DownloadCallback<APIManager.Result> {
+public class DashboardService extends APIService {
 
-    private Callback callback;
-    private Gson gson = new Gson();
+    Callback callback;
 
-    public DashboardService(Callback call) {
-        callback = call;
+    public DashboardService(Callback callback) {
+        super(callback);
+        this.callback = callback;
     }
 
     // GetAll : GET /api/dashboard
     public void getAll() {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.DASHBOARD);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.DASHBOARD);
     }
 
     // PerType : GET /api/dashboard/date/YYYY/MM
     public void getAll(String year, String month) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.DASHBOARD_DATE + year + "/" + month);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.DASHBOARD_DATE + year + "/" + month);
     }
 
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        Gson gson = new Gson();
-        Dashboard[] dashboards;
-
-        if (result.responseCode != 200 || result.resultString.equals("null")) {
-            String exception = result.exception == null ? "" : result.exception.toString();
-            callback.connectionFailed(exception);
+        if (!checkResponse(result))
             return;
-        }
 
+        Dashboard[] dashboards;
         dashboards = gson.fromJson(result.resultString, Dashboard[].class);
 
         if (result.tag.contains(Config.DASHBOARD))
             callback.getFinished(Arrays.asList(dashboards));
     }
 
-    @Override
-    public Context getContext() {
-        return callback.getContext();
-    }
-
-    public interface Callback extends BaseCallback {
-        void connectionFailed(String error);
-
+    public interface Callback extends APICallback {
         void getFinished(List<Dashboard> dashboards);
     }
 }

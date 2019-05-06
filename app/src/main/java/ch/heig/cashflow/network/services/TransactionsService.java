@@ -13,10 +13,10 @@ import ch.heig.cashflow.models.Income;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.callbacks.DownloadCallback;
+import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
-public class TransactionsService extends APIServices implements DownloadCallback<APIManager.Result> {
+public class TransactionsService extends APIService {
 
     Callback callback;
 
@@ -27,26 +27,22 @@ public class TransactionsService extends APIServices implements DownloadCallback
 
     // GetAll : GET /api/transactions
     public void getAll() {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTIONS);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS);
     }
 
     // ByMonth : GET /api/transactions/date/YYYY/MM
     public void getAll(int year, int month) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTIONS_DATE + year + "/" + month);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_DATE + year + "/" + month);
     }
 
     // PerType : GET /api/transactions/type/{type}
     public void getType(Type type) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTIONS_TYPE + type);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_TYPE + type);
     }
 
     // PerTypeByMonth : GET /api/transactions/type/{type}/date/YYYY/MM
     public void getType(Type type, int year, int month) {
-        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
-        manager.execute(Config.TRANSACTIONS_TYPE + type + "/date/" + year + "/" + month);
+        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_TYPE + type + "/date/" + year + "/" + month);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ch.heig.cashflow.network.services;
+package ch.heig.cashflow.network;
 
 import android.content.Context;
 
@@ -8,12 +8,12 @@ import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.callbacks.BaseCallback;
 import ch.heig.cashflow.network.callbacks.DownloadCallback;
 
-public abstract class APIServices implements DownloadCallback<APIManager.Result> {
+public abstract class APIService implements DownloadCallback<APIManager.Result> {
 
     protected APICallback callback;
     protected Gson gson = new Gson();
 
-    public APIServices(APICallback call) {
+    public APIService(APICallback call) {
         callback = call;
     }
 
