@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import ch.heig.cashflow.fragments.ServicesFragment;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
@@ -11,11 +12,12 @@ import ch.heig.cashflow.network.services.TransactionsService;
 public class TransactionsCallback implements TransactionsService.Callback {
 
     Context context;
-
+    ServicesFragment fragment;
     TransactionsService ts;
 
-    public TransactionsCallback(Context context) {
+    public TransactionsCallback(Context context, ServicesFragment fragment) {
         this.context = context;
+        this.fragment = fragment;
         this.ts = new TransactionsService(this);
     }
 
@@ -37,12 +39,19 @@ public class TransactionsCallback implements TransactionsService.Callback {
 
     @Override
     public void connectionFailed(String error) {
-        System.out.println(error);
+        //fragment.callDone = true;
+        //fragment.setTransactionsServiceState(false);
+        System.err.println("DOWN  - TransactionsService " + error);
     }
 
     @Override
     public void getFinished(List<Transaction> transactions) {
-        System.out.println(transactions);
+        //fragment.callDone = true;
+        if (transactions.size() < 1)
+            //fragment.setTransactionsServiceState(true);
+            System.err.println("EMPTY LIST - TransactionsService");
+        else
+            System.out.println("OK    TransactionsService found " + transactions);
     }
 
     @Override

@@ -21,8 +21,13 @@ android {
         test { java.srcDirs = ['src/test/java'] }
         androidTest { java.srcDirs = ['src/androidTest/java'] }
     }
+
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 repositories {
