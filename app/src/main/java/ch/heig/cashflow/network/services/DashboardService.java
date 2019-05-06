@@ -40,7 +40,7 @@ public class DashboardService implements DownloadCallback<APIManager.Result> {
         Gson gson = new Gson();
         Dashboard[] dashboards;
 
-        if (result.responseCode != 200) {
+        if (result.responseCode != 200 || result.resultString.equals("null")) {
             String exception = result.exception == null ? "" : result.exception.toString();
             callback.connectionFailed(exception);
             return;

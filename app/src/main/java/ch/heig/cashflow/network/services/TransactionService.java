@@ -53,7 +53,7 @@ public class TransactionService implements DownloadCallback<APIManager.Result> {
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        if (result.responseCode != 200) {
+        if (result.responseCode != 200 || result.resultString.equals("null")) {
             String exception = result.exception == null ? "" : result.exception.toString();
             callback.connectionFailed(exception);
             return;

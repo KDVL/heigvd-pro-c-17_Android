@@ -41,7 +41,7 @@ public class CategoriesService implements DownloadCallback<APIManager.Result> {
         Gson gson = new Gson();
         Category[] categories;
 
-        if (result.responseCode != 200) {
+        if (result.responseCode != 200 || result.resultString.equals("null")) {
             String exception = result.exception == null ? "" : result.exception.toString();
             callback.connectionFailed(exception);
             return;
