@@ -1,8 +1,5 @@
 package ch.heig.cashflow.network.services;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,17 +13,16 @@ import ch.heig.cashflow.models.Income;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.callbacks.BaseCallback;
 import ch.heig.cashflow.network.callbacks.DownloadCallback;
 import ch.heig.cashflow.network.utils.Config;
 
-public class TransactionsService implements DownloadCallback<APIManager.Result> {
+public class TransactionsService extends APIServices implements DownloadCallback<APIManager.Result> {
 
-    private Callback callback;
-    private Gson gson = new Gson();
+    Callback callback;
 
-    public TransactionsService(Callback call) {
-        callback = call;
+    public TransactionsService(Callback callback) {
+        super(callback);
+        this.callback = callback;
     }
 
     // GetAll : GET /api/transactions
@@ -56,11 +52,8 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        if (result.responseCode != 200 || result.resultString.equals("null")) {
-            String exception = result.exception == null ? "" : result.exception.toString();
-            callback.connectionFailed(exception);
+        if (!checkResponse(result))
             return;
-        }
 
         if (result.tag.contains(Config.TRANSACTIONS_TYPE)) {
 
@@ -91,14 +84,7 @@ public class TransactionsService implements DownloadCallback<APIManager.Result> 
 
     }
 
-    @Override
-    public Context getContext() {
-        return callback.getContext();
-    }
-
-    public interface Callback extends BaseCallback {
-        void connectionFailed(String error);
-
+    public interface Callback extends APICallback {
         void getFinished(List<Transaction> transactions);
     }
 }
