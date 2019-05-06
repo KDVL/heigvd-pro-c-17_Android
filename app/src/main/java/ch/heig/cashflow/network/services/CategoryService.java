@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
 public class CategoryService extends APIService {

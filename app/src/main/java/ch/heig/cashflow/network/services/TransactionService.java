@@ -9,7 +9,6 @@ import ch.heig.cashflow.models.Income;
 import ch.heig.cashflow.models.PostTransaction;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
 public class TransactionService extends APIService {

@@ -55,6 +55,8 @@ public class LoginService implements DownloadCallback<APIManager.Result> {
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
+        if(callback == null) return;
+
         Gson gson = new Gson();
 
         HashMap<String,String> res = new HashMap<>();

@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.network.APIManager;
-import ch.heig.cashflow.network.APIService;
 import ch.heig.cashflow.network.utils.Config;
 
 public class DashboardService extends APIService {

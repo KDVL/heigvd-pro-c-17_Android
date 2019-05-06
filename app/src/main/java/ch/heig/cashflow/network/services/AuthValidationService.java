@@ -37,7 +37,8 @@ public class AuthValidationService implements DownloadCallback<APIManager.Result
      */
     @Override
     public void updateFromDownload(APIManager.Result result) {
-        callback.authVerification(result.responseCode == 200);
+        if(callback != null)
+            callback.authVerification(result.responseCode == 200);
     }
 
     /**
