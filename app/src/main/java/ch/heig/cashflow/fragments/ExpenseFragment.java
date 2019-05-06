@@ -48,6 +48,15 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
         super.onCreate(savedInstanceState);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //TODO : Call API Service
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
