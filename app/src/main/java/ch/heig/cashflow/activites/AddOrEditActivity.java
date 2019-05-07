@@ -119,7 +119,6 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
      * @param view the view
      */
     public void save(View view) {
-        addButton.setEnabled(false);
 
         String amountText = priceText.getText().toString();
 
@@ -140,7 +139,16 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         }
 
         String note = descriptionText.getText().toString();
+
+        if(note == null || note == ""){
+            Toast.makeText(getApplicationContext(), "Description non conforme", Toast.LENGTH_LONG).show();
+            return;
+
+        }
+
         Category c = categories.get(categoriesSpinner.getSelectedItemPosition());
+
+        addButton.setEnabled(false);
 
         //set informations
         adapter.getTransaction().setAmount(amount);
@@ -206,7 +214,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     @Override
     public void connectionFailed(String error) {
         addButton.setEnabled(true);
-        Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération, Vérifiez vos saisies", Toast.LENGTH_LONG).show();
     }
 
 
