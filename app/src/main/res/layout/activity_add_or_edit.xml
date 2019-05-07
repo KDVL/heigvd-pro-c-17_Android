@@ -22,9 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:entries="@array/cat_spiner_items"
-            android:prompt="@string/cat_spiner_prompt"/>
+            android:layout_marginBottom="8dp"/>
         
         <!-- DatePicker -->
         <Button

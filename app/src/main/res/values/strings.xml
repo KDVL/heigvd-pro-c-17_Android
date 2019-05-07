@@ -45,7 +45,7 @@
     <!-- AddOrEditActivity -->
 
     <!-- Catégories spiner -->
-    <string name="cat_spiner_prompt">Choix de catégorie</string>
+    <string name="cat_spinner_prompt">Choix de catégorie</string>
 
     <string-array name="cat_spiner_items">
         <!-- {"cad_drink", "cat_cars", "cat_child", "cat_aliments", "cat_devices", "cat_family", "cat_holiday",

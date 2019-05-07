@@ -19,6 +19,9 @@ public abstract class AddAdapter extends AddOrEditAdapter implements Serializabl
     public abstract Transaction getTransaction();
 
     public void selectCategorie(List<Category> categories, Spinner s){
-        //nothing to do, select first categorie by default
+        //select first categorie by default
+        if(categories.size() > 0){
+            s.setSelection(0);
+        }
     }
 }

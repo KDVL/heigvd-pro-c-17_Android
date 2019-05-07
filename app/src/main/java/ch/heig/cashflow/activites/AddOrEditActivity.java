@@ -175,6 +175,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoriesSpinner.setAdapter(adapter);
 
+        //adapter know who will be selected
         this.adapter.selectCategorie(categories, categoriesSpinner);
     }
 
