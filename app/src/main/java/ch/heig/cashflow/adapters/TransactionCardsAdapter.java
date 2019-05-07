@@ -17,22 +17,23 @@ import java.util.List;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.TransactionDetailsActivity;
 import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
 
 public class TransactionCardsAdapter extends BaseAdapter implements TransactionsService.Callback {
-    private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
-            ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
     private List<Transaction> currentMonthTransactions;
     private List<Transaction> currentMonthTransactionsGroupeByDay;
     private List<Transaction> transactionDailyList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private Type type;
 
-    public TransactionCardsAdapter(Context context, List<Transaction> currentMonthExpenses) {
+    public TransactionCardsAdapter(Context context, List<Transaction> currentMonthExpenses, Type type) {
         this.context = context;
         this.currentMonthTransactions = currentMonthExpenses;
         layoutInflater = LayoutInflater.from(context);
+        this.type = type;
 
         currentMonthTransactionsGroupeByDay = new ArrayList<>();
         groupByDay();
@@ -127,10 +128,10 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     }
 
 
-    private void showTransactionDetail(Transaction e) {
+    private void showTransactionDetail(Transaction t) {
         Intent transactionDetails = new Intent(context, TransactionDetailsActivity.class);
 
-        AddOrEditAdapter adapter = new EditExpenseAdapter(e);
+        AddOrEditAdapter adapter = type == Type.EXPENSE ? new EditExpenseAdapter(t) : new EditIncomeAdapter(t);
 
         transactionDetails.putExtra(context.getString(R.string.transaction_adapter_key), adapter);
         context.startActivity(transactionDetails);

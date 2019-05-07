@@ -21,22 +21,10 @@ import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
 
 
-public class DashboardFragment extends Fragment implements TransactionsService.Callback {
+public class DashboardFragment extends Fragment {
     private static final String TAG = "DashboardFragment";
 
     // TODO: Observable classe date update changement
-
-    private View view;
-
-    private TextView expenseView;
-    private ListView expensesListView;
-
-    private TransactionsService ts = null;
-
-    private List<Transaction> currentMonthExpenses = null;
-    private String error = "";
-
-    private long totalExpenses;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -56,16 +44,7 @@ public class DashboardFragment extends Fragment implements TransactionsService.C
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
-        ts = new TransactionsService(this);
-        ts.getType(Type.EXPENSE);
-
-        expenseView = view.findViewById(R.id.totalExpenses);
-
-        expensesListView = view.findViewById(R.id.expenseCardView);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
 
@@ -74,36 +53,6 @@ public class DashboardFragment extends Fragment implements TransactionsService.C
         super.onResume();
 
         //TODO : Call API Service
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.dashboard_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void connectionFailed(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
-    }
-
-    @Override
-    public void getFinished(List<Transaction> transactions) {
-        currentMonthExpenses = transactions;
-
-        for (Transaction t : currentMonthExpenses)
-            totalExpenses += t.getAmountFloat();
-
-        expenseView.setText(String.valueOf(totalExpenses));
-
-        if (currentMonthExpenses.isEmpty()) {
-            view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
-        }
-
-        expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), currentMonthExpenses));
-
     }
 }
 

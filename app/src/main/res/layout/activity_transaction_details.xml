@@ -19,7 +19,7 @@
 
 
         <ImageView
-            android:id="@+id/expenseToEditIcon"
+            android:id="@+id/edit_icon"
             android:layout_width="@dimen/categorie_icon_medium"
             android:layout_height="@dimen/categorie_icon_medium"
             android:layout_gravity="center"
@@ -42,7 +42,7 @@
                 android:textSize="@dimen/text_size_big" />
 
             <TextView
-                android:id="@+id/expenseToEditDate"
+                android:id="@+id/edit_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -69,7 +69,7 @@
                 android:textSize="@dimen/text_size_big" />
 
             <TextView
-                android:id="@+id/expenseToEditAmount"
+                android:id="@+id/edit_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -97,7 +97,7 @@
                 android:textSize="@dimen/text_size_big" />
 
             <TextView
-                android:id="@+id/expenseToEditDesc"
+                android:id="@+id/edit_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

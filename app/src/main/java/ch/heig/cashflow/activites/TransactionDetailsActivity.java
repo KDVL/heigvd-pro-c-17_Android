@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
 
     private TransactionService ts;
 
-    private AddOrEditAdapter editExpenseAdapter = null;
+    private AddOrEditAdapter adapter = null;
 
     private ImageView expenseIcon = null;
     private TextView expenseDate = null;
@@ -33,32 +32,32 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expense_details);
+        setContentView(R.layout.activity_transaction_details);
 
         Intent i = getIntent();
         if (i != null) {
             if (i.hasExtra(getResources().getString(R.string.transaction_adapter_key))) {
-                editExpenseAdapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
+                adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
             }
         }
 
         ts = new TransactionService(this);
 
-        setTitle(editExpenseAdapter.getViewTitle(getApplicationContext()));
+        setTitle(adapter.getViewTitle(getApplicationContext()));
 
 
-        expenseIcon = findViewById(R.id.expenseToEditIcon);
-        expenseDate = findViewById(R.id.expenseToEditDate);
-        expenseAmount = findViewById(R.id.expenseToEditAmount);
-        expenseDesc = findViewById(R.id.expenseToEditDesc);
+        expenseIcon = findViewById(R.id.edit_icon);
+        expenseDate = findViewById(R.id.edit_date);
+        expenseAmount = findViewById(R.id.edit_amount);
+        expenseDesc = findViewById(R.id.edit_description);
 
-        int iconImageId = this.getDrawableResIdByName(editExpenseAdapter.getTransaction().getCategory().getIconName());
+        int iconImageId = this.getDrawableResIdByName(adapter.getTransaction().getCategory().getIconName());
         expenseIcon.setImageResource(iconImageId);
         expenseIcon.getDrawable().setTint(Color.parseColor("#FFFFFF"));
 
-        expenseDate.setText(editExpenseAdapter.getTransaction().getDate());
-        expenseAmount.setText(String.valueOf(editExpenseAdapter.getTransaction().getAmountFloat()));
-        expenseDesc.setText(editExpenseAdapter.getTransaction().getDescription());
+        expenseDate.setText(adapter.getTransaction().getDate());
+        expenseAmount.setText(String.valueOf(adapter.getTransaction().getAmountFloat()));
+        expenseDesc.setText(adapter.getTransaction().getDescription());
     }
 
     public int getDrawableResIdByName(String resName) {
@@ -92,7 +91,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
 
     private void edit() {
         Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
-        categorieChoice.putExtra(getResources().getString(R.string.transaction_adapter_key), editExpenseAdapter);
+        categorieChoice.putExtra(getResources().getString(R.string.transaction_adapter_key), adapter);
         startActivity(categorieChoice);
     }
 
@@ -103,7 +102,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
                 .setMessage("Voulez-vous vraiment supprimer la transaction?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        ts.delete(editExpenseAdapter.getTransaction());
+                        ts.delete(adapter.getTransaction());
                         finish();
                     }
                 })

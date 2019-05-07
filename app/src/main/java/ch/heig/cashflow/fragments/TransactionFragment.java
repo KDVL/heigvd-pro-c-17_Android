@@ -52,7 +52,6 @@ public class TransactionFragment extends Fragment implements TransactionsService
         new TransactionsService(this).getType(type);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 
-        expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), transactions));
+        expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), transactions, type));
     }
 
 

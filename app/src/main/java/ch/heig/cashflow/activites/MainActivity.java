@@ -28,6 +28,7 @@ import ch.heig.cashflow.adapters.AddIncomeAdapter;
 import ch.heig.cashflow.adapters.EditAdapter;
 import ch.heig.cashflow.adapters.EditExpenseAdapter;
 import ch.heig.cashflow.fragments.CategoryFragment;
+import ch.heig.cashflow.fragments.DashboardFragment;
 import ch.heig.cashflow.fragments.TransactionFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.fragments.ServicesFragment;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
             switch (item.getItemId()) {
                 case R.id.navigation_dashboard:
                     setTitle(R.string.title_dashboard);
-                    //fragment = DashboardFragment.newInstance(); // TODO: KDVL work
+                    fragment = DashboardFragment.newInstance();
                     break;
                 case R.id.navigation_expense:
                     setTitle(R.string.title_expenses);
