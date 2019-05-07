@@ -26,8 +26,10 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
     private CategoriesService css = null;
     private CategoryService cs = null;
-    private List<Category> categoriesList;
-    private ListView catSelectListView;
+    private List<Category> categoriesEnabledList;
+    private List<Category> categoriesDisabledList;
+    private ListView catEnabledListView;
+    private ListView catDisabledListView;
 
     // TODO: Observable classe date update changement
 
@@ -55,17 +57,34 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         css = new CategoriesService(this);
         cs = new CategoryService(this);
 
-        catSelectListView = view.findViewById(R.id.catSelectListView);
+        catEnabledListView = view.findViewById(R.id.catEnabledListView);
+        catDisabledListView = view.findViewById(R.id.catDisabledListView);
 
         css.getType(Type.EXPENSE);
 
-        catSelectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        catEnabledListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = catSelectListView.getItemAtPosition(position);
+                Object o = catEnabledListView.getItemAtPosition(position);
                 Category c = (Category) o;
                 c.setEnabled(!c.isEnabled());
+
+                categoriesDisabledList.add(categoriesEnabledList.remove(position));
+
+                setActive(c);
+            }
+        });
+
+        catDisabledListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Object o = catDisabledListView.getItemAtPosition(position);
+                Category c = (Category) o;
+                c.setEnabled(!c.isEnabled());
+
+                categoriesEnabledList.add(categoriesDisabledList.remove(position));
 
                 setActive(c);
             }
@@ -78,11 +97,12 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         // TODO: update ne marche pas
         /*
         cs.update(c);
-        categoriesList.clear();
+        categoriesEnabledList.clear();
         css.getType(Type.EXPENSE);
         */
 
-        catSelectListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesList));
+        catEnabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesEnabledList));
+        catDisabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesDisabledList));
     }
 
     // TODO : Gerer Callbacks
@@ -95,15 +115,18 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     @Override
     public void getFinished(List<Category> categories) {
         //TODO: Pas de retour pour le moment ajout manuel
-        //categoriesList = categories;
+        //categoriesEnabledList = categories;
 
-        categoriesList = new ArrayList<>();
-        categoriesList.add(new Category(1, "Boisson", "cat_drink", Type.EXPENSE, 200, true));
-        categoriesList.add(new Category(2, "Voiture", "cat_cars", Type.EXPENSE, 200, true));
-        categoriesList.add(new Category(3, "Enfants", "cat_child", Type.EXPENSE, 200, true));
-        categoriesList.add(new Category(4, "Aliments", "cat_aliments", Type.EXPENSE, 200, true));
+        categoriesEnabledList = new ArrayList<>();
+        categoriesEnabledList.add(new Category(1, "Boisson", "cat_drink", Type.EXPENSE, 200, true));
+        categoriesEnabledList.add(new Category(2, "Voiture", "cat_cars", Type.EXPENSE, 200, true));
 
-        catSelectListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesList));
+        categoriesDisabledList = new ArrayList<>();
+        categoriesDisabledList.add(new Category(3, "Enfants", "cat_child", Type.EXPENSE, 200, false));
+        categoriesDisabledList.add(new Category(4, "Aliments", "cat_aliments", Type.EXPENSE, 200, false));
+
+        catEnabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesEnabledList));
+        catDisabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesDisabledList));
         getActivity().setTitle("Liste de catégories");
     }
 

@@ -101,24 +101,6 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     public void saveExpense(View view) {
-        /*
-        private final long id;
-        private String date;
-        private Category category;
-                private final long id;
-                private String name;
-                private String iconName;
-                private Type type;
-                private long quota;
-                private boolean enabled;
-        private long amount;
-        private Type type;
-        private String description;
-        */
-
-        Category c = new Category(1, "Boisson", "cad_drink", Type.EXPENSE, 200, true);
-        Transaction t = new Expense(1, curentDateString, c, 150, "First expense");
-
         String amount = priceText.getText().toString();
         Log.i(TAG, "Montant saisi: " + amount);
 
@@ -129,20 +111,22 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
                 Log.i(TAG, "Catégorie choisie: " + selectedCategory);
 
                 // TODO: Passer montant en long centimes et sécuriser
-                long amountCentimes = Integer.valueOf(amount);
+                long amountCentimes = Integer.valueOf(amount) * 100;
                 Log.i(TAG, "Montant saisi transformé en centimes: " + amountCentimes);
 
                 String note = descriptionText.getText().toString();
                 Log.i(TAG, "La description de la dépense: " + note);
 
-                /*
-                // TODO: Quel ID nouvel dépense? add marche pas pour le moment
+                //TODO: Comment obtenir la catégorie
+                Category c = new Category(1, "Boisson", "cad_drink", Type.EXPENSE, 200, true);
+                Transaction t = new Expense(1, curentDateString, c, amountCentimes, note);
+
+                // TODO: Quel ID nouvel dépense?
                 if (adapter.getTransaction() != null) {
-                    ts.update(t);
+                    ts.update(new Expense(adapter.getTransaction().getID(), curentDateString, c, amountCentimes, note));
                 } else {
                     ts.add(t);
                 }
-                */
 
             } else {
                 Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
@@ -151,7 +135,14 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
             Toast.makeText(getApplicationContext(), "Montant pas saisi!", Toast.LENGTH_LONG).show();
         }
 
-        finish();
+        //finish();
+        back();
+    }
+
+    private void back() {
+        Intent main = new Intent(this, MainActivity.class);
+        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(main);
     }
 
     public int getDrawableResIdByName(String resName) {

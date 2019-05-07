@@ -42,23 +42,24 @@ public class CategorySelectAdapter extends ArrayAdapter<Category> {
 
         int iconImageId = this.getDrawableResIdByName(category.getIconName());
         iconImage.setImageResource(iconImageId);
-        iconImage.getDrawable().setTint(Color.parseColor("#222222"));
 
         title.setText(category.getName());
 
-        int etatImageID = 0;
-        int color = 0;
+        int enabledImageID, colorEnabled, colorIcon;
 
         if (category.isEnabled()) {
-            etatImageID = this.getDrawableResIdByName("cat_button_remove");
-            color = Color.RED;
+            enabledImageID = this.getDrawableResIdByName("cat_button_remove");
+            colorEnabled = Color.RED;
+            colorIcon = Color.GREEN;
         } else {
-            etatImageID = this.getDrawableResIdByName("cat_button_add");
-            color = Color.GREEN;
+            enabledImageID = this.getDrawableResIdByName("cat_button_add");
+            colorEnabled = Color.GREEN;
+            colorIcon = Color.RED;
         }
 
-        etatImage.setImageResource(etatImageID);
-        etatImage.getDrawable().setTint(color);
+        etatImage.setImageResource(enabledImageID);
+        etatImage.getDrawable().setTint(colorEnabled);
+        iconImage.getDrawable().setTint(colorIcon);
 
         return v;
     }
