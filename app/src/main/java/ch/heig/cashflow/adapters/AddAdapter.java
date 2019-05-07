@@ -32,6 +32,9 @@ public abstract class AddAdapter extends AddOrEditAdapter implements Serializabl
         }
     }
 
+    /**
+     * do add
+     */
     @Override
     public void performAction() {
         if(transactionCallback == null)return;

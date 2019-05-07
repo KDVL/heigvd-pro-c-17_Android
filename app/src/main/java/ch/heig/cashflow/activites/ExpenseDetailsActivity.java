@@ -23,8 +23,6 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
 
     private TransactionService ts;
 
-    private static final String[] TITLE = {"Dépense détails", "Revenu détails"};
-
     private AddOrEditAdapter editExpenseAdapter = null;
 
     private ImageView expenseIcon = null;
@@ -59,7 +57,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
         expenseIcon.getDrawable().setTint(Color.parseColor("#FFFFFF"));
 
         expenseDate.setText(editExpenseAdapter.getTransaction().getDate());
-        expenseAmount.setText(String.valueOf(editExpenseAdapter.getTransaction().getAmountLong()));
+        expenseAmount.setText(String.valueOf(editExpenseAdapter.getTransaction().getAmountFloat()));
         expenseDesc.setText(editExpenseAdapter.getTransaction().getDescription());
     }
 
@@ -79,11 +77,11 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
     public boolean onOptionsItemSelected(MenuItem _item) {
         switch (_item.getItemId()) {
             case R.id.expense_edit:
-                modifierDepense();
+                edit();
                 return true;
 
             case R.id.expense_delete:
-                supprimerDepense();
+                delete();
                 return true;
 
             default:
@@ -92,36 +90,38 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
         }
     }
 
-    private void modifierDepense() {
+    private void edit() {
         Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
         categorieChoice.putExtra(getResources().getString(R.string.transaction_adapter_key), editExpenseAdapter);
         startActivity(categorieChoice);
     }
 
-    private void supprimerDepense() {
-        final EditText password = new EditText(this);
+    private void delete() {
 
-        // Set the default text to a link of the Queen
-        password.setHint("ok");
-
-        new AlertDialog.Builder(this)
+        final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Suppression")
-                .setMessage("Ecrivez ok pour supprimer")
-                .setView(password)
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                .setMessage("Voulez-vous vraiment supprimer la transaction?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String saisi = password.getText().toString();
-                        if (saisi.equals("ok")) {
-                            ts.delete(editExpenseAdapter.getTransaction());
-                            finish();
-                        }
+                        ts.delete(editExpenseAdapter.getTransaction());
+                        finish();
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
+
                     }
-                })
-                .show();
+                }).create();
+
+        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+        });
+
+        dialog.show();
     }
 
     private void retour() {

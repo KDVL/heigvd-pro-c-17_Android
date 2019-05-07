@@ -86,11 +86,11 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
 
         Transaction expense = currentMonthExpensesGroupeByDay.get(pos);
 
-        long total = 0;
+        float total = 0;
         expensesDailyList = new ArrayList<>();
         for (Transaction t : currentMonthExpenses) {
             if (t.getDate().equals(expense.getDate())) {
-                total += t.getAmountLong();
+                total += t.getAmountFloat();
                 expensesDailyList.add(t);
             }
         }

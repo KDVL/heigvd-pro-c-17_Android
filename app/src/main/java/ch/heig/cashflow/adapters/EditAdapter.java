@@ -26,22 +26,29 @@ public abstract class EditAdapter extends AddOrEditAdapter implements Serializab
         super(t);
     }
 
-    //TODO : Test with correct categories
+    /**
+     * select the right
+     * @param categories list of categories
+     * @param s the spinner
+     */
     public void selectCategorie(List<Category> categories, Spinner s){
         Category category = transaction.getCategory();
+
         for(int i = 0; i < categories.size(); i++){
             Category c = categories.get(i);
-            if(category.equals(c)){
+            if(category.getID() == c.getID()){
                 s.setSelection(i);
                 return;
             }
         }
     }
 
+    /**
+     * do update
+     */
     @Override
     public void performAction() {
         if(transactionCallback == null) return;
-
         (new TransactionService(transactionCallback)).update(transaction);
     }
 }

@@ -101,6 +101,13 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         selectDate.setText(adapter.getTransaction().getDate());
     }
 
+    /**
+     * set date
+     * @param datePicker the picker
+     * @param year the year
+     * @param month the month
+     * @param dayOfMonth the day
+     */
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -112,33 +119,39 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         adapter.getTransaction().setDate(Date.sdf.format(c.getTime()));
     }
 
+    /**
+     * send data
+     * @param View view
+     */
     public void save(View view) {
-        String amount = priceText.getText().toString();
-        Log.i(TAG, "Montant saisi: " + amount);
+        String amountText = priceText.getText().toString();
+        Log.i(TAG, "Montant saisi: " + amountText);
 
-        if (amount.equals("")) {
+        if (amountText.equals("")) {
             Toast.makeText(getApplicationContext(), "Montant pas saisi!", Toast.LENGTH_LONG).show();
             return;
         }
-        if (amount.length() > 7) {
+        if (amountText.length() > 7) {
             Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
             return;
         }
 
-        // TODO: Passer montant en long centimes et sécuriser
-        long amountCentimes = Integer.valueOf(amount) * 100;
+        float amount = Float.valueOf(amountText);
 
-        if(amountCentimes <= 0){
+        if(amount <= 0){
             Toast.makeText(getApplicationContext(), "Montant non conforme", Toast.LENGTH_LONG).show();
+            return;
         }
 
         String note = descriptionText.getText().toString();
         Category c = categories.get(categoriesSpinner.getSelectedItemPosition());
 
-        adapter.getTransaction().setAmount(amountCentimes);
+        //set informations
+        adapter.getTransaction().setAmount(amount);
         adapter.getTransaction().setCategory(c);
         adapter.getTransaction().setDescription(note);
 
+        // do edit or add
         adapter.performAction();
     }
 
@@ -154,8 +167,19 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         return getApplicationContext().getResources().getIdentifier(resName, "drawable", pkgName);
     }
 
+
+    /**
+     *  get categories from service
+     * @param categories the list
+     */
     @Override
     public void getFinished(List<Category> categories) {
+
+        //remove disable categories
+        for(Category category : categories){
+            if(!category.isEnabled())
+                categories.remove(category);
+        }
 
         this.categories = categories;
 
@@ -174,20 +198,33 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         this.adapter.selectCategorie(categories, categoriesSpinner);
     }
 
+    /**
+     * service finished
+     * @param isFinished true if insert or add works
+     */
     @Override
     public void operationFinished(boolean isFinished) {
         if(isFinished){
             back();
         }else{
-            Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération", Toast.LENGTH_LONG).show();
+            connectionFailed("");
         }
     }
 
+    /**
+     * service finished with error
+     * @param error the error
+     */
     @Override
     public void connectionFailed(String error) {
-
+        Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération", Toast.LENGTH_LONG).show();
     }
 
+
+
+    /**
+     * use by
+     */
     @Override
     public Context getContext() {
         return getApplicationContext();

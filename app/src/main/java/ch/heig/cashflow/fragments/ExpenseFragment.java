@@ -82,7 +82,7 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
     public void getFinished(List<Transaction> transactions) {
 
         for (Transaction t : transactions)
-            totalExpenses += t.getAmountLong();
+            totalExpenses += t.getAmountFloat();
 
         expenseView.setText(String.valueOf(totalExpenses));
 
