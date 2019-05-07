@@ -5,6 +5,7 @@ import android.content.Context;
 import java.io.Serializable;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Transaction;
 
 @SuppressWarnings("serial")
@@ -18,4 +19,6 @@ public abstract class AddOrEditAdapter implements Serializable {
     public abstract Transaction getTransaction();
 
     public abstract String getViewTitle(Context context);
+
+    //public abstract void performAction(Transaction t);
 }
