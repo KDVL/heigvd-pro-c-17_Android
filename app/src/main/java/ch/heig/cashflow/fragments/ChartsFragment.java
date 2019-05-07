@@ -80,7 +80,6 @@ public class ChartsFragment extends Fragment {
         ChartsAdapter adapter = new ChartsAdapter(cats);
         pieList.setAdapter(adapter);
 
-        getActivity().setTitle(R.string.title_charts);
         setHasOptionsMenu(true);
 
         return view;

@@ -104,7 +104,6 @@ public class DashboardFragment extends Fragment implements TransactionsService.C
 
         expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpenses));
 
-        getActivity().setTitle(R.string.title_expenses);
     }
 }
 

@@ -27,6 +27,7 @@
 
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
+    <string name="total">Total</string>
 
     <!-- menu_expense_edit -->
     <string name="item_edit">Edit</string>

@@ -65,8 +65,10 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
 
         int imageId = this.getDrawableResIdByName(expense.getCategory().getIconName());
 
-        holder.categorieImageView.setImageResource(imageId);
-        holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
+        if(imageId != 0){
+            holder.categorieImageView.setImageResource(imageId);
+            holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
+        }
 
         return convertView;
     }

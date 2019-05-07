@@ -26,10 +26,10 @@ import ch.heig.cashflow.adapters.AddAdapter;
 import ch.heig.cashflow.adapters.AddExpenseAdapter;
 import ch.heig.cashflow.adapters.AddIncomeAdapter;
 import ch.heig.cashflow.fragments.CategoryFragment;
-import ch.heig.cashflow.fragments.ChartsFragment;
-import ch.heig.cashflow.fragments.ExpenseFragment;
+import ch.heig.cashflow.fragments.TransactionFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.fragments.ServicesFragment;
+import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
 
@@ -46,22 +46,28 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_dashboard:
-                    addAdapter = new AddExpenseAdapter();   // TODO: Besoin d'adapteurs pour dashboard
+                    setTitle(R.string.title_dashboard);
                     //fragment = DashboardFragment.newInstance(); // TODO: KDVL work
                     break;
                 case R.id.navigation_expense:
+                    setTitle(R.string.title_expenses);
                     addAdapter = new AddExpenseAdapter();
-                    fragment = ExpenseFragment.newInstance();
+                    fragment = TransactionFragment.newInstance();
+                    ((TransactionFragment) fragment).setType(Type.EXPENSE);
                     break;
                 case R.id.navigation_earning:
+                    setTitle(R.string.title_earning);
                     addAdapter = new AddIncomeAdapter();
-                    fragment = ExpenseFragment.newInstance();
+                    fragment = TransactionFragment.newInstance();
+                    ((TransactionFragment) fragment).setType(Type.INCOME);
                     break;
                 case R.id.navigation_charts:
+                    setTitle(R.string.title_charts);
                     fragment = ServicesFragment.newInstance();
                     //fragment = ChartsFragment.newInstance();
                     break;
                 case R.id.navigation_categories:
+                    setTitle(R.string.title_categories);
                     fragment = CategoryFragment.newInstance();
                     break;
             }
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         addAdapter = new AddExpenseAdapter(); //TODO: delete test
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, ExpenseFragment.newInstance()); //TODO: begin DashboardFragment
+        ft.replace(R.id.content_frame, TransactionFragment.newInstance()); //TODO: begin DashboardFragment
         ft.commit();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -98,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         if (!TokenHolder.isLogged(getApplicationContext())) {
             showLogin();
         }
+
+        setTitle(R.string.title_dashboard);
     }
 
     /**

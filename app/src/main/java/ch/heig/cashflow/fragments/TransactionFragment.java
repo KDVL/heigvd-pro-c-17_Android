@@ -19,8 +19,8 @@ import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
 
 
-public class ExpenseFragment extends Fragment implements TransactionsService.Callback {
-    private static final String TAG = "ExpenseFragment";
+public class TransactionFragment extends Fragment implements TransactionsService.Callback {
+    private static final String TAG = "TransactionFragment";
 
     // TODO: Observable classe date update changement
 
@@ -29,18 +29,16 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
     private TextView expenseView;
     private ListView expensesListView;
 
-    private TransactionsService ts = null;
-
-    private String error = "";
-
+    //expense by default
+    private Type type = Type.EXPENSE;
     private long totalExpenses;
 
-    public ExpenseFragment() {
+    public TransactionFragment() {
         // Required empty public constructor
     }
 
-    public static ExpenseFragment newInstance() {
-        return new ExpenseFragment();
+    public static TransactionFragment newInstance() {
+        return new TransactionFragment();
     }
 
     @Override
@@ -52,8 +50,7 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
     @Override
     public void onResume() {
         super.onResume();
-
-        //TODO : Call API Service
+        new TransactionsService(this).getType(type);
     }
 
 
@@ -62,9 +59,6 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_expense, container, false);
-
-        ts = new TransactionsService(this);
-        ts.getType(Type.EXPENSE);
 
         expenseView = view.findViewById(R.id.totalExpenses);
 
@@ -75,12 +69,13 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
 
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+//        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
     @Override
     public void getFinished(List<Transaction> transactions) {
 
+        totalExpenses = 0;
         for (Transaction t : transactions)
             totalExpenses += t.getAmountFloat();
 
@@ -91,7 +86,10 @@ public class ExpenseFragment extends Fragment implements TransactionsService.Cal
         }
 
         expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), transactions));
+    }
 
-        getActivity().setTitle(R.string.title_expenses);
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

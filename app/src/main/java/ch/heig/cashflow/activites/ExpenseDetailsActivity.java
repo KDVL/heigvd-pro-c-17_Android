@@ -124,12 +124,6 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
         dialog.show();
     }
 
-    private void retour() {
-        Intent main = new Intent(this, MainActivity.class);
-        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(main);
-    }
-
     //TODO: Gerer Calback
     @Override
     public void connectionFailed(String error) {

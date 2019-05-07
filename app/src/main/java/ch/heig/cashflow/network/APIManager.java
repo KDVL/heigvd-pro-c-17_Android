@@ -111,6 +111,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
      * */
     @Override
     protected void onPostExecute(Result result) {
+        if(mCallback == null) return;
         mCallback.updateFromDownload(result);
     }
 
