@@ -1,3 +1,11 @@
+/**
+ * Adapter to add income
+ * @see ch.heig.cashflow.adapters.AddOrEditAdapter
+ *
+ *
+ * @authors Kevin DO VALE
+ * @version 1.0
+ */
 package ch.heig.cashflow.adapters;
 
 import android.content.Context;
