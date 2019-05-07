@@ -61,7 +61,7 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
         Transaction expense = this.expensesDailyList.get(pos);
 
         holder.depenseNoteView.setText(expense.getDescription());
-        holder.depenseMontantView.setText(String.valueOf(expense.getAmount()));
+        holder.depenseMontantView.setText(String.valueOf(expense.getAmountFloat()));
 
         int imageId = this.getDrawableResIdByName(expense.getCategory().getIconName());
 

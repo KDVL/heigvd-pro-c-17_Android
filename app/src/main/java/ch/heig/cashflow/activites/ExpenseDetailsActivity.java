@@ -59,7 +59,7 @@ public class ExpenseDetailsActivity extends AppCompatActivity implements Transac
         expenseIcon.getDrawable().setTint(Color.parseColor("#FFFFFF"));
 
         expenseDate.setText(editExpenseAdapter.getTransaction().getDate());
-        expenseAmount.setText(String.valueOf(editExpenseAdapter.getTransaction().getAmount()));
+        expenseAmount.setText(String.valueOf(editExpenseAdapter.getTransaction().getAmountLong()));
         expenseDesc.setText(editExpenseAdapter.getTransaction().getDescription());
     }
 

@@ -90,7 +90,7 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
         expensesDailyList = new ArrayList<>();
         for (Transaction t : currentMonthExpenses) {
             if (t.getDate().equals(expense.getDate())) {
-                total += t.getAmount();
+                total += t.getAmountLong();
                 expensesDailyList.add(t);
             }
         }

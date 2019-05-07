@@ -94,7 +94,7 @@ public class DashboardFragment extends Fragment implements TransactionsService.C
         currentMonthExpenses = transactions;
 
         for (Transaction t : currentMonthExpenses)
-            totalExpenses += t.getAmount();
+            totalExpenses += t.getAmountLong();
 
         expenseView.setText(String.valueOf(totalExpenses));
 

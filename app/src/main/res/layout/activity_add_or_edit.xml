@@ -75,7 +75,7 @@
             android:padding="12dp"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/white"
-            android:onClick="saveExpense"
+            android:onClick="save"
             android:text="@string/add"/>
 
     </LinearLayout>

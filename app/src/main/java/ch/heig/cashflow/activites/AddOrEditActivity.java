@@ -34,14 +34,15 @@ import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.TransactionService;
+import ch.heig.cashflow.network.utils.Date;
 
 
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
     private static final String TAG = "AddOrEditActivity";
-    private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private SelectedDate selectedDate = SelectedDate.getInstance();
+    private List<Category> categories;
 
-    String curentDateString = null;
+    String currentDateString = null;
 
     private TransactionService ts;
     private AddOrEditAdapter adapter = null;
@@ -70,7 +71,8 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         Intent i = getIntent();
         if (i != null) {
             adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
-            adapter.setCallback(this);
+            adapter.setCallbackTransaction(this);
+            adapter.setCallbackCategorie(this);
         }
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
@@ -85,12 +87,10 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         if (adapter.getTransaction() != null) {
             descriptionText.setText(adapter.getTransaction().getDescription());
-            priceText.setText(String.valueOf(adapter.getTransaction().getAmount()));
+            priceText.setText(String.valueOf(adapter.getAmount()));
         }
 
-        Calendar c = Calendar.getInstance();
-        curentDateString = sdf.format(c.getTime());
-        selectDate.setText(curentDateString);
+        selectDate.setText(adapter.getTransaction().getDate());
     }
 
     @Override
@@ -101,47 +101,37 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        curentDateString = sdf.format(c.getTime());
-        selectDate.setText(curentDateString);
+        adapter.getTransaction().setDate(Date.sdf.format(c.getTime()));
     }
 
-    public void saveExpense(View view) {
+    public void save(View view) {
         String amount = priceText.getText().toString();
         Log.i(TAG, "Montant saisi: " + amount);
 
-        if (!amount.equals("")) {
-            if (amount.length() < 7) {
-
-                String selectedCategory = String.valueOf(categoriesSpinner.getSelectedItem());
-                Log.i(TAG, "Catégorie choisie: " + selectedCategory);
-
-                // TODO: Passer montant en long centimes et sécuriser
-                long amountCentimes = Integer.valueOf(amount) * 100;
-                Log.i(TAG, "Montant saisi transformé en centimes: " + amountCentimes);
-
-                String note = descriptionText.getText().toString();
-                Log.i(TAG, "La description de la dépense: " + note);
-
-                //TODO: Comment obtenir la catégorie
-                Category c = new Category(1, "Boisson", "cad_drink", Type.EXPENSE, 200, true);
-                Transaction t = new Expense(1, curentDateString, c, amountCentimes, note);
-
-                // TODO: Quel ID nouvel dépense?
-                if (adapter.getTransaction() != null) {
-                    ts.update(new Expense(adapter.getTransaction().getID(), curentDateString, c, amountCentimes, note));
-                } else {
-                    ts.add(t);
-                }
-
-            } else {
-                Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
-            }
-        } else {
+        if (amount.equals("")) {
             Toast.makeText(getApplicationContext(), "Montant pas saisi!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (amount.length() > 7) {
+            Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        //finish();
-        back();
+        // TODO: Passer montant en long centimes et sécuriser
+        long amountCentimes = Integer.valueOf(amount) * 100;
+
+        if(amountCentimes <= 0){
+            Toast.makeText(getApplicationContext(), "Montant non conforme", Toast.LENGTH_LONG).show();
+        }
+
+        String note = descriptionText.getText().toString();
+        Category c = categories.get(categoriesSpinner.getSelectedItemPosition());
+
+        adapter.getTransaction().setAmount(amountCentimes);
+        adapter.getTransaction().setCategory(c);
+        adapter.getTransaction().setDescription(note);
+
+        adapter.performAction();
     }
 
     private void back() {
@@ -157,12 +147,9 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     @Override
-    public void connectionFailed(String error) {
-
-    }
-
-    @Override
     public void getFinished(List<Category> categories) {
+
+        this.categories = categories;
 
         ArrayList<String> arrayList = new ArrayList<>();
         for (Category cat : categories){
@@ -180,17 +167,26 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     @Override
-    public void getFinished(Transaction transaction) {
-
+    public void operationFinished(boolean isFinished) {
+        if(isFinished){
+            back();
+        }else{
+            Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
-    public void operationFinished(boolean isFinished) {
+    public void connectionFailed(String error) {
 
     }
 
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void getFinished(Transaction transaction) {
+        //not used here
     }
 }

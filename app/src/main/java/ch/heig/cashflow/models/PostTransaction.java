@@ -11,7 +11,7 @@ public class PostTransaction {
     public PostTransaction(Transaction transaction) {
         this.date = transaction.getDate();
         this.categoryId = transaction.getCategory().getID();
-        this.amount = transaction.getAmount();
+        this.amount = transaction.getAmountLong();
         this.type = transaction.getType();
         this.description = transaction.getDescription();
     }
