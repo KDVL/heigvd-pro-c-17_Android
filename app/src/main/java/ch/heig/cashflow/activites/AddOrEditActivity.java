@@ -38,7 +38,7 @@ import ch.heig.cashflow.network.utils.Date;
 
 
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
-    private List<Category> categories;
+    private List<Category> enabledCategories;
 
     private AddOrEditAdapter adapter = null;
 
@@ -146,7 +146,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         }
 
-        Category c = categories.get(categoriesSpinner.getSelectedItemPosition());
+        Category c = enabledCategories.get(categoriesSpinner.getSelectedItemPosition());
 
         addButton.setEnabled(false);
 
@@ -162,23 +162,23 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
 
     /**
-     * get categories from service
+     * get enabledCategories from service
      *
      * @param categories the list
      */
     @Override
     public void getFinished(List<Category> categories) {
 
-        //remove disable categories
-        for (Category category : categories) {
-            if (!category.isEnabled())
-                categories.remove(category);
+        enabledCategories = categories;
+
+        //remove disable enabledCategories
+        for (Category c : enabledCategories) {
+            if (!c.isEnabled())
+                enabledCategories.remove(c);
         }
 
-        this.categories = categories;
-
         ArrayList<String> arrayList = new ArrayList<>();
-        for (Category cat : categories) {
+        for (Category cat : enabledCategories) {
             arrayList.add(cat.getName());
         }
 
@@ -189,7 +189,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         categoriesSpinner.setAdapter(adapter);
 
         //adapter know who will be selected
-        this.adapter.selectCategorie(categories, categoriesSpinner);
+        this.adapter.selectCategorie(enabledCategories, categoriesSpinner);
     }
 
     /**

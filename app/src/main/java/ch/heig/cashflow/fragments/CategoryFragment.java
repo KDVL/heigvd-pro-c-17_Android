@@ -52,7 +52,6 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_category, container, false);
-        getActivity().setTitle(getResources().getString(R.string.title_categories));
 
         categoriesEnabledList = new ArrayList<>();
         categoriesDisabledList = new ArrayList<>();
