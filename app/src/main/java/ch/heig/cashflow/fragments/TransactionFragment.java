@@ -19,6 +19,7 @@ import ch.heig.cashflow.network.services.TransactionsService;
 
 
 public class TransactionFragment extends Fragment implements TransactionsService.Callback {
+
     private static final String TAG = "TransactionFragment";
 
     // TODO: Observable classe date update changement
