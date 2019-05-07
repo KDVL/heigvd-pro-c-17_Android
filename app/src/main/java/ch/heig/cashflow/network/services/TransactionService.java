@@ -52,7 +52,6 @@ public class TransactionService extends APIService {
 
         switch (result.method) {
             case GET: // GetOne : GET /api/transactions/{id}
-                Gson gson = new Gson();
                 JsonElement obj = gson.fromJson(result.resultString, JsonElement.class);
                 JsonElement element = ((JsonObject) obj).get("type");
                 switch (gson.fromJson(element, String.class)) {

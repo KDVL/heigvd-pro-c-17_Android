@@ -54,13 +54,7 @@ public class TransactionsService extends APIService {
 
             if (result.tag.contains("EXPENSE")) { // PerType : GET /api/transactions/type/EXPENSE
                 Transaction[] expenses = gson.fromJson(result.resultString, Expense[].class);
-                /** MODIF ALEKS POUT TABLEAU NULL SI NOUVEAU UTILISATEUR */
-                if(expenses != null){
-                    callback.getFinished(Arrays.asList(expenses));
-                }else{
-                    callback.getFinished(new ArrayList<Transaction>());
-                }
-
+                callback.getFinished(Arrays.asList(expenses));
             } else if (result.tag.contains("INCOME")) { // PerType : GET /api/transactions/type/INCOME
                 Transaction[] incomes = gson.fromJson(result.resultString, Income[].class);
                 callback.getFinished(Arrays.asList(incomes));

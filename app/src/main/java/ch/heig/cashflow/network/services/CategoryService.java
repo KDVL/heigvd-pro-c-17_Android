@@ -47,7 +47,6 @@ public class CategoryService extends APIService {
 
         switch (result.method) {
             case GET: // GetOne : GET /api/categories/{id}
-                Gson gson = new Gson();
                 callback.getFinished(gson.fromJson(result.resultString, Category.class));
                 break;
 
