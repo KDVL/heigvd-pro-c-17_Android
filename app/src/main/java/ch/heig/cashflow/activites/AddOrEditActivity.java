@@ -42,12 +42,8 @@ import ch.heig.cashflow.network.utils.Date;
 
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
     private static final String TAG = "AddOrEditActivity";
-    private SelectedDate selectedDate = SelectedDate.getInstance();
     private List<Category> categories;
 
-    String currentDateString = null;
-
-    private TransactionService ts;
     private AddOrEditAdapter adapter = null;
 
     @BindView(R.id.input_categorie)
@@ -61,14 +57,17 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     @BindView(R.id.btn_add)
     Button addButton;
 
+
+    /**
+     * onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_or_edit);
 
         ButterKnife.bind(this);
-
-        ts = new TransactionService(this);
 
         Intent i = getIntent();
         if (i != null) {
@@ -117,12 +116,11 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     /**
-     * send data
-     * @param View view
+     * save data
+     * @param view the view
      */
     public void save(View view) {
         String amountText = priceText.getText().toString();
-        Log.i(TAG, "Montant saisi: " + amountText);
 
         if (amountText.equals("")) {
             Toast.makeText(getApplicationContext(), "Montant pas saisi!", Toast.LENGTH_LONG).show();
@@ -152,18 +150,14 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         adapter.performAction();
     }
 
+    /**
+     * go to first Activity
+     */
     private void back() {
         Intent main = new Intent(this, MainActivity.class);
         main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
     }
-
-    public int getDrawableResIdByName(String resName) {
-        String pkgName = getApplicationContext().getPackageName();
-        // Return 0 if not found.
-        return getApplicationContext().getResources().getIdentifier(resName, "drawable", pkgName);
-    }
-
 
     /**
      *  get categories from service
@@ -218,17 +212,18 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
 
-
     /**
-     * use by
+     * used by service
      */
     @Override
     public Context getContext() {
         return getApplicationContext();
     }
 
+    /**
+     * Not used here
+     * @param transaction
+     */
     @Override
-    public void getFinished(Transaction transaction) {
-        //not used here
-    }
+    public void getFinished(Transaction transaction) {}
 }
