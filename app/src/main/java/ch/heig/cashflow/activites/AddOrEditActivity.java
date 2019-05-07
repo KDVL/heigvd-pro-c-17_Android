@@ -2,7 +2,6 @@
  * Add or edit activity
  * works with income and expenses
  *
- *
  * @authors Kevin DO VALE
  * @version 1.0
  */
@@ -14,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,7 +31,6 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddOrEditAdapter;
 import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.TransactionService;
@@ -41,7 +38,6 @@ import ch.heig.cashflow.network.utils.Date;
 
 
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
-    private static final String TAG = "AddOrEditActivity";
     private List<Category> categories;
 
     private AddOrEditAdapter adapter = null;
@@ -60,6 +56,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     /**
      * onCreate
+     *
      * @param savedInstanceState
      */
     @Override
@@ -96,9 +93,10 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     /**
      * set date
+     *
      * @param datePicker the picker
-     * @param year the year
-     * @param month the month
+     * @param year       the year
+     * @param month      the month
      * @param dayOfMonth the day
      */
     @Override
@@ -117,6 +115,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     /**
      * save data
+     *
      * @param view the view
      */
     public void save(View view) {
@@ -133,7 +132,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         float amount = Float.valueOf(amountText);
 
-        if(amount <= 0){
+        if (amount <= 0) {
             Toast.makeText(getApplicationContext(), "Montant non conforme", Toast.LENGTH_LONG).show();
             return;
         }
@@ -160,22 +159,23 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     /**
-     *  get categories from service
+     * get categories from service
+     *
      * @param categories the list
      */
     @Override
     public void getFinished(List<Category> categories) {
 
         //remove disable categories
-        for(Category category : categories){
-            if(!category.isEnabled())
+        for (Category category : categories) {
+            if (!category.isEnabled())
                 categories.remove(category);
         }
 
         this.categories = categories;
 
         ArrayList<String> arrayList = new ArrayList<>();
-        for (Category cat : categories){
+        for (Category cat : categories) {
             arrayList.add(cat.getName());
         }
 
@@ -191,19 +191,21 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     /**
      * service finished
+     *
      * @param isFinished true if insert or add works
      */
     @Override
     public void operationFinished(boolean isFinished) {
-        if(isFinished){
+        if (isFinished) {
             back();
-        }else{
+        } else {
             connectionFailed("");
         }
     }
 
     /**
      * service finished with error
+     *
      * @param error the error
      */
     @Override
@@ -222,6 +224,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     /**
      * Not used here
+     *
      * @param transaction
      */
     @Override
