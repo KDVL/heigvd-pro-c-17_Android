@@ -1,7 +1,6 @@
 /**
  * The signup activity
  *
- *
  * @authors Kevin DO VALE
  * @version 1.0
  */
@@ -27,7 +26,7 @@ import ch.heig.cashflow.models.User;
 import ch.heig.cashflow.network.services.LoginService;
 import ch.heig.cashflow.network.services.SignupService;
 
-public class SignupActivity extends AppCompatActivity  implements LoginService.Callback {
+public class SignupActivity extends AppCompatActivity implements LoginService.Callback {
     private static final String TAG = "SignupActivity";
 
 
@@ -184,9 +183,9 @@ public class SignupActivity extends AppCompatActivity  implements LoginService.C
      */
     @Override
     public void loginFinished(boolean isLogged) {
-        if(isLogged){
+        if (isLogged) {
             onSignupSuccess();
-        }else{
+        } else {
             onSignupFailed();
         }
     }
