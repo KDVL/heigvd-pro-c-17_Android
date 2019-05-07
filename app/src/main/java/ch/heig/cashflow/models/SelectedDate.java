@@ -13,6 +13,8 @@ package ch.heig.cashflow.models;
 import java.util.Calendar;
 import java.util.Observable;
 
+import ch.heig.cashflow.network.utils.Date;
+
 public class SelectedDate extends Observable {
 
     private int year;
@@ -55,6 +57,7 @@ public class SelectedDate extends Observable {
 
     /**
      * Set date and notify obeservers
+     *
      * @param year
      * @param month
      * @param day
@@ -68,7 +71,12 @@ public class SelectedDate extends Observable {
         notifyObservers();
     }
 
+    /**
+     * @return string format
+     */
     public String toString() {
-        return year + "-" + month + "-" + day;
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, day);
+        return Date.sdf.format(c.getTime());
     }
 }

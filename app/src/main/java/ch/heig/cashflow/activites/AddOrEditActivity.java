@@ -119,6 +119,8 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
      * @param view the view
      */
     public void save(View view) {
+        addButton.setEnabled(false);
+
         String amountText = priceText.getText().toString();
 
         if (amountText.equals("")) {
@@ -149,14 +151,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         adapter.performAction();
     }
 
-    /**
-     * go to first Activity
-     */
-    private void back() {
-        Intent main = new Intent(this, MainActivity.class);
-        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(main);
-    }
+
 
     /**
      * get categories from service
@@ -197,7 +192,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     @Override
     public void operationFinished(boolean isFinished) {
         if (isFinished) {
-            back();
+            finish();
         } else {
             connectionFailed("");
         }
@@ -210,6 +205,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
      */
     @Override
     public void connectionFailed(String error) {
+        addButton.setEnabled(true);
         Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération", Toast.LENGTH_LONG).show();
     }
 
