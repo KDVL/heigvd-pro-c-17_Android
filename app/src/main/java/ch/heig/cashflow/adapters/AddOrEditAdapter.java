@@ -1,10 +1,14 @@
 package ch.heig.cashflow.adapters;
 
 import android.content.Context;
+import android.widget.Spinner;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.CategoriesService;
@@ -30,4 +34,6 @@ public abstract class AddOrEditAdapter implements Serializable {
     //public abstract void performAction(Transaction t);
 
     public abstract void loadCategories();
+
+    public abstract void selectCategorie(List<Category> categories, Spinner s);
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -161,9 +163,19 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     @Override
     public void getFinished(List<Category> categories) {
-        //TODO : Set categories to list
 
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (Category cat : categories){
+            arrayList.add(cat.getName());
+        }
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arrayList);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoriesSpinner.setAdapter(adapter);
+
+        this.adapter.selectCategorie(categories, categoriesSpinner);
     }
 
     @Override
