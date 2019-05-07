@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,10 +30,11 @@ import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.TransactionService;
 
 
-public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback {
+public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
     private static final String TAG = "AddOrEditActivity";
     private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private SelectedDate selectedDate = SelectedDate.getInstance();
@@ -66,6 +68,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         Intent i = getIntent();
         if (i != null) {
             adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
+            adapter.setCallback(this);
         }
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
@@ -153,6 +156,13 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     @Override
     public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void getFinished(List<Category> categories) {
+        //TODO : Set categories to list
+
 
     }
 

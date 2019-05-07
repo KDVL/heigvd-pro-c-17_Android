@@ -71,6 +71,4 @@ public class SelectedDate extends Observable {
     public String toString() {
         return year + "-" + month + "-" + day;
     }
-
-
 }
