@@ -52,7 +52,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
     @BindView(R.id.input_categorie)
     Spinner categoriesSpinner;
-    @BindView(R.id.datePicker)
+    @BindView(R.id.date_picker)
     Button selectDate;
     @BindView(R.id.input_description)
     EditText descriptionText;
