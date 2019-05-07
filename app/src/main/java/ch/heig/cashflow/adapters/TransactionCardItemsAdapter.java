@@ -12,31 +12,30 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Transaction;
 
-public class ExpenseCardItemsAdapter extends BaseAdapter {
+public class TransactionCardItemsAdapter extends BaseAdapter {
     private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
             ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
-    private List<Transaction> expensesDailyList;
+    private List<Transaction> transactions;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ExpenseCardItemsAdapter(Context context, List<Transaction> expensesListData) {
+    public TransactionCardItemsAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
-        this.expensesDailyList = expensesListData;
+        this.transactions = transactions;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return expensesDailyList.size();
+        return transactions.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return expensesDailyList.get(pos);
+        return transactions.get(pos);
     }
 
     @Override
@@ -48,22 +47,22 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
     public View getView(int pos, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.fragment_expense_listview, null);
+            convertView = layoutInflater.inflate(R.layout.fragment_transaction_listview, null);
             holder = new ViewHolder();
-            holder.categorieImageView = convertView.findViewById(R.id.categoryImage);
-            holder.depenseNoteView = convertView.findViewById(R.id.expenseDesc);
-            holder.depenseMontantView = convertView.findViewById(R.id.expenseAmount);
+            holder.categorieImageView = convertView.findViewById(R.id.category_image);
+            holder.noteView = convertView.findViewById(R.id.transaction_description);
+            holder.amountView = convertView.findViewById(R.id.transaction_amount);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Transaction expense = this.expensesDailyList.get(pos);
+        Transaction transaction = this.transactions.get(pos);
 
-        holder.depenseNoteView.setText(expense.getDescription());
-        holder.depenseMontantView.setText(String.valueOf(expense.getAmountFloat()));
+        holder.noteView.setText(transaction.getDescription());
+        holder.amountView.setText(String.valueOf(transaction.getAmountFloat()));
 
-        int imageId = this.getDrawableResIdByName(expense.getCategory().getIconName());
+        int imageId = this.getDrawableResIdByName(transaction.getCategory().getIconName());
 
         if(imageId != 0){
             holder.categorieImageView.setImageResource(imageId);
@@ -82,7 +81,7 @@ public class ExpenseCardItemsAdapter extends BaseAdapter {
 
     static class ViewHolder {
         ImageView categorieImageView;
-        TextView depenseNoteView;
-        TextView depenseMontantView;
+        TextView noteView;
+        TextView amountView;
     }
 }

@@ -25,6 +25,8 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddAdapter;
 import ch.heig.cashflow.adapters.AddExpenseAdapter;
 import ch.heig.cashflow.adapters.AddIncomeAdapter;
+import ch.heig.cashflow.adapters.EditAdapter;
+import ch.heig.cashflow.adapters.EditExpenseAdapter;
 import ch.heig.cashflow.fragments.CategoryFragment;
 import ch.heig.cashflow.fragments.TransactionFragment;
 import ch.heig.cashflow.fragments.MonthFragment;

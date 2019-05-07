@@ -18,8 +18,8 @@ import ch.heig.cashflow.adapters.AddOrEditAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionService;
 
-public class ExpenseDetailsActivity extends AppCompatActivity implements TransactionService.Callback {
-    private static final String TAG = "ExpenseDetailsActivity";
+public class TransactionDetailsActivity extends AppCompatActivity implements TransactionService.Callback {
+    private static final String TAG = "TransactionDetailsActivity";
 
     private TransactionService ts;
 

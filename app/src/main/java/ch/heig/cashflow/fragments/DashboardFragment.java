@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.ExpenseCardsAdapter;
+import ch.heig.cashflow.adapters.TransactionCardsAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
@@ -102,7 +102,7 @@ public class DashboardFragment extends Fragment implements TransactionsService.C
             view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 
-        expensesListView.setAdapter(new ExpenseCardsAdapter(getActivity(), currentMonthExpenses));
+        expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), currentMonthExpenses));
 
     }
 }

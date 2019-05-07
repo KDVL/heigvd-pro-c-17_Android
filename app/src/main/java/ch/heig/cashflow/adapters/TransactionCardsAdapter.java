@@ -15,54 +15,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.activites.ExpenseDetailsActivity;
-import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.activites.TransactionDetailsActivity;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionsService;
 
-public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsService.Callback {
+public class TransactionCardsAdapter extends BaseAdapter implements TransactionsService.Callback {
     private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
             ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
-    private List<Transaction> currentMonthExpenses;
-    private List<Transaction> currentMonthExpensesGroupeByDay;
-    private List<Transaction> expensesDailyList;
+    private List<Transaction> currentMonthTransactions;
+    private List<Transaction> currentMonthTransactionsGroupeByDay;
+    private List<Transaction> transactionDailyList;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ExpenseCardsAdapter(Context context, List<Transaction> currentMonthExpenses) {
+    public TransactionCardsAdapter(Context context, List<Transaction> currentMonthExpenses) {
         this.context = context;
-        this.currentMonthExpenses = currentMonthExpenses;
+        this.currentMonthTransactions = currentMonthExpenses;
         layoutInflater = LayoutInflater.from(context);
 
-        currentMonthExpensesGroupeByDay = new ArrayList<>();
+        currentMonthTransactionsGroupeByDay = new ArrayList<>();
         groupByDay();
     }
 
     private void groupByDay() {
-        for (int i = 0; i < currentMonthExpenses.size(); ++i) {
-            for (int j = i + 1; j < currentMonthExpenses.size(); ++j) {
-                if (!(currentMonthExpenses.get(j).getDate().equals(currentMonthExpenses.get(i).getDate()))) {
+        for (int i = 0; i < currentMonthTransactions.size(); ++i) {
+            for (int j = i + 1; j < currentMonthTransactions.size(); ++j) {
+                if (!(currentMonthTransactions.get(j).getDate().equals(currentMonthTransactions.get(i).getDate()))) {
                     i = j - 1;
                     break;
                 }
-                if (j == currentMonthExpenses.size() - 1) {
+                if (j == currentMonthTransactions.size() - 1) {
                     i = j;
                     break;
                 }
             }
-            currentMonthExpensesGroupeByDay.add(currentMonthExpenses.get(i));
+            currentMonthTransactionsGroupeByDay.add(currentMonthTransactions.get(i));
         }
     }
 
     @Override
     public int getCount() {
-        return currentMonthExpensesGroupeByDay.size();
+        return currentMonthTransactionsGroupeByDay.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return currentMonthExpensesGroupeByDay.get(pos);
+        return currentMonthTransactionsGroupeByDay.get(pos);
     }
 
     @Override
@@ -74,9 +73,9 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
     public View getView(int pos, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.fragment_expense_list_item, null);
+            convertView = layoutInflater.inflate(R.layout.fragment_transaction_list_item, null);
             holder = new ViewHolder();
-            holder.dateView = convertView.findViewById(R.id.expenseDate);
+            holder.dateView = convertView.findViewById(R.id.transaction_date);
             holder.dayList = convertView.findViewById(R.id.dayList);
 
             convertView.setTag(holder);
@@ -84,22 +83,20 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Transaction expense = currentMonthExpensesGroupeByDay.get(pos);
+        Transaction expense = currentMonthTransactionsGroupeByDay.get(pos);
 
         float total = 0;
-        expensesDailyList = new ArrayList<>();
-        for (Transaction t : currentMonthExpenses) {
+        transactionDailyList = new ArrayList<>();
+        for (Transaction t : currentMonthTransactions) {
             if (t.getDate().equals(expense.getDate())) {
                 total += t.getAmountFloat();
-                expensesDailyList.add(t);
+                transactionDailyList.add(t);
             }
         }
 
-
-
         holder.dateView.setText("Date: " + expense.getDate() + " Total: " + total);
 
-        holder.dayList.setAdapter(new ExpenseCardItemsAdapter(context, expensesDailyList));
+        holder.dayList.setAdapter(new TransactionCardItemsAdapter(context, transactionDailyList));
 
         // ADAPTE LA HAUTEUR DE LIST VIEW
         ListAdapter listadp = holder.dayList.getAdapter();
@@ -121,8 +118,8 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = holder.dayList.getItemAtPosition(position);
-                Expense e = (Expense) o;
-                getExpenseDetails(e);
+                Transaction e = (Transaction) o;
+                showTransactionDetail(e);
             }
         });
 
@@ -130,13 +127,13 @@ public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsServ
     }
 
 
-    private void getExpenseDetails(Expense e) {
-        Intent expenseDetails = new Intent(context, ExpenseDetailsActivity.class);
+    private void showTransactionDetail(Transaction e) {
+        Intent transactionDetails = new Intent(context, TransactionDetailsActivity.class);
 
-        AddOrEditAdapter editExpenseAdapter = new EditExpenseAdapter(e);
+        AddOrEditAdapter adapter = new EditExpenseAdapter(e);
 
-        expenseDetails.putExtra(context.getString(R.string.transaction_adapter_key), editExpenseAdapter);
-        context.startActivity(expenseDetails);
+        transactionDetails.putExtra(context.getString(R.string.transaction_adapter_key), adapter);
+        context.startActivity(transactionDetails);
     }
 
     // TODO: Gerer Callback
