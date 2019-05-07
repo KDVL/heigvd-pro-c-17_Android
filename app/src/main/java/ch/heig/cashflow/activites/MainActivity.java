@@ -32,6 +32,7 @@ import ch.heig.cashflow.fragments.DashboardFragment;
 import ch.heig.cashflow.fragments.TransactionFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.fragments.ServicesFragment;
+import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
@@ -92,10 +93,8 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addAdapter = new AddExpenseAdapter(); //TODO: delete test
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, TransactionFragment.newInstance()); //TODO: begin DashboardFragment
+        ft.replace(R.id.content_frame, DashboardFragment.newInstance());
         ft.commit();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

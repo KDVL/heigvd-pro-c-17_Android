@@ -23,8 +23,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,11 +33,8 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.AddOrEditAdapter;
 import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.CustomOnItemSelectedListener;
-import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.TransactionService;
 import ch.heig.cashflow.network.utils.Date;
@@ -72,7 +67,6 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         setContentView(R.layout.activity_add_or_edit);
 
         ButterKnife.bind(this);
-        categoriesSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
         ts = new TransactionService(this);
 

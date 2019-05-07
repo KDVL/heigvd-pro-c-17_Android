@@ -52,8 +52,10 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         expenseDesc = findViewById(R.id.edit_description);
 
         int iconImageId = this.getDrawableResIdByName(adapter.getTransaction().getCategory().getIconName());
-        expenseIcon.setImageResource(iconImageId);
-        expenseIcon.getDrawable().setTint(Color.parseColor("#FFFFFF"));
+        if(iconImageId != 0) {
+            expenseIcon.setImageResource(iconImageId);
+            expenseIcon.getDrawable().setTint(Color.parseColor("#FFFFFF"));
+        }
 
         expenseDate.setText(adapter.getTransaction().getDate());
         expenseAmount.setText(String.valueOf(adapter.getTransaction().getAmountFloat()));
