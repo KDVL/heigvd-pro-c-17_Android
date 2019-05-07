@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.heig.cashflow">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -13,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activites.CategoryChoiceActivity"></activity>
+        <activity android:name=".fragments.CategorySelectActivity"></activity>
+        <activity android:name=".activites.CategoryChoiceActivity" />
         <activity android:name=".activites.ExpenseDetailsActivity" />
         <activity
             android:name=".activites.MainActivity"

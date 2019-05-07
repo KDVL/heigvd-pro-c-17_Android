@@ -40,12 +40,20 @@ public abstract class Transaction implements Serializable {
         this.category = category;
     }
 
-    public long getAmount() {
+    public long getAmountLong() {
         return amount;
     }
 
+    public float getAmountFloat() {
+        return amount / 100;
+    }
+
+
     public void setAmount(long amount) {
         this.amount = amount;
+    }
+    public void setAmount(float amount) {
+        this.amount = new Double(amount * 100).longValue();
     }
 
     public String getDescription() {

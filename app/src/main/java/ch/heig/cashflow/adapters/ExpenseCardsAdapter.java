@@ -11,36 +11,58 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.ExpenseDetailsActivity;
 import ch.heig.cashflow.models.Expense;
+import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.network.services.TransactionsService;
 
-public class ExpenseCardsAdapter extends BaseAdapter {
+public class ExpenseCardsAdapter extends BaseAdapter implements TransactionsService.Callback {
     private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
             ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
-    private ExpenseService expenseService = null;
-
-    private List<Expense> currentMonthExpensesArrayList;
+    private List<Transaction> currentMonthExpenses;
+    private List<Transaction> currentMonthExpensesGroupeByDay;
+    private List<Transaction> expensesDailyList;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ExpenseCardsAdapter(Context context, List<Expense> currentMonthExpensesArrayList) {
+    public ExpenseCardsAdapter(Context context, List<Transaction> currentMonthExpenses) {
         this.context = context;
-        this.currentMonthExpensesArrayList = currentMonthExpensesArrayList;
+        this.currentMonthExpenses = currentMonthExpenses;
         layoutInflater = LayoutInflater.from(context);
+
+        currentMonthExpensesGroupeByDay = new ArrayList<>();
+        groupByDay();
+    }
+
+    private void groupByDay() {
+        for (int i = 0; i < currentMonthExpenses.size(); ++i) {
+            for (int j = i + 1; j < currentMonthExpenses.size(); ++j) {
+                if (!(currentMonthExpenses.get(j).getDate().equals(currentMonthExpenses.get(i).getDate()))) {
+                    i = j - 1;
+                    break;
+                }
+                if (j == currentMonthExpenses.size() - 1) {
+                    i = j;
+                    break;
+                }
+            }
+            currentMonthExpensesGroupeByDay.add(currentMonthExpenses.get(i));
+        }
     }
 
     @Override
     public int getCount() {
-        return currentMonthExpensesArrayList.size();
+        return currentMonthExpensesGroupeByDay.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return currentMonthExpensesArrayList.get(pos);
+        return currentMonthExpensesGroupeByDay.get(pos);
     }
 
     @Override
@@ -61,17 +83,23 @@ public class ExpenseCardsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Expense expense = this.currentMonthExpensesArrayList.get(pos);
 
-        holder.dateView.setText(expense.getDate());
+        Transaction expense = currentMonthExpensesGroupeByDay.get(pos);
 
-        if (expenseService == null)
-            expenseService = new ExpenseService();
+        long total = 0;
+        expensesDailyList = new ArrayList<>();
+        for (Transaction t : currentMonthExpenses) {
+            if (t.getDate().equals(expense.getDate())) {
+                total += t.getAmountLong();
+                expensesDailyList.add(t);
+            }
+        }
 
-        // Uniquement les dépense pour le jour donnée
-        List<Expense> myDailyList = expenseService.getAll().get("05");
 
-        holder.dayList.setAdapter(new ExpenseCardItemsAdapter(context, myDailyList));
+
+        holder.dateView.setText("Date: " + expense.getDate() + " Total: " + total);
+
+        holder.dayList.setAdapter(new ExpenseCardItemsAdapter(context, expensesDailyList));
 
         // ADAPTE LA HAUTEUR DE LIST VIEW
         ListAdapter listadp = holder.dayList.getAdapter();
@@ -109,6 +137,22 @@ public class ExpenseCardsAdapter extends BaseAdapter {
 
         expenseDetails.putExtra(context.getString(R.string.transaction_adapter_key), editExpenseAdapter);
         context.startActivity(expenseDetails);
+    }
+
+    // TODO: Gerer Callback
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void getFinished(List<Transaction> transactions) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return null;
     }
 
     static class ViewHolder {

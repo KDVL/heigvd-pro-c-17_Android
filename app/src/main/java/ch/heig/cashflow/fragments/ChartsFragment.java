@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +26,7 @@ import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.network.callbacks.TransactionsCallback;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.network.services.DashboardService;
@@ -49,6 +51,8 @@ public class ChartsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TransactionsCallback tc = new TransactionsCallback(getContext(), ServicesFragment.newInstance());
+        tc.getAll();
     }
 
     @Override
@@ -109,5 +113,4 @@ public class ChartsFragment extends Fragment {
         inflater.inflate(R.menu.dashboard_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-
 }

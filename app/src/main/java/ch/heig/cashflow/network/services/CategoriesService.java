@@ -1,5 +1,10 @@
 package ch.heig.cashflow.network.services;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,11 +41,20 @@ public class CategoriesService extends APIService {
         Category[] categories;
         categories = gson.fromJson(result.resultString, Category[].class);
 
-        if (result.tag.contains(Config.CATEGORIES_TYPE))
-            callback.getFinished(Arrays.asList(categories));
-        else if (result.tag.contains(Config.CATEGORIES))
-            callback.getFinished(Arrays.asList(categories));
-
+        if (result.tag.contains(Config.CATEGORIES_TYPE)) {
+            /** MODIF ALEKS POUT TABLEAU NULL SI NOUVEAU UTILISATEUR */
+            if (categories != null) {
+                callback.getFinished(Arrays.asList(categories));
+            } else {
+                callback.getFinished(new ArrayList<Category>());
+            }
+        } else if (result.tag.contains(Config.CATEGORIES)) {
+            if (categories != null) {
+                callback.getFinished(Arrays.asList(categories));
+            } else {
+                callback.getFinished(new ArrayList<Category>());
+            }
+        }
     }
 
     public interface Callback extends APICallback {
