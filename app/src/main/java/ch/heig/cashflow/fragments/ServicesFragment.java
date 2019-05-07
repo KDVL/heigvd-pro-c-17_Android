@@ -9,6 +9,7 @@ import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.callbacks.CategoriesCallback;
 import ch.heig.cashflow.network.callbacks.CategoryCallback;
+import ch.heig.cashflow.network.callbacks.DashboardCallback;
 import ch.heig.cashflow.network.callbacks.TransactionCallback;
 import ch.heig.cashflow.network.callbacks.TransactionsCallback;
 
@@ -30,11 +31,16 @@ public class ServicesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        testDashboardService();
         testCategoriesService();
         testTransactionsService();
-
         testCategoryService();
         testTransactionService();
+    }
+
+    public void testDashboardService(){
+        new DashboardCallback(getContext(), this).getAll();
+        new DashboardCallback(getContext(), this).getAll(2019,5);
     }
 
     public void testCategoriesService(){

@@ -22,7 +22,7 @@ public class DashboardService extends APIService {
     }
 
     // PerType : GET /api/dashboard/date/YYYY/MM
-    public void getAll(String year, String month) {
+    public void getAll(int year, int month) {
         new APIManager(this, true, APIManager.METHOD.GET).execute(Config.DASHBOARD_DATE + year + "/" + month);
     }
 
@@ -32,14 +32,13 @@ public class DashboardService extends APIService {
         if (!checkResponse(result))
             return;
 
-        Dashboard[] dashboards;
-        dashboards = gson.fromJson(result.resultString, Dashboard[].class);
+        Dashboard dashboard = gson.fromJson("{\"name\":\"Budget Global - Mai 2019\",\"expense\":503475,\"income\":199305,\"budget\":-304167,\"categories\":[{\"name\":\"Salaire\",\"expense\":0,\"income\":199305,\"budget\":199305},{\"name\":\"Shopping\",\"expense\":124374,\"income\":0,\"budget\":125868},{\"name\":\"Voyage\",\"expense\":124374,\"income\":0,\"budget\":125868},{\"name\":\"Assurance\",\"expense\":13315,\"income\":0,\"budget\":125868},{\"name\":\"Divers\",\"expense\":13315,\"income\":0,\"budget\":125868}]}", Dashboard.class);
 
         if (result.tag.contains(Config.DASHBOARD))
-            callback.getFinished(Arrays.asList(dashboards));
+            callback.getFinished(dashboard);
     }
 
     public interface Callback extends APICallback {
-        void getFinished(List<Dashboard> dashboards);
+        void getFinished(Dashboard dashboard);
     }
 }
