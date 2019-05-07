@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Cashflow</string>
+
+    <!-- Titre fragments -->
     <string name="title_dashboard">Dashboard</string>
     <string name="title_expenses">Dépenses</string>
+    <string name="title_expense_details">Dépense détail</string>
     <string name="title_earning">Revenus</string>
+    <string name="title_income_details">Revenu détail</string>
     <string name="title_charts">Statistiques</string>
     <string name="title_categories">Catégories</string>
+
     <string name="text_login">Se connecter</string>
     <string name="no_account">Pas encore de compte ? En créer un</string>
     <string name="title_email">Email</string>
@@ -22,8 +27,6 @@
     <string name="error_signin">Utilisateur ou mot de passe incorrect</string>
     <string name="error_signup">Email déjà utilisé</string>
     <string name="title_disconnect">Déconnexion</string>
-    <string name="title_expense_details">Dépense détail</string>
-    <string name="title_income_details">Revenu détail</string>
 
     <!-- Expense strings -->
     <string name="expense">Dépenses</string>
@@ -45,24 +48,11 @@
 
     <!-- AddOrEditActivity -->
 
-    <!-- Catégories spiner -->
+    <!-- Catégories strings -->
     <string name="cat_spinner_prompt">Choix de catégorie</string>
+    <string name="cat_switch_name">Revenus</string>
+    <string name="cat_state_enables">Activées</string>
+    <string name="cat_state_disabled">Inactivées</string>
 
-    <string-array name="cat_spiner_items">
-        <!-- {"cad_drink", "cat_cars", "cat_child", "cat_aliments", "cat_devices", "cat_family", "cat_holiday",
-        "cat_other", "cat_people", "cat_pets", "cat_school", "cat_smoking", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",} -->
-        <item>Boisson</item>
-        <item>Voiture</item>
-        <item>Enfants</item>
-        <item>Aliments</item>
-        <item>Electronique</item>
-        <item>Famille</item>
-        <item>Vacances</item>
-        <item>Autres</item>
-        <item>Social</item>
-        <item>Animaux</item>
-        <item>Education</item>
-        <item>Tabac</item>
-    </string-array>
 
 </resources>
