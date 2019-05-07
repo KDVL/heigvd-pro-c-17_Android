@@ -1,10 +1,9 @@
 /**
  * Adapter to edit expense
- * @see ch.heig.cashflow.adapters.AddOrEditAdapter
- *
  *
  * @authors Kevin DO VALE
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.AddOrEditAdapter
  */
 package ch.heig.cashflow.adapters;
 
@@ -17,18 +16,29 @@ import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 
-@SuppressWarnings("serial")
 public class EditExpenseAdapter extends EditAdapter implements Serializable {
 
+    /**
+     * Constructor
+     * @param t the transaction
+     */
     public EditExpenseAdapter(Transaction t) {
         super(t);
     }
 
+    /**
+     *
+     * @param context the context of application
+     * @return the title
+     */
     @Override
     public String getViewTitle(Context context) {
         return context.getString(R.string.title_expense_details);
     }
 
+    /**
+     * call the service
+     */
     @Override
     public void loadCategories() {
         new CategoriesService(callback).getType(Type.EXPENSE);

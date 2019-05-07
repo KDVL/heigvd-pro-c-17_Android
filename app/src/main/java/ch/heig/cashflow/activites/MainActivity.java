@@ -28,6 +28,7 @@ import ch.heig.cashflow.adapters.AddIncomeAdapter;
 import ch.heig.cashflow.adapters.EditAdapter;
 import ch.heig.cashflow.adapters.EditExpenseAdapter;
 import ch.heig.cashflow.fragments.CategoryFragment;
+import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;
 import ch.heig.cashflow.fragments.TransactionFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
@@ -67,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
                     break;
                 case R.id.navigation_charts:
                     setTitle(R.string.title_charts);
-                    fragment = ServicesFragment.newInstance();
-                    //fragment = ChartsFragment.newInstance();
+                    fragment = ChartsFragment.newInstance();
                     break;
                 case R.id.navigation_categories:
                     setTitle(R.string.title_categories);

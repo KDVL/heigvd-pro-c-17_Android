@@ -110,7 +110,10 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        adapter.getTransaction().setDate(Date.sdf.format(c.getTime()));
+        String d = Date.sdf.format(c.getTime());
+        adapter.getTransaction().setDate(d);
+
+        selectDate.setText(d);
     }
 
     /**
