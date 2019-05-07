@@ -95,6 +95,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
         categorieChoice.putExtra(getResources().getString(R.string.transaction_adapter_key), adapter);
         startActivity(categorieChoice);
+        finish();
     }
 
     private void delete() {

@@ -1,7 +1,6 @@
 /**
  * The signin activity
  *
- *
  * @authors Kevin DO VALE
  * @version 1.0
  */
@@ -149,9 +148,9 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     public void loginFinished(boolean isLogged) {
 
         progressDialog.dismiss();
-        if(isLogged){
+        if (isLogged) {
             onLoginSuccess();
-        }else{
+        } else {
             onLoginFailed();
         }
     }

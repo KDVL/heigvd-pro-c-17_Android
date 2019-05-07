@@ -32,7 +32,8 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     public TransactionCardsAdapter(Context context, List<Transaction> currentMonthExpenses, Type type) {
         this.context = context;
         this.currentMonthTransactions = currentMonthExpenses;
-        layoutInflater = LayoutInflater.from(context);
+        if(context != null)
+            layoutInflater = LayoutInflater.from(context);
         this.type = type;
 
         currentMonthTransactionsGroupeByDay = new ArrayList<>();

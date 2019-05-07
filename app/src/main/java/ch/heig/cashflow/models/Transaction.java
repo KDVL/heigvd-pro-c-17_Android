@@ -71,11 +71,4 @@ public abstract class Transaction implements Serializable {
     public void setType(Type type) {
         this.type = type;
     }
-
-    public enum Type {
-        EXPENSE, INCOME
-    }
-
-    // Decorator used to POST/PUT data
-
 }

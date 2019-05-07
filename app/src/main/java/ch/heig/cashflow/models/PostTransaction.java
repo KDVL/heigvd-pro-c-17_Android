@@ -5,7 +5,7 @@ public class PostTransaction {
     private String date;
     private long categoryId;
     private long amount;
-    private Transaction.Type type;
+    private Type type;
     private String description;
 
     public PostTransaction(Transaction transaction) {
