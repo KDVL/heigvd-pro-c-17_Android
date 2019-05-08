@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Observable;
@@ -81,7 +82,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
 
     @Override
     public void connectionFailed(String error) {
-//        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+       //Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
     @Override

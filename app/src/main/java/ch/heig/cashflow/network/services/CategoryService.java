@@ -34,6 +34,18 @@ public class CategoryService extends APIService {
         manager.execute(Config.CATEGORIES + category.getID());
     }
 
+    // Update : PUT /api/categories/{id}
+    public void enable(Category category) {
+        category.setEnabled(true);
+        update(category);
+    }
+
+    // Update : PUT /api/categories/{id}
+    public void disable(Category category) {
+        category.setEnabled(false);
+        update(category);
+    }
+
     // Delete : DELETE /api/categories/{id}
     public void delete(Category category) {
         new APIManager(this, true, APIManager.METHOD.DELETE).execute(Config.CATEGORIES + category.getID());
