@@ -1,3 +1,11 @@
+/**
+ * Generic transaction fragment
+ *
+ * @authors Kevin DO VALE, Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.AddOrEditAdapter
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -10,19 +18,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.TransactionCardsAdapter;
+import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
 
 
-public class TransactionFragment extends Fragment implements TransactionsService.Callback {
-
+public class TransactionFragment extends Fragment implements TransactionsService.Callback, Observer {
     private static final String TAG = "TransactionFragment";
-
-    // TODO: Observable classe date update changement
 
     private View view;
 
@@ -50,7 +58,12 @@ public class TransactionFragment extends Fragment implements TransactionsService
     @Override
     public void onResume() {
         super.onResume();
-        new TransactionsService(this).getType(type);
+        SelectedDate.getInstance().addObserver(this);
+        reload();
+    }
+
+    private void reload(){
+        new TransactionsService(this).getTypeByMonth(type);
     }
 
     @Override
@@ -58,7 +71,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
                              @Nullable Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_transaction, container, false);
 
         expenseView = view.findViewById(R.id.totalExpenses);
         expensesListView = view.findViewById(R.id.expenseCardView);
@@ -81,7 +94,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
         expenseView.setText(String.valueOf(totalExpenses));
 
         if (transactions.isEmpty()) {
-            view.findViewById(R.id.expenseEmptyLayout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
+            view.findViewById(R.id.expense_empty_layout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
         }
 
         expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), transactions, type));
@@ -90,5 +103,11 @@ public class TransactionFragment extends Fragment implements TransactionsService
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+
+    @Override
+    public void update(Observable observable, Object o) {
+        reload();
     }
 }

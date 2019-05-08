@@ -71,4 +71,3 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 }
-

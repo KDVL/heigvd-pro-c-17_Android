@@ -6,7 +6,7 @@
     tools:context=".fragments.TransactionFragment">
 
     <LinearLayout
-        android:id="@+id/expenseEmptyLayout"
+        android:id="@+id/expense_empty_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

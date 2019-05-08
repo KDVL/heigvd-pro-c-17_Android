@@ -11,6 +11,7 @@ public abstract class Transaction implements Serializable {
     private long amount;
     private Type type;
     private String description;
+
     public Transaction(long id, String date, Category category, long amount, Type type, String description) {
         this.id = id;
         this.date = date;

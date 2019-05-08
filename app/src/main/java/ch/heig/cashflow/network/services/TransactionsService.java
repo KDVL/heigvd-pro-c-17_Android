@@ -10,6 +10,7 @@ import java.util.List;
 
 import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Income;
+import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.APIManager;
@@ -40,7 +41,10 @@ public class TransactionsService extends APIService {
     }
 
     // PerTypeByMonth : GET /api/transactions/type/{type}/date/YYYY/MM
-    public void getType(Type type, int year, int month) {
+    public void getTypeByMonth(Type type) {
+        SelectedDate date = SelectedDate.getInstance();
+        int year = date.getYear();
+        int month = date.getMonth();
         new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_TYPE + type + "/date/" + year + "/" + month);
     }
 
