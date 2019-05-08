@@ -41,7 +41,7 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         title = view.findViewById(R.id.title);
         budget = view.findViewById(R.id.budget);
 
