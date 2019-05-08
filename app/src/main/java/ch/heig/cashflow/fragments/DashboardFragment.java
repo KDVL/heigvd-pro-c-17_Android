@@ -7,10 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.SelectedDate;
 
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements Observer {
     private static final String TAG = "DashboardFragment";
 
     // TODO: Observable classe date update changement
@@ -18,6 +22,7 @@ public class DashboardFragment extends Fragment {
     public DashboardFragment() {
         // Required empty public constructor
         setHasOptionsMenu(true);
+        SelectedDate.getInstance().addObserver(this);
     }
 
     public static DashboardFragment newInstance() {
@@ -37,11 +42,22 @@ public class DashboardFragment extends Fragment {
     }
 
 
+
+    private void reload(){
+
+        //TODO : Call API Service
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
+        reload();
+    }
 
-        //TODO : Call API Service
+    @Override
+    public void update(Observable observable, Object o) {
+        reload();
     }
 }
 
