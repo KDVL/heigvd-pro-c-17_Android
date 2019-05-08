@@ -1,8 +1,5 @@
 package ch.heig.cashflow.network.services;
 
-import java.util.Arrays;
-import java.util.List;
-
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.APIManager;
@@ -36,7 +33,7 @@ public class DashboardService extends APIService {
         if (!checkResponse(result))
             return;
 
-        Dashboard dashboard = gson.fromJson("{\"name\":\"Budget Global - Mai 2019\",\"expense\":503475,\"income\":199305,\"budget\":-304167,\"categories\":[{\"name\":\"Salaire\",\"expense\":0,\"income\":199305,\"budget\":199305},{\"name\":\"Shopping\",\"expense\":124374,\"income\":0,\"budget\":125868},{\"name\":\"Voyage\",\"expense\":124374,\"income\":0,\"budget\":125868},{\"name\":\"Assurance\",\"expense\":13315,\"income\":0,\"budget\":125868},{\"name\":\"Divers\",\"expense\":13315,\"income\":0,\"budget\":125868}]}", Dashboard.class);
+        Dashboard dashboard = gson.fromJson(result.resultString, Dashboard.class);
 
         if (result.tag.contains(Config.DASHBOARD))
             callback.getFinished(dashboard);

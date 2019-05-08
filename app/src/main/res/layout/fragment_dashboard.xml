@@ -63,7 +63,7 @@
             android:background="@color/monsoon">
 
             <ListView
-                android:id="@+id/expenseCardView"
+                android:id="@+id/categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@android:color/transparent"

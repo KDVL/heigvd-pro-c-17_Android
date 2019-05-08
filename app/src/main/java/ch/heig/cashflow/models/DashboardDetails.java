@@ -1,48 +1,43 @@
 package ch.heig.cashflow.models;
 
-class DashboardDetails {
+public class DashboardDetails {
 
-    private String name;
-    private long expense;
-    private long income;
-    private long budget;
+    private final long ID;
+    private final String name;
+    private final long expense;
+    private final long income;
+    private final long budget;
+    private String iconName;
 
-    public DashboardDetails(String name, long expense, long income, long budget) {
+    public DashboardDetails(long id, String name, long expense, long income, long budget) {
+        this.ID = id;
         this.name = name;
         this.expense = expense;
         this.income = income;
         this.budget = budget;
+    }
+
+    public long getID() {
+        return ID;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public long getExpense() {
         return expense;
-    }
-
-    public void setExpense(long expense) {
-        this.expense = expense;
     }
 
     public long getIncome() {
         return income;
     }
 
-    public void setIncome(long income) {
-        this.income = income;
-    }
-
     public long getBudget() {
         return budget;
     }
 
-    public void setBudget(long budget) {
-        this.budget = budget;
+    public String getIconName() {
+        return iconName;
     }
 }

@@ -178,7 +178,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 result = readStream(stream, 1000000);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         } finally {
             // Close Stream and disconnect HTTPS connection.
             if (stream != null) {

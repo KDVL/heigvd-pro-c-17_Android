@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,23 +15,25 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.adapters.DashboardCardsAdapter;
+import ch.heig.cashflow.adapters.TransactionCardsAdapter;
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.services.DashboardService;
 
 
 public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
-    private static final String TAG = "DashboardFragment";
-
-    private View view;
-
-    private TextView title;
-    private TextView budget;
 
     // TODO: Observable classe date update changement
 
+    private static final String TAG = "DashboardFragment";
+
+    private View view;
+    private TextView title;
+    private TextView budget;
+    private ListView categories;
+
     public DashboardFragment() {
-        // Required empty public constructor
         setHasOptionsMenu(true);
         SelectedDate.getInstance().addObserver(this);
     }
@@ -54,16 +57,14 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         title = view.findViewById(R.id.title);
         budget = view.findViewById(R.id.budget);
 
+        categories = view.findViewById(R.id.categories);
+
         return view;
     }
 
-
-
-    private void reload(){
-
+    private void reload() {
         new DashboardService(this).getAllByMonth();
     }
-
 
     @Override
     public void onResume() {
@@ -86,5 +87,6 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         title.setText(dashboard.getName());
         budget.setText(String.valueOf(dashboard.getBudget()));
         budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
+        categories.setAdapter(new DashboardCardsAdapter(getActivity(), dashboard.getCategories()));
     }
 }

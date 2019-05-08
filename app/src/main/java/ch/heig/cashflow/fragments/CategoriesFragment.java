@@ -21,9 +21,9 @@ import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
 
 //TODO RENAME
-public class CategoryFragment extends Fragment implements CategoriesService.Callback,
+public class CategoriesFragment extends Fragment implements CategoriesService.Callback,
         CategoryService.Callback {
-    private static final String TAG = "CategoryFragment";
+    private static final String TAG = "CategoriesFragment";
 
     private CategoriesService css;
     private CategoryService cs;
@@ -34,12 +34,12 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
     private View view;
 
-    public CategoryFragment() {
+    public CategoriesFragment() {
         // Required empty public constructor
     }
 
-    public static CategoryFragment newInstance() {
-        return new CategoryFragment();
+    public static CategoriesFragment newInstance() {
+        return new CategoriesFragment();
     }
 
     @Override
@@ -50,6 +50,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_category, container, false);
 
@@ -58,7 +59,6 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
         css = new CategoriesService(this);
         cs = new CategoryService(this);
-
 
         catEnabledListView = view.findViewById(R.id.cat_enabled_listview);
         catDisabledListView = view.findViewById(R.id.cat_disabled_listview);
@@ -136,7 +136,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getActivity().getApplicationContext(), "Problème connexion!!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity().getApplicationContext(), "Problème de connexion !", Toast.LENGTH_SHORT).show();
     }
 
     @Override

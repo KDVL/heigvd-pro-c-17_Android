@@ -7,16 +7,13 @@ public class Dashboard extends DashboardDetails implements Serializable {
 
     private List<DashboardDetails> categories;
 
-    public Dashboard(String name, long expense, long income, long budget, List<DashboardDetails> categories) {
-        super(name, expense, income, budget);
+    public Dashboard(long id, String name, long expense, long income, long budget, List<DashboardDetails> categories) {
+        super(id, name, expense, income, budget);
         this.categories = categories;
     }
 
-    public List<DashboardDetails> getCategoryDetails() {
+    public List<DashboardDetails> getCategories() {
         return categories;
     }
 
-    public void setCategoryDetails(List<DashboardDetails> categories) {
-        this.categories = categories;
-    }
 }
