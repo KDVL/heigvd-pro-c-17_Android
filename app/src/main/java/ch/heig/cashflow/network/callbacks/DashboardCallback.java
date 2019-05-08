@@ -24,8 +24,8 @@ public class DashboardCallback implements DashboardService.Callback {
         ds.getAll();
     }
 
-    public void getAll(int year, int month) {
-        ds.getAll(year, month);
+    public void getAllByMonth() {
+        ds.getAllByMonth();
     }
 
     @Override

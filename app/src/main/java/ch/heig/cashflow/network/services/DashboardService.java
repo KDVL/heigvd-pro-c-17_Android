@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ch.heig.cashflow.models.Dashboard;
+import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.utils.Config;
 
@@ -22,7 +23,10 @@ public class DashboardService extends APIService {
     }
 
     // PerType : GET /api/dashboard/date/YYYY/MM
-    public void getAll(int year, int month) {
+    public void getAllByMonth() {
+        SelectedDate date = SelectedDate.getInstance();
+        int year = date.getYear();
+        int month = date.getMonth() + 1;
         new APIManager(this, true, APIManager.METHOD.GET).execute(Config.DASHBOARD_DATE + year + "/" + month);
     }
 

@@ -14,10 +14,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.SelectedDate;
+import ch.heig.cashflow.network.services.DashboardService;
 
 
-public class DashboardFragment extends Fragment implements Observer {
+public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
     private static final String TAG = "DashboardFragment";
 
     private View view;
@@ -59,7 +61,7 @@ public class DashboardFragment extends Fragment implements Observer {
 
     private void reload(){
 
-        //TODO : Call API Service
+        new DashboardService(this).getAllByMonth();
     }
 
 
@@ -77,5 +79,12 @@ public class DashboardFragment extends Fragment implements Observer {
     @Override
     public void connectionFailed(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void getFinished(Dashboard dashboard) {
+        title.setText(dashboard.getName());
+        budget.setText(String.valueOf(dashboard.getBudget()));
+        budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
     }
 }

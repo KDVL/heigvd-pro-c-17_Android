@@ -40,7 +40,7 @@ public class ServicesFragment extends Fragment {
 
     public void testDashboardService(){
         new DashboardCallback(getContext(), this).getAll();
-        new DashboardCallback(getContext(), this).getAll(2019,5);
+        new DashboardCallback(getContext(), this).getAllByMonth();
     }
 
     public void testCategoriesService(){
@@ -52,7 +52,7 @@ public class ServicesFragment extends Fragment {
         new TransactionsCallback(getContext(), this).getAll();
         new TransactionsCallback(getContext(), this).getAll(2019,5);
         new TransactionsCallback(getContext(), this).getType(Type.EXPENSE);
-        new TransactionsCallback(getContext(), this).getType(Type.INCOME,2019,5);
+        new TransactionsCallback(getContext(), this).getTypeByMonth(Type.INCOME);
     }
 
     public void testCategoryService(){

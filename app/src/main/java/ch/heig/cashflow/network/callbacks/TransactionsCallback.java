@@ -33,7 +33,7 @@ public class TransactionsCallback implements TransactionsService.Callback {
         ts.getType(type);
     }
 
-    public void getType(Type type, int year, int month) {
+    public void getTypeByMonth(Type type) {
         ts.getTypeByMonth(type);
     }
 

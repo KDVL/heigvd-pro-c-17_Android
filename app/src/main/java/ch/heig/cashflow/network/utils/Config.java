@@ -24,6 +24,6 @@ public final class Config {
     public final static String CATEGORIES_TYPE = CATEGORIES + "type/";
 
     public final static String DASHBOARD = BASE_URL + "dashboard/";
-    public final static String DASHBOARD_DATE = TRANSACTIONS + "date/";
+    public final static String DASHBOARD_DATE = DASHBOARD + "date/";
 
 }
