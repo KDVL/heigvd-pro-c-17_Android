@@ -214,7 +214,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     @Override
     public void connectionFailed(String error) {
         addButton.setEnabled(true);
-        Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération, Vérifiez vos saisies", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération, vérifiez vos saisies", Toast.LENGTH_LONG).show();
     }
 
 
