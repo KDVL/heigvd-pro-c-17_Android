@@ -38,7 +38,7 @@ import ch.heig.cashflow.network.utils.Date;
 
 
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
-    private List<Category> enabledCategories;
+    private List<Category> categories;
 
     private AddOrEditAdapter adapter = null;
 
@@ -146,7 +146,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         }
 
-        Category c = enabledCategories.get(categoriesSpinner.getSelectedItemPosition());
+        Category c = categories.get(categoriesSpinner.getSelectedItemPosition());
 
         addButton.setEnabled(false);
 
@@ -162,25 +162,25 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
 
     /**
-     * get enabledCategories from service
+     * get categories from service
      *
      * @param categories the list
      */
     @Override
     public void getFinished(List<Category> categories) {
 
-        enabledCategories = categories;
-
-        //remove disable enabledCategories
-        for (Category c : enabledCategories) {
+        //remove disable categories
+        for (Category c : categories) {
             if (!c.isEnabled())
-                enabledCategories.remove(c);
+                categories.remove(c);
         }
 
         ArrayList<String> arrayList = new ArrayList<>();
-        for (Category cat : enabledCategories) {
+        for (Category cat : categories) {
             arrayList.add(cat.getName());
         }
+
+        this.categories = categories;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arrayList);
@@ -189,7 +189,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         categoriesSpinner.setAdapter(adapter);
 
         //adapter know who will be selected
-        this.adapter.selectCategorie(enabledCategories, categoriesSpinner);
+        this.adapter.selectCategorie(this.categories, categoriesSpinner);
     }
 
     /**
