@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +25,12 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         CategoryService.Callback {
     private static final String TAG = "CategoryFragment";
 
-    private CategoriesService css = null;
-    private CategoryService cs = null;
+    private CategoriesService css;
+    private CategoryService cs;
     private List<Category> categoriesEnabledList;
     private List<Category> categoriesDisabledList;
     private ListView catEnabledListView;
     private ListView catDisabledListView;
-
-    // TODO: Observable classe date update changement
 
     private View view;
 
@@ -54,11 +53,15 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_category, container, false);
 
+        categoriesEnabledList = new ArrayList<>();
+        categoriesDisabledList = new ArrayList<>();
+
         css = new CategoriesService(this);
         cs = new CategoryService(this);
 
-        catEnabledListView = view.findViewById(R.id.catEnabledListView);
-        catDisabledListView = view.findViewById(R.id.catDisabledListView);
+
+        catEnabledListView = view.findViewById(R.id.cat_enabled_listview);
+        catDisabledListView = view.findViewById(R.id.cat_disabled_listview);
 
         css.getType(Type.EXPENSE);
 
@@ -69,10 +72,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
                 Object o = catEnabledListView.getItemAtPosition(position);
                 Category c = (Category) o;
                 c.setEnabled(!c.isEnabled());
-
-                categoriesDisabledList.add(categoriesEnabledList.remove(position));
-
-                setActive(c);
+                delete(c);
             }
         });
 
@@ -83,23 +83,44 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
                 Object o = catDisabledListView.getItemAtPosition(position);
                 Category c = (Category) o;
                 c.setEnabled(!c.isEnabled());
-
-                categoriesEnabledList.add(categoriesDisabledList.remove(position));
-
-                setActive(c);
+                add(c);
             }
         });
 
         return view;
     }
 
-    private void setActive(Category c) {
-        // TODO: update ne marche pas
-        /*
-        cs.update(c);
-        categoriesEnabledList.clear();
+    private void add(Category c) {
+        cs.add(c);
         css.getType(Type.EXPENSE);
-        */
+    }
+
+    private void delete(Category c) {
+        cs.delete(c);
+        css.getType(Type.EXPENSE);
+    }
+
+    private synchronized void refresh(List<Category> categories) {
+        categoriesEnabledList.clear();
+        categoriesDisabledList.clear();
+
+        for (Category ec : categories)
+            if (ec.isEnabled())
+                categoriesEnabledList.add(ec);
+
+        boolean alreadyExist = false;
+        for (Category dc : categories) {
+            for (Category c : categoriesEnabledList) {
+                if (c.getName().equals(dc.getName())) {
+                    alreadyExist = true;
+                    break;
+                }
+            }
+            if (!alreadyExist)
+                categoriesDisabledList.add(dc);
+            else
+                alreadyExist = false;
+        }
 
         catEnabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesEnabledList));
         catDisabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesDisabledList));
@@ -109,35 +130,32 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
     @Override
     public void connectionFailed(String error) {
-
+        Toast.makeText(getActivity().getApplicationContext(), "Problème connexion!!!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void getFinished(List<Category> categories) {
-        //TODO: Pas de retour pour le moment ajout manuel
-        //categoriesEnabledList = categories;
-
-        categoriesEnabledList = new ArrayList<>();
-        categoriesEnabledList.add(new Category(1, "Boisson", "cat_drink", Type.EXPENSE, 200, true));
-        categoriesEnabledList.add(new Category(2, "Voiture", "cat_cars", Type.EXPENSE, 200, true));
-
-        categoriesDisabledList = new ArrayList<>();
-        categoriesDisabledList.add(new Category(3, "Enfants", "cat_child", Type.EXPENSE, 200, false));
-        categoriesDisabledList.add(new Category(4, "Aliments", "cat_aliments", Type.EXPENSE, 200, false));
-
-        catEnabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesEnabledList));
-        catDisabledListView.setAdapter(new CategorySelectAdapter(getActivity(), categoriesDisabledList));
-        getActivity().setTitle("Liste de catégories");
+        refresh(categories);
     }
 
+    /**
+     * Retour de la methode GET
+     *
+     * @param category
+     */
     @Override
     public void getFinished(Category category) {
-
     }
 
+    /**
+     * Retour après POST, PUT et DELETE auprès du serveur
+     *
+     * @param isFinished
+     */
     @Override
     public void operationFinished(boolean isFinished) {
-
+        String msg = "Résultat de la mise à jour : " + isFinished;
+        Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

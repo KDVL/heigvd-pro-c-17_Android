@@ -15,8 +15,6 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Transaction;
 
 public class TransactionCardItemsAdapter extends BaseAdapter {
-    private static final String[] MONTH_ARRAY = {". Janvier", ". Fevrier", ". Mars", ". Avril",
-            ". Mai", ". Juin", ". Juillet", ". Aout", ". Septembre", ". Octobre", ". Novembre", ". Decembre"};
 
     private List<Transaction> transactions;
     private LayoutInflater layoutInflater;

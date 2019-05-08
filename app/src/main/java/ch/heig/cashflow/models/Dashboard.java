@@ -3,7 +3,6 @@ package ch.heig.cashflow.models;
 import java.io.Serializable;
 import java.util.List;
 
-@SuppressWarnings("serial")
 public class Dashboard extends DashboardDetails implements Serializable {
 
     private List<DashboardDetails> categories;
