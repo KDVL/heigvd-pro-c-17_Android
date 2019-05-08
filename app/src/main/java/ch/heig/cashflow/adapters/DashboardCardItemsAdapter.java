@@ -9,32 +9,31 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Currency;
-import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.models.DashboardDetails;
 
-public class TransactionCardItemsAdapter extends BaseAdapter {
+public class DashboardCardItemsAdapter extends BaseAdapter {
 
-    private List<Transaction> transactions;
-    private LayoutInflater layoutInflater;
     private Context context;
+    private LayoutInflater layoutInflater;
+    private DashboardCardItemsAdapter.ViewHolder holder;
+    private DashboardDetails category;
 
-    public TransactionCardItemsAdapter(Context context, List<Transaction> transactions) {
+    public DashboardCardItemsAdapter(Context context, DashboardDetails category) {
         this.context = context;
-        this.transactions = transactions;
-        layoutInflater = LayoutInflater.from(context);
+        this.category = category;
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return transactions.size();
+        return 1;
     }
 
     @Override
     public Object getItem(int pos) {
-        return transactions.get(pos);
+        return category;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.fragment_transaction_listview, null);
             holder = new ViewHolder();
@@ -56,17 +55,17 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Transaction transaction = this.transactions.get(pos);
+        holder.noteView.setText(category.getName());
+        holder.amountView.setText(Currency.format(category.getBudget()));
+        if (category.getBudget() < 0)
+            holder.amountView.setTextColor(Color.RED);
 
-        holder.noteView.setText(transaction.getDescription());
-        holder.amountView.setText(Currency.format(transaction.getAmountLong()));
+        //int imageId = this.getDrawableResIdByName(category.getIconName());
 
-        int imageId = this.getDrawableResIdByName(transaction.getCategory().getIconName());
-
-        if(imageId != 0){
-            holder.categorieImageView.setImageResource(imageId);
-            holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
-        }
+        //if (imageId != 0) {
+        //    holder.categorieImageView.setImageResource(imageId);
+        //    holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
+        //}
 
         return convertView;
     }

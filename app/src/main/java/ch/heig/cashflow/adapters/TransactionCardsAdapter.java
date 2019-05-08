@@ -16,6 +16,7 @@ import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.TransactionDetailsActivity;
+import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
@@ -87,16 +88,16 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
 
         Transaction expense = currentMonthTransactionsGroupeByDay.get(pos);
 
-        float total = 0;
+        long total = 0;
         transactionDailyList = new ArrayList<>();
         for (Transaction t : currentMonthTransactions) {
             if (t.getDate().equals(expense.getDate())) {
-                total += t.getAmountFloat();
+                total += t.getAmountLong();
                 transactionDailyList.add(t);
             }
         }
 
-        holder.dateView.setText("Date: " + expense.getDate() + " Total: " + total);
+        holder.dateView.setText("Date: " + expense.getDate() + " Total: " + Currency.format(total));
 
         holder.dayList.setAdapter(new TransactionCardItemsAdapter(context, transactionDailyList));
 
