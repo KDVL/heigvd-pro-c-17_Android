@@ -42,9 +42,9 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     /**
      * Constructor
      *
-     * @param callback the callback object
+     * @param callback   the callback object
      * @param authNeeded true if authentification is need with this endpont
-     * @param m the HTTP method
+     * @param m          the HTTP method
      */
     public APIManager(DownloadCallback<APIManager.Result> callback, boolean authNeeded, METHOD m) {
         mCallback = callback;
@@ -71,16 +71,23 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     protected void onPreExecute() {
         if (mCallback != null) {
             Context c = mCallback.getContext();
-            ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-            if (networkInfo == null || !networkInfo.isConnected() ||
-                    (networkInfo.getType() != ConnectivityManager.TYPE_WIFI
-                            && networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
-                // If no connectivity, cancel task and update Callback with null data.
+            try{
+                ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+                if (networkInfo == null || !networkInfo.isConnected() ||
+                        (networkInfo.getType() != ConnectivityManager.TYPE_WIFI
+                                && networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
+                    // If no connectivity, cancel task and update Callback with null data.
+                    mCallback.updateFromDownload(null);
+                    cancel(true);
+                }
+            }catch (Exception e){
                 mCallback.updateFromDownload(null);
                 cancel(true);
             }
+
         }
     }
 
@@ -108,10 +115,10 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
 
     /**
      * Updates the DownloadCallback with the result.
-     * */
+     */
     @Override
     protected void onPostExecute(Result result) {
-        if(mCallback == null) return;
+        if (mCallback == null) return;
         mCallback.updateFromDownload(result);
     }
 
@@ -149,7 +156,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                 //System.out.println(token);
             }
 
-            if (postParams != null && !postParams.equals("") ) {
+            if (postParams != null && !postParams.equals("")) {
                 // put JSON content
                 connection.setDoOutput(true);
                 DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
@@ -211,7 +218,6 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     /**
      * Used in dev environment only !
      * TODO : Delete in PROD
-     *
      */
     private void trustEveryone() {
         try {

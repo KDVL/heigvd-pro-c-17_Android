@@ -39,6 +39,8 @@ public class AuthValidationService implements DownloadCallback<APIManager.Result
     public void updateFromDownload(APIManager.Result result) {
         if(callback != null)
             callback.authVerification(result.responseCode == 200);
+        else if(result == null)
+            callback.authVerification(false);
     }
 
     /**

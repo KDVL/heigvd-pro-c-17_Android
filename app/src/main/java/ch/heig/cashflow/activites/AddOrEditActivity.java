@@ -53,7 +53,6 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     @BindView(R.id.btn_add)
     Button addButton;
 
-
     /**
      * onCreate
      *

@@ -44,7 +44,7 @@ public class TransactionsService extends APIService {
     public void getTypeByMonth(Type type) {
         SelectedDate date = SelectedDate.getInstance();
         int year = date.getYear();
-        int month = date.getMonth();
+        int month = date.getMonth() + 1;
         new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_TYPE + type + "/date/" + year + "/" + month);
     }
 

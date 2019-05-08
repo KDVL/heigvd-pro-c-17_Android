@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Dashboard;
-import ch.heig.cashflow.network.services.DashboardService;
+import ch.heig.cashflow.models.SelectedDate;
 
 
-public class DashboardFragment extends Fragment implements DashboardService.Callback {
-
+public class DashboardFragment extends Fragment implements Observer {
     private static final String TAG = "DashboardFragment";
 
     private View view;
@@ -28,6 +29,8 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
     public DashboardFragment() {
         // Required empty public constructor
+        setHasOptionsMenu(true);
+        SelectedDate.getInstance().addObserver(this);
     }
 
     public static DashboardFragment newInstance() {
@@ -53,17 +56,22 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
 
+
+    private void reload(){
+
+        //TODO : Call API Service
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
-        new DashboardService(this).getAll();
+        reload();
     }
 
     @Override
-    public void getFinished(Dashboard dashboard) {
-        title.setText(dashboard.getName());
-        budget.setText(String.valueOf(dashboard.getBudget()));
-        budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
+    public void update(Observable observable, Object o) {
+        reload();
     }
 
     @Override

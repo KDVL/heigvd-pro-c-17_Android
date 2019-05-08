@@ -20,7 +20,7 @@ import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
 
-
+//TODO RENAME
 public class CategoryFragment extends Fragment implements CategoriesService.Callback,
         CategoryService.Callback {
     private static final String TAG = "CategoryFragment";
