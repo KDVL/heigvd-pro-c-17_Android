@@ -4,21 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.TransactionCardsAdapter;
-import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
-import ch.heig.cashflow.network.services.TransactionsService;
 
 
 public class DashboardFragment extends Fragment {
