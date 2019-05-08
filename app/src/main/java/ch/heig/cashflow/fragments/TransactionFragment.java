@@ -56,11 +56,11 @@ public class TransactionFragment extends Fragment implements TransactionsService
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_expense, container, false);
 
         expenseView = view.findViewById(R.id.totalExpenses);
-
         expensesListView = view.findViewById(R.id.expenseCardView);
 
         return view;

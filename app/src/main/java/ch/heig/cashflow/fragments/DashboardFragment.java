@@ -1,5 +1,6 @@
 package ch.heig.cashflow.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Dashboard;
@@ -41,11 +43,13 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
         title = view.findViewById(R.id.title);
         budget = view.findViewById(R.id.budget);
 
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        return view;
     }
 
 
@@ -57,13 +61,14 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
     @Override
     public void getFinished(Dashboard dashboard) {
-        title.setText(String.valueOf(dashboard.getName()));
+        title.setText(dashboard.getName());
         budget.setText(String.valueOf(dashboard.getBudget()));
+        budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
     }
 
     @Override
     public void connectionFailed(String error) {
-        // Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 }
 
