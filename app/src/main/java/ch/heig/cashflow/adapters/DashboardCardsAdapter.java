@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -49,27 +49,32 @@ public class DashboardCardsAdapter extends BaseAdapter {
     public View getView(int pos, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.fragment_transaction_list_item, null);
+            convertView = layoutInflater.inflate(R.layout.fragment_dashboard_list_item, null);
             holder = new DashboardCardsAdapter.ViewHolder();
-            holder.dateView = convertView.findViewById(R.id.transaction_date);
             holder.dayList = convertView.findViewById(R.id.dayList);
+            holder.determinateBar = convertView.findViewById(R.id.determinateBar);
             convertView.setTag(holder);
         } else
             holder = (DashboardCardsAdapter.ViewHolder) convertView.getTag();
 
-        holder.dayList.setAdapter(new DashboardCardItemsAdapter(context, categories));
+        DashboardDetails category = categories.get(pos);
+        holder.dayList.setAdapter(new DashboardCardItemsAdapter(context, category));
+
+        int progress = 0;
+
+        if (category.getExpense() > 0) {
+            progress = (int) (category.getExpense() * 100 / 310983);
+        } else if (category.getIncome() > 0) {
+            progress = (int) (category.getIncome() * 100 / 310983);
+        }
+
+        holder.determinateBar.setProgress(progress);
 
         ListAdapter listAdapter = holder.dayList.getAdapter();
 
         if (listAdapter != null) {
-            int totalHeight = 0;
-            for (int i = 0; i < listAdapter.getCount(); i++) {
-                View listItem = listAdapter.getView(i, null, holder.dayList);
-                listItem.measure(0, 0);
-                totalHeight += listItem.getMeasuredHeight();
-            }
             ViewGroup.LayoutParams params = holder.dayList.getLayoutParams();
-            params.height = totalHeight + (holder.dayList.getDividerHeight() * (listAdapter.getCount() - 1));
+            params.height = 100 + (holder.dayList.getDividerHeight() * (listAdapter.getCount() - 1));
             holder.dayList.setLayoutParams(params);
             holder.dayList.requestLayout();
         }
@@ -78,7 +83,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView dateView;
         ListView dayList;
+        ProgressBar determinateBar;
     }
 }

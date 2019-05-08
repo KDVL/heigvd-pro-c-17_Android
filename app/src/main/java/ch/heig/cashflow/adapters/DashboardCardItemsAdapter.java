@@ -9,9 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.DashboardDetails;
 
 public class DashboardCardItemsAdapter extends BaseAdapter {
@@ -19,22 +18,22 @@ public class DashboardCardItemsAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private DashboardCardItemsAdapter.ViewHolder holder;
-    private List<DashboardDetails> categories;
+    private DashboardDetails category;
 
-    public DashboardCardItemsAdapter(Context context, List<DashboardDetails> categories) {
+    public DashboardCardItemsAdapter(Context context, DashboardDetails category) {
         this.context = context;
-        this.categories = categories;
+        this.category = category;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return categories.size();
+        return 1;
     }
 
     @Override
     public Object getItem(int pos) {
-        return categories.get(pos);
+        return category;
     }
 
     @Override
@@ -56,10 +55,10 @@ public class DashboardCardItemsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        DashboardDetails category = this.categories.get(pos);
-
         holder.noteView.setText(category.getName());
-        holder.amountView.setText(String.valueOf(category.getBudget()));
+        holder.amountView.setText(Currency.format(category.getBudget()));
+        if (category.getBudget() < 0)
+            holder.amountView.setTextColor(Color.RED);
 
         //int imageId = this.getDrawableResIdByName(category.getIconName());
 

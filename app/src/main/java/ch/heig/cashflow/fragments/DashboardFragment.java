@@ -11,12 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
 import ch.heig.cashflow.adapters.TransactionCardsAdapter;
+import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.services.DashboardService;
@@ -85,7 +87,7 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     @Override
     public void getFinished(Dashboard dashboard) {
         title.setText(dashboard.getName());
-        budget.setText(String.valueOf(dashboard.getBudget()));
+        budget.setText(Currency.format(dashboard.getBudget()));
         budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
         categories.setAdapter(new DashboardCardsAdapter(getActivity(), dashboard.getCategories()));
     }

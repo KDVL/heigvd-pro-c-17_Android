@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.Transaction;
 
 public class TransactionCardItemsAdapter extends BaseAdapter {
@@ -58,7 +59,7 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
         Transaction transaction = this.transactions.get(pos);
 
         holder.noteView.setText(transaction.getDescription());
-        holder.amountView.setText(String.valueOf(transaction.getAmountFloat()));
+        holder.amountView.setText(Currency.format(transaction.getAmountLong()));
 
         int imageId = this.getDrawableResIdByName(transaction.getCategory().getIconName());
 

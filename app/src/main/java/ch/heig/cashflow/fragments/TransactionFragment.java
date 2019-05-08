@@ -8,6 +8,7 @@
 
 package ch.heig.cashflow.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import java.util.Observer;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.TransactionCardsAdapter;
+import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.models.Type;
@@ -31,14 +33,12 @@ import ch.heig.cashflow.network.services.TransactionsService;
 
 
 public class TransactionFragment extends Fragment implements TransactionsService.Callback, Observer {
+
     private static final String TAG = "TransactionFragment";
 
     private View view;
-
     private TextView expenseView;
     private ListView expensesListView;
-
-    //expense by default
     private Type type = Type.EXPENSE;
     private long totalExpenses;
 
@@ -90,9 +90,10 @@ public class TransactionFragment extends Fragment implements TransactionsService
 
         totalExpenses = 0;
         for (Transaction t : transactions)
-            totalExpenses += t.getAmountFloat();
+            totalExpenses += t.getAmountLong();
 
-        expenseView.setText(String.valueOf(totalExpenses));
+        expenseView.setText(Currency.format(totalExpenses));
+        expenseView.setTextColor(type.equals(Type.EXPENSE) ? Color.RED : Color.GREEN);
 
         if (transactions.isEmpty()) {
             view.findViewById(R.id.expense_empty_layout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
