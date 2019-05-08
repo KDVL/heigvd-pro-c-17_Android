@@ -101,6 +101,12 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     private synchronized void refresh(List<Category> categories) {
+
+        // TODO : Utiliser NOUVEAU service suivant
+        Category tmp = categories.get(0);
+        new CategoryService(this).disable(tmp);
+        new CategoryService(this).enable(tmp);
+
         categoriesEnabledList.clear();
         categoriesDisabledList.clear();
 
