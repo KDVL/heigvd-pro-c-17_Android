@@ -18,7 +18,7 @@ public abstract class APIService implements DownloadCallback<APIManager.Result> 
     }
 
     public boolean checkResponse(APIManager.Result result) {
-        if(callback == null) return false;
+        if(result == null || callback == null) return false;
 
         if (result.responseCode != 200 || result.resultString.equals("null")) {
             String exception = result.exception == null ? "" : result.exception.toString();

@@ -48,7 +48,7 @@ public class SignupService implements DownloadCallback<APIManager.Result> {
     public void updateFromDownload(APIManager.Result result) {
 
         if(callback == null) return;
-        if (result.responseCode == 201) {
+        if (result != null && result.responseCode == 201) {
             new LoginService(callback, user.getEmail(), user.getPassword());
         } else {
             callback.loginFinished(false);
