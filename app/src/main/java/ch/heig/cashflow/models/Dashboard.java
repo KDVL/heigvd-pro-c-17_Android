@@ -6,12 +6,12 @@ import java.util.List;
 public class Dashboard extends Budget implements Serializable {
 
     private final String name;
-    private final List<Budget> budgets;
+    private final List<Budget> categories;
 
     public Dashboard(String name, long expense, long income, long budget, List<Budget> budgets) {
         super(expense, income, budget, null);
         this.name = name;
-        this.budgets = budgets;
+        this.categories = budgets;
     }
 
     public String getName() {
@@ -19,6 +19,6 @@ public class Dashboard extends Budget implements Serializable {
     }
 
     public List<Budget> getBudgets() {
-        return budgets;
+        return categories;
     }
 }
