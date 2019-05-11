@@ -89,6 +89,6 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         title.setText(dashboard.getName());
         budget.setText(Currency.format(dashboard.getBudget()));
         budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
-        categories.setAdapter(new DashboardCardsAdapter(getActivity(), dashboard.getCategories()));
+        categories.setAdapter(new DashboardCardsAdapter(getActivity(), dashboard.getBudgets()));
     }
 }
