@@ -3,17 +3,22 @@ package ch.heig.cashflow.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class Dashboard extends DashboardDetails implements Serializable {
+public class Dashboard extends Budget implements Serializable {
 
-    private List<DashboardDetails> categories;
+    private final String name;
+    private final List<Budget> budgets;
 
-    public Dashboard(long id, String name, long expense, long income, long budget, List<DashboardDetails> categories) {
-        super(id, name, expense, income, budget);
-        this.categories = categories;
+    public Dashboard(String name, long expense, long income, long budget, List<Budget> budgets) {
+        super(expense, income, budget, null);
+        this.name = name;
+        this.budgets = budgets;
     }
 
-    public List<DashboardDetails> getCategories() {
-        return categories;
+    public String getName() {
+        return name;
     }
 
+    public List<Budget> getBudgets() {
+        return budgets;
+    }
 }
