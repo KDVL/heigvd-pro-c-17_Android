@@ -10,19 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.models.Budget;
+import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Currency;
-import ch.heig.cashflow.models.DashboardDetails;
 
 public class DashboardCardItemsAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private DashboardCardItemsAdapter.ViewHolder holder;
-    private DashboardDetails category;
+    private Budget budget;
+    private Category category;
 
-    public DashboardCardItemsAdapter(Context context, DashboardDetails category) {
+    public DashboardCardItemsAdapter(Context context, Budget budget) {
         this.context = context;
-        this.category = category;
+        this.budget = budget;
+        this.category = budget.getCategory();
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -33,7 +36,7 @@ public class DashboardCardItemsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int pos) {
-        return category;
+        return budget;
     }
 
     @Override
@@ -56,8 +59,8 @@ public class DashboardCardItemsAdapter extends BaseAdapter {
         }
 
         holder.noteView.setText(category.getName());
-        holder.amountView.setText(Currency.format(category.getBudget()));
-        if (category.getBudget() < 0)
+        holder.amountView.setText(Currency.format(budget.getBudget()));
+        if (budget.getBudget() < 0)
             holder.amountView.setTextColor(Color.RED);
 
         //int imageId = this.getDrawableResIdByName(category.getIconName());

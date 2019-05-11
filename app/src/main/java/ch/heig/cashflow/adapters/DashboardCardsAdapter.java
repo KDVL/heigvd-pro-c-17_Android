@@ -12,19 +12,19 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.DashboardDetails;
+import ch.heig.cashflow.models.Budget;
 
 public class DashboardCardsAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private DashboardCardsAdapter.ViewHolder holder;
-    private List<DashboardDetails> categories;
+    private List<Budget> budgets;
 
-    public DashboardCardsAdapter(Context context, List<DashboardDetails> categories) {
+    public DashboardCardsAdapter(Context context, List<Budget> budgets) {
 
         this.context = context;
-        this.categories = categories;
+        this.budgets = budgets;
 
         if (context != null)
             layoutInflater = LayoutInflater.from(context);
@@ -32,12 +32,12 @@ public class DashboardCardsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return categories.size();
+        return budgets.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return categories.get(pos);
+        return budgets.get(pos);
     }
 
     @Override
@@ -57,15 +57,15 @@ public class DashboardCardsAdapter extends BaseAdapter {
         } else
             holder = (DashboardCardsAdapter.ViewHolder) convertView.getTag();
 
-        DashboardDetails category = categories.get(pos);
-        holder.dayList.setAdapter(new DashboardCardItemsAdapter(context, category));
+        Budget budget = budgets.get(pos);
+        holder.dayList.setAdapter(new DashboardCardItemsAdapter(context, budget));
 
         int progress = 0;
 
-        if (category.getExpense() > 0) {
-            progress = (int) (category.getExpense() * 100 / 310983);
-        } else if (category.getIncome() > 0) {
-            progress = (int) (category.getIncome() * 100 / 310983);
+        if (budget.getExpense() > 0) {
+            progress = (int) (budget.getExpense() * 100 / 310983);
+        } else if (budget.getIncome() > 0) {
+            progress = (int) (budget.getIncome() * 100 / 310983);
         }
 
         holder.determinateBar.setProgress(progress);
