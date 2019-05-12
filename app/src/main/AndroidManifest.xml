@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragments.CategorySelectActivity"></activity>
-        <activity android:name=".activites.CategoryChoiceActivity" />
+        <activity android:name=".activites.CategoryDetailsActivity"></activity>
+        <activity android:name=".activites.AddOrEditCategoryActivity" />
         <activity android:name=".activites.TransactionDetailsActivity" />
         <activity
             android:name=".activites.MainActivity"
