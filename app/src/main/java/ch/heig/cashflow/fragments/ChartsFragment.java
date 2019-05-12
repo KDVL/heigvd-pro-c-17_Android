@@ -109,7 +109,7 @@ public class ChartsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.dashboard_menu, menu);
+        inflater.inflate(R.menu.charts_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

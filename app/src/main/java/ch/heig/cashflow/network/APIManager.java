@@ -51,7 +51,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         this.authNeeded = authNeeded;
         method = m;
 
-        //Used with https test server (localhost)
+        //Used with https fragment_category_old server (localhost)
         trustEveryone();
     }
 

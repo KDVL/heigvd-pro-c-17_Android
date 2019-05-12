@@ -5,19 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
-import ch.heig.cashflow.adapters.TransactionCardsAdapter;
 import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.SelectedDate;
@@ -61,6 +61,8 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
         categories = view.findViewById(R.id.categories);
 
+        setHasOptionsMenu(true);
+
         return view;
     }
 
@@ -72,6 +74,13 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     public void onResume() {
         super.onResume();
         reload();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.dashboard_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

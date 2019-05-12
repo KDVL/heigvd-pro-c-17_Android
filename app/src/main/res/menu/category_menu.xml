@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/actionbar_add"
+        android:id="@+id/actionbar_add_category"
         android:icon="@drawable/appbar_add"
-        android:title="Add transaction"
+        android:title="Add category"
         app:showAsAction="always" />
 
     <item

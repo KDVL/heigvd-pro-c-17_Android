@@ -9,8 +9,9 @@
         android:id="@+id/expense_empty_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginBottom="56dp"
         android:background="@color/iron"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/fragment_medium_margin"
         android:paddingRight="@dimen/fragment_medium_margin">
 
