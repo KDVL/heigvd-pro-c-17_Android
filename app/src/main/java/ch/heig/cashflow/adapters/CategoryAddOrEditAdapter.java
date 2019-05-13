@@ -3,7 +3,7 @@
  *
  * @authors Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.AddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
  */
 package ch.heig.cashflow.adapters;
 
@@ -14,56 +14,59 @@ import java.io.Serializable;
 import java.util.List;
 
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.CategoriesService;
-import ch.heig.cashflow.network.services.TransactionService;
+import ch.heig.cashflow.network.services.CategoryService;
 
-public abstract class AddOrEditAdapter implements Serializable {
+public abstract class CategoryAddOrEditAdapter implements Serializable {
 
-    protected Transaction transaction;
-    protected CategoriesService.Callback callback;
-    protected TransactionService.Callback transactionCallback;
+    protected Category category;
+    protected CategoryService.Callback csCallback;
+    protected CategoriesService.Callback cssCallback;
 
     /**
      * Constructor
-     * @param t the transaction
+     *
+     * @param c the category
      */
-    public AddOrEditAdapter(Transaction t) {
-        transaction = t;
+    public CategoryAddOrEditAdapter(Category c) {
+        category = c;
     }
 
     /**
-     *  set callback categorie
+     * set callback categorie
+     *
      * @param callback the callback
      */
     public void setCallbackCategorie(CategoriesService.Callback callback) {
-        this.callback = callback;
+        cssCallback = callback;
         loadCategories();
     }
 
     /**
-     * set callback transaction
+     * set callback category
+     *
      * @param callback the callback
      */
-    public void setCallbackTransaction(TransactionService.Callback callback) {
-        this.transactionCallback = callback;
+    public void setCallbackCategory(CategoryService.Callback callback) {
+        csCallback = callback;
+        loadCategory();
     }
 
     /**
-     *
-     * @return transaction
+     * @return category
      */
-    public Transaction getTransaction() {
-        return transaction;
+    public Category getCategory() {
+        return category;
     }
 
     /**
      * return amount as String
+     *
      * @return String amount
      */
     public String getAmount() {
-        if (transaction.getAmountLong() == 0) return "";
-        return String.valueOf(transaction.getAmountFloat());
+        if (category.getQuota() == 0) return "";
+        return String.valueOf(category.getQuota());
     }
 
     /**
@@ -81,10 +84,14 @@ public abstract class AddOrEditAdapter implements Serializable {
      */
     public abstract void loadCategories();
 
+    public abstract void loadCategory();
+
     /**
      * select spinner's categorie
+     *
      * @param categories the list
-     * @param s the spinner
+     * @param s          the spinner
      */
     public abstract void selectCategorie(List<Category> categories, Spinner s);
+
 }

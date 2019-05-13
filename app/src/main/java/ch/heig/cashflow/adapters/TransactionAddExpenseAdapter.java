@@ -3,7 +3,7 @@
  *
  * @authors Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.AddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
  */
 package ch.heig.cashflow.adapters;
 
@@ -17,13 +17,13 @@ import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.utils.Date;
 
-public class AddExpenseAdapter extends AddAdapter implements Serializable {
+public class TransactionAddExpenseAdapter extends TransactionAddAdapter implements Serializable {
 
 
     /**
      * Constructor
      */
-    public AddExpenseAdapter() {
+    public TransactionAddExpenseAdapter() {
         super(new Expense(0, Date.getCurrentDateServeurFormat(), null, 0, ""));
     }
 

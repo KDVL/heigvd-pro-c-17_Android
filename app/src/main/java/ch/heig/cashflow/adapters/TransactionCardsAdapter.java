@@ -133,7 +133,7 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     private void showTransactionDetail(Transaction t) {
         Intent transactionDetails = new Intent(context, TransactionDetailsActivity.class);
 
-        AddOrEditAdapter adapter = type == Type.EXPENSE ? new EditExpenseAdapter(t) : new EditIncomeAdapter(t);
+        TransactionAddOrEditAdapter adapter = type == Type.EXPENSE ? new TransactionEditExpenseAdapter(t) : new TransactionEditIncomeAdapter(t);
 
         transactionDetails.putExtra(context.getString(R.string.transaction_adapter_key), adapter);
         context.startActivity(transactionDetails);

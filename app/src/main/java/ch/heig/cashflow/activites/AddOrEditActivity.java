@@ -28,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.AddOrEditAdapter;
+import ch.heig.cashflow.adapters.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Transaction;
@@ -40,7 +40,7 @@ import ch.heig.cashflow.network.utils.Date;
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
     private List<Category> categories;
 
-    private AddOrEditAdapter adapter = null;
+    private TransactionAddOrEditAdapter adapter = null;
 
     @BindView(R.id.input_categorie)
     Spinner categoriesSpinner;
@@ -67,7 +67,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         Intent i = getIntent();
         if (i != null) {
-            adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
+            adapter = (TransactionAddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
             adapter.setCallbackTransaction(this);
             adapter.setCallbackCategorie(this);
         }

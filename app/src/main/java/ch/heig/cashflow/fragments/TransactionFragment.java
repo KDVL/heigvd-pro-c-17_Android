@@ -1,9 +1,9 @@
 /**
- * Generic transaction fragment
+ * Generic category fragment
  *
  * @authors Kevin DO VALE, Aleksandar MILENKOVIC
  * @version 1.0
- * @see ch.heig.cashflow.adapters.AddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
  */
 
 package ch.heig.cashflow.fragments;

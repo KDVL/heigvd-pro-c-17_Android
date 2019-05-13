@@ -3,7 +3,7 @@
  *
  * @authors Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.AddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
  */
 package ch.heig.cashflow.adapters;
 
@@ -16,13 +16,13 @@ import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionService;
 
-public abstract class AddAdapter extends AddOrEditAdapter implements Serializable {
+public abstract class TransactionAddAdapter extends TransactionAddOrEditAdapter implements Serializable {
 
     /**
      * Constructor
-     * @param t the transaction
+     * @param t the category
      */
-    public AddAdapter(Transaction t) {
+    public TransactionAddAdapter(Transaction t) {
         super(t);
     }
 

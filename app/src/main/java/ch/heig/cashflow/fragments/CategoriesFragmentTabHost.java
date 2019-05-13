@@ -1,5 +1,6 @@
 package ch.heig.cashflow.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.activites.AddOrEditCategoryActivity;
+import ch.heig.cashflow.adapters.CategoryAddExpenseAdapter;
 import ch.heig.cashflow.adapters.CategoryFragmentAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.DividerItemDecoration;
@@ -61,7 +64,9 @@ public class CategoriesFragmentTabHost extends Fragment {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.actionbar_add_category:
-                Toast.makeText(getActivity(), "Calls Icon Click", Toast.LENGTH_SHORT).show();
+                Intent catAdd = new Intent(getContext(), AddOrEditCategoryActivity.class);
+                catAdd.putExtra(getResources().getString(R.string.category_adapter_key), new CategoryAddExpenseAdapter());
+                startActivity(catAdd);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -178,7 +183,7 @@ public class CategoriesFragmentTabHost extends Fragment {
          */
         @Override
         public void operationFinished(boolean isFinished) {
-            if (isFinished){
+            if (isFinished) {
                 Toast.makeText(getActivity().getApplicationContext(), "Mise à jour reussi!", Toast.LENGTH_SHORT).show();
                 updateListeFromServer(Type.EXPENSE);
             }

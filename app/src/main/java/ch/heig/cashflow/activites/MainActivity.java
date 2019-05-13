@@ -22,9 +22,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.AddAdapter;
-import ch.heig.cashflow.adapters.AddExpenseAdapter;
-import ch.heig.cashflow.adapters.AddIncomeAdapter;
+import ch.heig.cashflow.adapters.TransactionAddAdapter;
+import ch.heig.cashflow.adapters.TransactionAddExpenseAdapter;
+import ch.heig.cashflow.adapters.TransactionAddIncomeAdapter;
 import ch.heig.cashflow.fragments.CategoriesFragmentTabHost;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;
@@ -37,7 +37,7 @@ import ch.heig.cashflow.network.utils.TokenHolder;
 
 public class MainActivity extends AppCompatActivity implements AuthValidationService.Callback {
     private static final String TAG = "MainActivity";
-    private AddAdapter addAdapter;
+    private TransactionAddAdapter transactionAddAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
                     break;
                 case R.id.navigation_expense:
                     setTitle(R.string.title_expenses);
-                    addAdapter = new AddExpenseAdapter();
+                    transactionAddAdapter = new TransactionAddExpenseAdapter();
                     fragment = TransactionFragment.newInstance();
                     ((TransactionFragment) fragment).setType(Type.EXPENSE);
                     break;
                 case R.id.navigation_earning:
                     setTitle(R.string.title_earning);
-                    addAdapter = new AddIncomeAdapter();
+                    transactionAddAdapter = new TransactionAddIncomeAdapter();
                     fragment = TransactionFragment.newInstance();
                     ((TransactionFragment) fragment).setType(Type.INCOME);
                     break;
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         switch (item.getItemId()) {
             case R.id.actionbar_add:
                 Intent addOrEdit = new Intent(this, AddOrEditActivity.class);
-                addOrEdit.putExtra(getResources().getString(R.string.transaction_adapter_key), addAdapter);
+                addOrEdit.putExtra(getResources().getString(R.string.transaction_adapter_key), transactionAddAdapter);
                 startActivity(addOrEdit);
                 return true;
             case R.id.actionbar_calendar:

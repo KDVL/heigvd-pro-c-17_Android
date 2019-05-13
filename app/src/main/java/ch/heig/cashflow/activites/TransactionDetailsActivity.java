@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.AddOrEditAdapter;
+import ch.heig.cashflow.adapters.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionService;
 
@@ -22,7 +22,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
 
     private TransactionService ts;
 
-    private AddOrEditAdapter adapter = null;
+    private TransactionAddOrEditAdapter adapter = null;
 
     private ImageView expenseIcon = null;
     private TextView expenseDate = null;
@@ -37,14 +37,13 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         Intent i = getIntent();
         if (i != null) {
             if (i.hasExtra(getResources().getString(R.string.transaction_adapter_key))) {
-                adapter = (AddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
+                adapter = (TransactionAddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.transaction_adapter_key));
             }
         }
 
         ts = new TransactionService(this);
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
-
 
         expenseIcon = findViewById(R.id.edit_icon);
         expenseDate = findViewById(R.id.edit_date);
@@ -102,7 +101,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Suppression")
-                .setMessage("Voulez-vous vraiment supprimer la transaction?")
+                .setMessage("Voulez-vous vraiment supprimer la category?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         ts.delete(adapter.getTransaction());

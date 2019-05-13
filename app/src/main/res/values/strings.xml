@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Cashflow</string>
 
+    <!-- Constants general values -->
+    <string name="transaction_adapter_key">transaction</string>
+    <string name="category_adapter_key">category</string>
+
     <!-- Titre fragments -->
     <string name="title_dashboard">Dashboard</string>
     <string name="title_expenses">Dépenses</string>
@@ -9,6 +13,10 @@
     <string name="title_income_details">Revenu détail</string>
     <string name="title_charts">Statistiques</string>
     <string name="title_categories">Catégories</string>
+
+    <!-- category adapters -->
+    <string name="title_cat_expense_details">Categorie dépense détail</string>
+    <string name="title_cat_income_details">Catégorie revenu détail</string>
 
     <string name="text_login">Se connecter</string>
     <string name="no_account">Pas encore de compte ? En créer un</string>
@@ -41,10 +49,6 @@
     <string name="add_price">Montant</string>
     <string name="add_description">Description</string>
     <string name="add">Ajouter</string>
-
-
-    <!-- Constants general values -->
-    <string name="transaction_adapter_key">transaction</string>
 
     <!-- AddOrEditActivity -->
 
