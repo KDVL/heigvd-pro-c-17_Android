@@ -66,7 +66,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
 
         BudgetCategory budgetCategory = budgets.get(pos);
         Category category = budgetCategory.getCategory();
-        int progress = (int) (Math.abs(budgetCategory.getBudget()) * 100 / category.getQuota());
+        int progress = (int) (Math.abs(budgetCategory.getBudget()) / category.getQuota());
 
         holder.progBar.setProgress(progress);
         holder.progBar.setProgressTintList(mainColor);
