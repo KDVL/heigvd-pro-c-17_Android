@@ -1,6 +1,8 @@
 package ch.heig.cashflow.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Budget;
+import ch.heig.cashflow.models.Category;
 
 public class DashboardCardsAdapter extends BaseAdapter {
 
@@ -51,39 +55,33 @@ public class DashboardCardsAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.fragment_dashboard_list_item, null);
             holder = new DashboardCardsAdapter.ViewHolder();
-            holder.dayList = convertView.findViewById(R.id.dayList);
-            holder.determinateBar = convertView.findViewById(R.id.determinateBar);
+            holder.progBar = convertView.findViewById(R.id.progress_bar);
+            holder.percentage = convertView.findViewById(R.id.percentage);
+            holder.catName = convertView.findViewById(R.id.category_name);
+            holder.catAmmount = convertView.findViewById(R.id.category_ammount);
             convertView.setTag(holder);
         } else
             holder = (DashboardCardsAdapter.ViewHolder) convertView.getTag();
 
         Budget budget = budgets.get(pos);
-        holder.dayList.setAdapter(new DashboardCardItemsAdapter(context, budget));
+        Category category = budget.getCategory();
+        int progress = (int) (Math.abs(budget.getBudget()) * 100 / category.getQuota());
 
-        int progress = 0;
+        holder.progBar.setProgress(progress);
+        holder.progBar.setProgressBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#34495e")));
+        holder.progBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#1abc9c")));
 
-        if (budget.getExpense() > 0) {
-            progress = (int) (budget.getExpense() * 100 / 310983);
-        } else if (budget.getIncome() > 0) {
-            progress = (int) (budget.getIncome() * 100 / 310983);
-        }
-
-        holder.determinateBar.setProgress(progress);
-
-        ListAdapter listAdapter = holder.dayList.getAdapter();
-
-        if (listAdapter != null) {
-            ViewGroup.LayoutParams params = holder.dayList.getLayoutParams();
-            params.height = 100 + (holder.dayList.getDividerHeight() * (listAdapter.getCount() - 1));
-            holder.dayList.setLayoutParams(params);
-            holder.dayList.requestLayout();
-        }
+        holder.percentage.setText(String.valueOf(progress) + '%');
+        holder.catName.setText(category.getName());
+        holder.catAmmount.setText(String.valueOf(Math.abs(budget.getBudget())));
 
         return convertView;
     }
 
     static class ViewHolder {
-        ListView dayList;
-        ProgressBar determinateBar;
+        ProgressBar progBar;
+        TextView percentage;
+        TextView catName;
+        TextView catAmmount;
     }
 }

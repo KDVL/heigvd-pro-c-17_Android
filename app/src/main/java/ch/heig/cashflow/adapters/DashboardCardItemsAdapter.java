@@ -63,12 +63,12 @@ public class DashboardCardItemsAdapter extends BaseAdapter {
         if (budget.getBudget() < 0)
             holder.amountView.setTextColor(Color.RED);
 
-        //int imageId = this.getDrawableResIdByName(category.getIconName());
+        int imageId = this.getDrawableResIdByName(category.getIconName());
 
-        //if (imageId != 0) {
-        //    holder.categorieImageView.setImageResource(imageId);
-        //    holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
-        //}
+        if (imageId != 0) {
+            holder.categorieImageView.setImageResource(imageId);
+            holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
+        }
 
         return convertView;
     }

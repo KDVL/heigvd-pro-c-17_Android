@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/expense_list_selector"
-        android:orientation="vertical"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/determinateBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:progress="25"/>
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"/>
 
-        <ListView
-            android:id="@+id/dayList"
+        <TextView
+            android:id="@+id/category_name"
+            android:layout_alignLeft="@id/progress_bar"
+            android:layout_alignTop="@id/progress_bar"
+            android:layout_alignBottom="@id/progress_bar"
+            android:textColor="#FFFFFF"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="10.0sp"
-            android:listSelector="@drawable/expense_list_selector" />
-    </LinearLayout>
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/category_ammount"
+            android:layout_alignTop="@id/progress_bar"
+            android:layout_alignRight="@id/progress_bar"
+            android:layout_alignBottom="@id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/percentage"
+            android:layout_alignLeft="@id/progress_bar"
+            android:layout_alignTop="@id/progress_bar"
+            android:layout_alignRight="@id/progress_bar"
+            android:layout_alignBottom="@id/progress_bar"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
