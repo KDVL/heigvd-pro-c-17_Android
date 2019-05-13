@@ -1,8 +1,8 @@
 package ch.heig.cashflow.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +19,6 @@ import ch.heig.cashflow.models.Currency;
 
 public class DashboardCardsAdapter extends BaseAdapter {
 
-    private final static ColorStateList mainColor = ColorStateList.valueOf(Color.parseColor("#25C17D"));
-    private final static ColorStateList secondaryColor = ColorStateList.valueOf(Color.parseColor("#C7C7C7"));
     private Context context;
     private LayoutInflater layoutInflater;
     private DashboardCardsAdapter.ViewHolder holder;
@@ -50,6 +48,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
         return pos;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
 
@@ -66,11 +65,18 @@ public class DashboardCardsAdapter extends BaseAdapter {
 
         BudgetCategory budgetCategory = budgets.get(pos);
         Category category = budgetCategory.getCategory();
-        int progress = (int) (Math.abs(budgetCategory.getBudget()) / category.getQuota());
+
+        int progress = 0;
+        if (category.getQuota() > 0)
+            progress = (int) (Math.abs(budgetCategory.getBudget()) * 100 / category.getQuota());
 
         holder.progBar.setProgress(progress);
-        holder.progBar.setProgressTintList(mainColor);
-        holder.progBar.setProgressBackgroundTintList(secondaryColor);
+        holder.progBar.setProgressBackgroundTintList(ColorStateList.valueOf(R.color.gray));
+
+        if (budgetCategory.getIncome() > 0)
+            holder.progBar.setProgressTintList(ColorStateList.valueOf(R.color.green));
+        else
+            holder.progBar.setProgressTintList(ColorStateList.valueOf(R.color.red));
 
         holder.percentage.setText(String.format("%s%%", progress));
         holder.catName.setText(category.getName());

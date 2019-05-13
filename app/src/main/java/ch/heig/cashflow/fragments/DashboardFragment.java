@@ -1,6 +1,6 @@
 package ch.heig.cashflow.fragments;
 
-import android.graphics.Color;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -87,11 +87,12 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void getFinished(Budget budget) {
         title.setText(budget.getName());
         budgetResult.setText(Currency.format(budget.getBudget()));
-        budgetResult.setTextColor(budget.getBudget() >= 0 ? Color.GREEN : Color.RED);
+        budgetResult.setTextColor(budget.getBudget() >= 0 ? R.color.green : R.color.red);
         categories.setAdapter(new DashboardCardsAdapter(getActivity(), budget.getCategories()));
     }
 }
