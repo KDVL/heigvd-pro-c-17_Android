@@ -1,6 +1,6 @@
 package ch.heig.cashflow.network.services;
 
-import ch.heig.cashflow.models.Dashboard;
+import ch.heig.cashflow.models.Budget;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.utils.Config;
@@ -33,13 +33,13 @@ public class DashboardService extends APIService {
         if (!checkResponse(result))
             return;
 
-        Dashboard dashboard = gson.fromJson(result.resultString, Dashboard.class);
+        Budget dashboard = gson.fromJson(result.resultString, Budget.class);
 
         if (result.tag.contains(Config.DASHBOARD))
             callback.getFinished(dashboard);
     }
 
     public interface Callback extends APICallback {
-        void getFinished(Dashboard dashboard);
+        void getFinished(Budget dashboard);
     }
 }

@@ -18,21 +18,19 @@ import java.util.Observer;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
+import ch.heig.cashflow.models.Budget;
 import ch.heig.cashflow.models.Currency;
-import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.services.DashboardService;
 
 
 public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
 
-    // TODO: Observable classe date update changement
-
     private static final String TAG = "DashboardFragment";
 
     private View view;
     private TextView title;
-    private TextView budget;
+    private TextView budgetResult;
     private ListView categories;
 
     public DashboardFragment() {
@@ -55,14 +53,10 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
         title = view.findViewById(R.id.title);
-        budget = view.findViewById(R.id.budget);
-
+        budgetResult = view.findViewById(R.id.budget_result);
         categories = view.findViewById(R.id.categories);
-
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -94,10 +88,10 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     @Override
-    public void getFinished(Dashboard dashboard) {
-        title.setText(dashboard.getName());
-        budget.setText(Currency.format(dashboard.getBudget()));
-        budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
-        categories.setAdapter(new DashboardCardsAdapter(getActivity(), dashboard.getBudgets()));
+    public void getFinished(Budget budget) {
+        title.setText(budget.getName());
+        budgetResult.setText(Currency.format(budget.getBudget()));
+        budgetResult.setTextColor(budget.getBudget() >= 0 ? Color.GREEN : Color.RED);
+        categories.setAdapter(new DashboardCardsAdapter(getActivity(), budget.getCategories()));
     }
 }

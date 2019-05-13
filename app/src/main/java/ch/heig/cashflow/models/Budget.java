@@ -1,17 +1,26 @@
 package ch.heig.cashflow.models;
 
-public class Budget {
+import java.io.Serializable;
+import java.util.List;
 
+public class Budget implements Serializable {
+
+    private final String name;
     private final long expense;
     private final long income;
     private final long budget;
-    private final Category category;
+    private final List<BudgetCategory> categories;
 
-    public Budget(long expense, long income, long budget, Category category) {
+    public Budget(String name, long expense, long income, long budget, List<BudgetCategory> categories) {
+        this.name = name;
         this.expense = expense;
         this.income = income;
         this.budget = budget;
-        this.category = category;
+        this.categories = categories;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public long getExpense() {
@@ -26,7 +35,7 @@ public class Budget {
         return budget;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<BudgetCategory> getCategories() {
+        return categories;
     }
 }

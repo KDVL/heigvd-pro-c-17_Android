@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
-        android:background="@color/iron"
+        android:background="#EAEAEA"
         android:orientation="vertical"
         android:paddingLeft="@dimen/fragment_medium_margin"
         android:paddingRight="@dimen/fragment_medium_margin">
@@ -61,7 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/iron">
+            android:background="#EAEAEA">
 
             <ListView
                 android:id="@+id/expenseCardView"
