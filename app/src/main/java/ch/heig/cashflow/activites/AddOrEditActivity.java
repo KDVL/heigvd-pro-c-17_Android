@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -161,23 +162,23 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     /**
      * get categories from service
      *
-     * @param categories the list
+     * @param cat the list
      */
     @Override
-    public void getFinished(List<Category> categories) {
+    public void getFinished(List<Category> cat) {
 
-        //remove disable categories
-        for (Category c : categories) {
-            if (!c.isEnabled())
-                categories.remove(c);
+        categories = new LinkedList<>();
+
+        //add only enable
+        for (Category c : cat) {
+            if (c.isEnabled())
+                categories.add(c);
         }
 
         ArrayList<String> arrayList = new ArrayList<>();
-        for (Category cat : categories) {
-            arrayList.add(cat.getName());
+        for (Category c : categories) {
+            arrayList.add(c.getName());
         }
-
-        this.categories = categories;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arrayList);
