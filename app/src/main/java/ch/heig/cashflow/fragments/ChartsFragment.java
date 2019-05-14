@@ -1,35 +1,26 @@
 package ch.heig.cashflow.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.ChartsAdapter;
-import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.models.Budget;
+import ch.heig.cashflow.models.BudgetCategory;
 import ch.heig.cashflow.network.callbacks.TransactionsCallback;
+import ch.heig.cashflow.network.services.DashboardService;
 
-public class ChartsFragment extends Fragment {
+public class ChartsFragment extends Fragment implements DashboardService.Callback {
 
-    private ArrayList NoOfEmp = new ArrayList();
-    private PieChart pieChart = null;
-    private RecyclerView pieList = null;
+    private static final String TAG = ChartsFragment.class.getSimpleName();
+
+    private FragmentTabHost tabs;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -52,50 +43,24 @@ public class ChartsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
 
-        pieChart = view.findViewById(R.id.pie_chart);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.getLegend().setEnabled(false);
-        pieChart.setUsePercentValues(true);
-        pieChart.setExtraOffsets(5, 10, 5, 5);
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
-        pieChart.setDrawHoleEnabled(true); // false c'est la vision remplis
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setData(getData());
-        pieChart.setRotationEnabled(false);
-        pieChart.animateXY(1000, 1000);
-
-        pieList = view.findViewById(R.id.list_charts);
-        Category c = new Category(1,"name", "iconName", Type.EXPENSE,100, true);
-        ArrayList<Category> cats = new ArrayList<>();
-        cats.add(c);
-      
-        ChartsAdapter adapter = new ChartsAdapter(cats);
-        pieList.setAdapter(adapter);
+        tabs = view.findViewById(android.R.id.tabhost);
+        tabs.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
+        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), CategoriesFragmentTabHost.CategoryExpenseFragment.class, null);
+        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), CategoriesFragmentTabHost.CategoryIncomeFragment.class, null);
 
         setHasOptionsMenu(true);
 
         return view;
     }
 
+    private void reload() {
+        new DashboardService(this).getAllByMonth();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-
-        //TODO : Call API Service
-    }
-
-    private PieData getData() {
-        NoOfEmp.add(new PieEntry(10f, 0));
-        NoOfEmp.add(new PieEntry(20f, 1));
-        NoOfEmp.add(new PieEntry(25f, 2));
-        NoOfEmp.add(new PieEntry(40f, 3));
-        NoOfEmp.add(new PieEntry(5, 4));
-        PieDataSet dataSet = new PieDataSet(NoOfEmp, "Dépenses");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        PieData data = new PieData(dataSet);
-        data.setValueTextSize(10f);
-        data.setValueTextColor(Color.YELLOW);
-        return data;
+        reload();
     }
 
     @Override
@@ -103,5 +68,18 @@ public class ChartsFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.charts_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void getFinished(Budget budget) {
+
+        for (BudgetCategory cat : budget.getCategories()) {
+            // TODO get each category
+        }
+    }
+
+    @Override
+    public void connectionFailed(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 }

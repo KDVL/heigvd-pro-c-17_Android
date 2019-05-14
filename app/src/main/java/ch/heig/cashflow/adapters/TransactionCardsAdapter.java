@@ -16,9 +16,9 @@ import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.TransactionDetailsActivity;
-import ch.heig.cashflow.models.Currency;
+import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
 
 public class TransactionCardsAdapter extends BaseAdapter implements TransactionsService.Callback {

@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Expense;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.utils.Date;
 

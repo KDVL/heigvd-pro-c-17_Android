@@ -12,7 +12,7 @@ import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Income;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.utils.Config;
 

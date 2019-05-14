@@ -6,7 +6,7 @@ import java.util.List;
 
 import ch.heig.cashflow.fragments.ServicesFragment;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.TransactionsService;
 
 public class TransactionsCallback implements TransactionsService.Callback {

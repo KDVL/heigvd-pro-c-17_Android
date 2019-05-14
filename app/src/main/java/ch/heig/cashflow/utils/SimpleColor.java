@@ -1,4 +1,4 @@
-package ch.heig.cashflow;
+package ch.heig.cashflow.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

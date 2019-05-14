@@ -5,8 +5,7 @@ import android.support.v4.app.Fragment;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Expense;
-import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.callbacks.CategoriesCallback;
 import ch.heig.cashflow.network.callbacks.CategoryCallback;
 import ch.heig.cashflow.network.callbacks.DashboardCallback;

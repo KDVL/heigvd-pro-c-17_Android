@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 
 public class TransactionEditIncomeAdapter extends TransactionEditAdapter implements Serializable {

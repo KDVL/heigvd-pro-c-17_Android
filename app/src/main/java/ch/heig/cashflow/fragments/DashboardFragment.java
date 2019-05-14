@@ -17,11 +17,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.SimpleColor;
+import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
 import ch.heig.cashflow.models.Budget;
-import ch.heig.cashflow.models.BudgetCategory;
-import ch.heig.cashflow.models.Currency;
+import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.services.DashboardService;
 

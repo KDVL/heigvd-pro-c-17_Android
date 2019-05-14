@@ -1,7 +1,6 @@
 package ch.heig.cashflow.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.SimpleColor;
-import ch.heig.cashflow.models.Currency;
+import ch.heig.cashflow.utils.SimpleColor;
+import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.Transaction;
 
 public class TransactionCardItemsAdapter extends BaseAdapter {

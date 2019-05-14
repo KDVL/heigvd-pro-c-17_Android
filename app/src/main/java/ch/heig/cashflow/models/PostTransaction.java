@@ -1,5 +1,7 @@
 package ch.heig.cashflow.models;
 
+import ch.heig.cashflow.utils.Type;
+
 public class PostTransaction {
 
     private String date;
