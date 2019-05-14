@@ -45,8 +45,8 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
 
         tabs = view.findViewById(android.R.id.tabhost);
         tabs.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), CategoriesFragmentTabHost.CategoryExpenseFragment.class, null);
-        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), CategoriesFragmentTabHost.CategoryIncomeFragment.class, null);
+        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), CategoryFragment.class, null);
+        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), CategoryFragment.class, null);
 
         setHasOptionsMenu(true);
 

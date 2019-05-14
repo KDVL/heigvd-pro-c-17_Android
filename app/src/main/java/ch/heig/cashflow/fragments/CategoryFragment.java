@@ -18,10 +18,10 @@ import java.util.List;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.CategoryFragmentAdapter;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.utils.DividerItemDecoration;
+import ch.heig.cashflow.utils.Type;
 
 
 /**
