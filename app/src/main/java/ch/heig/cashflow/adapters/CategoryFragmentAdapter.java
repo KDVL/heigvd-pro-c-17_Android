@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 
@@ -59,6 +60,8 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int index) {
+
+        SimpleColor sp = new SimpleColor(context);
         final Category c = mCategories.get(index);
 
         if (viewHolder.getItemViewType() == LAYOUT_ONE) {
@@ -81,12 +84,12 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             if (c.isEnabled()) {
                 enabledImageID = this.getDrawableResIdByName("cat_button_remove");
-                colorEnabled = Color.RED;
-                colorIcon = Color.GREEN;
+                colorEnabled = sp.get(R.color.red);
+                colorIcon = sp.get(R.color.green);
             } else {
                 enabledImageID = this.getDrawableResIdByName("cat_button_add");
-                colorEnabled = Color.GREEN;
-                colorIcon = Color.RED;
+                colorEnabled = sp.get(R.color.green);
+                colorIcon = sp.get(R.color.red);
             }
 
             holder.bouttonState.setImageResource(enabledImageID);

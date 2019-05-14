@@ -1,6 +1,5 @@
 package ch.heig.cashflow.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,8 +16,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
 import ch.heig.cashflow.models.Budget;
+import ch.heig.cashflow.models.BudgetCategory;
 import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.services.DashboardService;
@@ -87,12 +88,12 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void getFinished(Budget budget) {
+        SimpleColor sp = new SimpleColor(getContext());
         title.setText(budget.getName());
         budgetResult.setText(Currency.format(budget.getBudget()));
-        budgetResult.setTextColor(budget.getBudget() >= 0 ? R.color.green : R.color.red);
+        budgetResult.setTextColor(budget.getBudget() >= 0 ? sp.get(R.color.green) : sp.get(R.color.red));
         categories.setAdapter(new DashboardCardsAdapter(getActivity(), budget.getCategories()));
     }
 }

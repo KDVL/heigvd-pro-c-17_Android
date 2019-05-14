@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.models.Currency;
 import ch.heig.cashflow.models.Transaction;
 
@@ -65,7 +66,7 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
 
         if(imageId != 0){
             holder.categorieImageView.setImageResource(imageId);
-            holder.categorieImageView.getDrawable().setTint(Color.parseColor("#222222"));
+            holder.categorieImageView.getDrawable().setTint(new SimpleColor(context).get(R.color.black));
         }
 
         return convertView;

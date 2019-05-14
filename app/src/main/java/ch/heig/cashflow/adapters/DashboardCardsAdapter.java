@@ -2,17 +2,18 @@ package ch.heig.cashflow.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.models.BudgetCategory;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Currency;
@@ -20,6 +21,7 @@ import ch.heig.cashflow.models.Currency;
 public class DashboardCardsAdapter extends BaseAdapter {
 
     private Context context;
+    private SimpleColor sp;
     private LayoutInflater layoutInflater;
     private DashboardCardsAdapter.ViewHolder holder;
     private List<BudgetCategory> budgets;
@@ -31,6 +33,8 @@ public class DashboardCardsAdapter extends BaseAdapter {
 
         if (context != null)
             layoutInflater = LayoutInflater.from(context);
+
+        sp = new SimpleColor(context);
     }
 
     @Override
@@ -57,6 +61,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
             holder = new DashboardCardsAdapter.ViewHolder();
             holder.progBar = convertView.findViewById(R.id.progress_bar);
             holder.percentage = convertView.findViewById(R.id.percentage);
+            holder.catIcon = convertView.findViewById(R.id.category_icon);
             holder.catName = convertView.findViewById(R.id.category_name);
             holder.catResult = convertView.findViewById(R.id.category_result);
             convertView.setTag(holder);
@@ -71,16 +76,24 @@ public class DashboardCardsAdapter extends BaseAdapter {
             progress = (int) (Math.abs(budgetCategory.getBudget()) * 100 / category.getQuota());
 
         holder.progBar.setProgress(progress);
-        holder.progBar.setProgressBackgroundTintList(ColorStateList.valueOf(R.color.gray));
+        holder.progBar.setProgressBackgroundTintList(sp.getState(R.color.gray));
 
         if (budgetCategory.getIncome() > 0)
-            holder.progBar.setProgressTintList(ColorStateList.valueOf(R.color.green));
+            holder.progBar.setProgressTintList(sp.getState(R.color.green));
         else
-            holder.progBar.setProgressTintList(ColorStateList.valueOf(R.color.red));
+            holder.progBar.setProgressTintList(sp.getState(R.color.red));
 
         holder.percentage.setText(String.format("%s%%", progress));
         holder.catName.setText(category.getName());
         holder.catResult.setText(Currency.format(Math.abs(budgetCategory.getBudget())));
+
+        
+        String pkgName = context.getPackageName();
+        int imageId = context.getResources().getIdentifier(category.getIconName(), "drawable", pkgName);
+        if (imageId != 0) {
+            holder.catIcon.setImageResource(imageId);
+            holder.catIcon.getDrawable().setTint(new SimpleColor(context).get(R.color.white));
+        }
 
         return convertView;
     }
@@ -88,6 +101,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
     static class ViewHolder {
         ProgressBar progBar;
         TextView percentage;
+        ImageView catIcon;
         TextView catName;
         TextView catResult;
     }
