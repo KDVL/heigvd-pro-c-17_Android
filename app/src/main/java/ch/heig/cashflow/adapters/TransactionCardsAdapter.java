@@ -1,5 +1,6 @@
 package ch.heig.cashflow.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -72,6 +73,7 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
         return pos;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -97,7 +99,8 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
             }
         }
 
-        holder.dateView.setText("Date: " + expense.getDate() + " Total: " + Currency.format(total));
+        // TODO: vue un peu plus jolie
+        holder.dateView.setText(expense.getDate() + " | " + Currency.format(total));
 
         holder.dayList.setAdapter(new TransactionCardItemsAdapter(context, transactionDailyList));
 
