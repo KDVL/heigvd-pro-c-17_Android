@@ -12,7 +12,7 @@ import android.widget.TextView;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Budget;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Currency;
+import ch.heig.cashflow.utils.Currency;
 
 public class DashboardCardItemsAdapter extends BaseAdapter {
 

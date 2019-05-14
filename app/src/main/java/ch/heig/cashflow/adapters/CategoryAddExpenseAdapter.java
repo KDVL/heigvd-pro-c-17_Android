@@ -32,7 +32,7 @@ public class CategoryAddExpenseAdapter extends CategoryAddAdapter implements Ser
      */
     @Override
     public String getViewTitle(Context context) {
-        return context.getString(R.string.title_cat_expense_details);
+        return context.getString(R.string.title_cat_expense_add);
     }
 
     /**
@@ -40,7 +40,7 @@ public class CategoryAddExpenseAdapter extends CategoryAddAdapter implements Ser
      */
     @Override
     public void loadCategories() {
-        new CategoriesService(cssCallback).getType(Type.EXPENSE);
+        new CategoriesService(cssCallback).getAll();
     }
 
     @Override

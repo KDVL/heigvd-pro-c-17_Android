@@ -20,10 +20,10 @@ public abstract class CategoryEditAdapter extends CategoryAddOrEditAdapter imple
     /**
      * Constructor
      *
-     * @param t the category
+     * @param c the category
      */
-    public CategoryEditAdapter(Category t) {
-        super(t);
+    public CategoryEditAdapter(Category c) {
+        super(c);
     }
 
     /**
@@ -32,7 +32,7 @@ public abstract class CategoryEditAdapter extends CategoryAddOrEditAdapter imple
      * @param categories list of categories
      * @param s          the spinner
      */
-    public void selectCategorie(List<Category> categories, Spinner s) {
+    public void selectCategorie(List<Category> categories, Spinner s) { // TODO: voir utilité pas de spinner
         for (int i = 0; i < categories.size(); i++) {
             Category c = categories.get(i);
             if (category.getID() == c.getID()) {

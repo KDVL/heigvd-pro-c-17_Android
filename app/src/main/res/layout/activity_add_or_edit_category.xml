@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activites.AddOrEditCategoryActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/ic_launcher_background"
+    android:fitsSystemWindows="true">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingTop="56dp"
+        android:paddingRight="24dp">
+
+        <ImageView
+            android:id="@+id/cat_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp" />
+
+
+        <!--  Category name -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+            <EditText
+                android:id="@+id/cat_input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_price"
+                android:inputType="numberDecimal"
+                android:theme="@style/MyEditTextTheme" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Montant quota -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+            <EditText
+                android:id="@+id/cat_input_quota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_description"
+                android:theme="@style/MyEditTextTheme" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/cat_btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/colorPrimaryDark"
+            android:onClick="save"
+            android:padding="12dp"
+            android:text="@string/add"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</ScrollView>

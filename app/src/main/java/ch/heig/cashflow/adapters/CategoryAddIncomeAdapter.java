@@ -31,7 +31,7 @@ public class CategoryAddIncomeAdapter extends CategoryAddAdapter implements Seri
      */
     @Override
     public String getViewTitle(Context context) {
-        return context.getString(R.string.title_cat_income_details);
+        return context.getString(R.string.title_cat_income_add);
     }
 
     /**
@@ -39,7 +39,7 @@ public class CategoryAddIncomeAdapter extends CategoryAddAdapter implements Seri
      */
     @Override
     public void loadCategories() {
-        new CategoriesService(cssCallback).getType(Type.INCOME);
+        new CategoriesService(cssCallback).getAll();
     }
 
     @Override

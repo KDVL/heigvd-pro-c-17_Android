@@ -84,6 +84,9 @@ public abstract class CategoryAddOrEditAdapter implements Serializable {
      */
     public abstract void loadCategories();
 
+    /**
+     * call right service to load one category
+     */
     public abstract void loadCategory();
 
     /**
@@ -92,6 +95,6 @@ public abstract class CategoryAddOrEditAdapter implements Serializable {
      * @param categories the list
      * @param s          the spinner
      */
-    public abstract void selectCategorie(List<Category> categories, Spinner s);
+    public abstract void selectCategorie(List<Category> categories, Spinner s); // TODO: à voir utilité
 
 }

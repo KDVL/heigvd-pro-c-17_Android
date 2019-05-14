@@ -32,7 +32,7 @@ public abstract class CategoryAddAdapter extends CategoryAddOrEditAdapter implem
      * @param categories the list
      * @param s          the spinner
      */
-    public void selectCategorie(List<Category> categories, Spinner s) {
+    public void selectCategorie(List<Category> categories, Spinner s) { // TODO: voir utilité pas de spinner
         //select first categorie by default
         if (categories.size() > 0) {
             s.setSelection(0);
@@ -45,7 +45,6 @@ public abstract class CategoryAddAdapter extends CategoryAddOrEditAdapter implem
     @Override
     public void performAction() {
         if (csCallback == null) return;
-
         (new CategoryService(csCallback)).add(category);
     }
 }

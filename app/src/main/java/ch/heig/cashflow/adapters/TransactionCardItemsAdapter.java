@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Currency;
+import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.Transaction;
 
 public class TransactionCardItemsAdapter extends BaseAdapter {
