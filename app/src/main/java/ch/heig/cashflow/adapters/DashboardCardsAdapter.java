@@ -1,33 +1,40 @@
 package ch.heig.cashflow.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Budget;
+import ch.heig.cashflow.SimpleColor;
+import ch.heig.cashflow.models.BudgetCategory;
+import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.Currency;
 
 public class DashboardCardsAdapter extends BaseAdapter {
 
     private Context context;
+    private SimpleColor sp;
     private LayoutInflater layoutInflater;
     private DashboardCardsAdapter.ViewHolder holder;
-    private List<Budget> budgets;
+    private List<BudgetCategory> budgets;
 
-    public DashboardCardsAdapter(Context context, List<Budget> budgets) {
+    public DashboardCardsAdapter(Context context, List<BudgetCategory> budgets) {
 
         this.context = context;
         this.budgets = budgets;
 
         if (context != null)
             layoutInflater = LayoutInflater.from(context);
+
+        sp = new SimpleColor(context);
     }
 
     @Override
@@ -45,45 +52,57 @@ public class DashboardCardsAdapter extends BaseAdapter {
         return pos;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.fragment_dashboard_list_item, null);
             holder = new DashboardCardsAdapter.ViewHolder();
-            holder.dayList = convertView.findViewById(R.id.dayList);
-            holder.determinateBar = convertView.findViewById(R.id.determinateBar);
+            holder.progBar = convertView.findViewById(R.id.progress_bar);
+            holder.percentage = convertView.findViewById(R.id.percentage);
+            holder.catIcon = convertView.findViewById(R.id.category_icon);
+            holder.catName = convertView.findViewById(R.id.category_name);
+            holder.catResult = convertView.findViewById(R.id.category_result);
             convertView.setTag(holder);
         } else
             holder = (DashboardCardsAdapter.ViewHolder) convertView.getTag();
 
-        Budget budget = budgets.get(pos);
-        holder.dayList.setAdapter(new DashboardCardItemsAdapter(context, budget));
+        BudgetCategory budgetCategory = budgets.get(pos);
+        Category category = budgetCategory.getCategory();
 
         int progress = 0;
+        if (category.getQuota() > 0)
+            progress = (int) (Math.abs(budgetCategory.getBudget()) * 100 / category.getQuota());
 
-        if (budget.getExpense() > 0) {
-            progress = (int) (budget.getExpense() * 100 / 310983);
-        } else if (budget.getIncome() > 0) {
-            progress = (int) (budget.getIncome() * 100 / 310983);
-        }
+        holder.progBar.setProgress(progress);
+        holder.progBar.setProgressBackgroundTintList(sp.getState(R.color.gray));
 
-        holder.determinateBar.setProgress(progress);
+        if (budgetCategory.getIncome() > 0)
+            holder.progBar.setProgressTintList(sp.getState(R.color.green));
+        else
+            holder.progBar.setProgressTintList(sp.getState(R.color.red));
 
-        ListAdapter listAdapter = holder.dayList.getAdapter();
+        holder.percentage.setText(String.format("%s%%", progress));
+        holder.catName.setText(category.getName());
+        holder.catResult.setText(Currency.format(Math.abs(budgetCategory.getBudget())));
 
-        if (listAdapter != null) {
-            ViewGroup.LayoutParams params = holder.dayList.getLayoutParams();
-            params.height = 100 + (holder.dayList.getDividerHeight() * (listAdapter.getCount() - 1));
-            holder.dayList.setLayoutParams(params);
-            holder.dayList.requestLayout();
+        
+        String pkgName = context.getPackageName();
+        int imageId = context.getResources().getIdentifier(category.getIconName(), "drawable", pkgName);
+        if (imageId != 0) {
+            holder.catIcon.setImageResource(imageId);
+            holder.catIcon.getDrawable().setTint(new SimpleColor(context).get(R.color.white));
         }
 
         return convertView;
     }
 
     static class ViewHolder {
-        ListView dayList;
-        ProgressBar determinateBar;
+        ProgressBar progBar;
+        TextView percentage;
+        ImageView catIcon;
+        TextView catName;
+        TextView catResult;
     }
 }

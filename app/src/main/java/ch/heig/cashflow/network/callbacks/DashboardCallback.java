@@ -2,10 +2,8 @@ package ch.heig.cashflow.network.callbacks;
 
 import android.content.Context;
 
-import java.util.List;
-
 import ch.heig.cashflow.fragments.ServicesFragment;
-import ch.heig.cashflow.models.Dashboard;
+import ch.heig.cashflow.models.Budget;
 import ch.heig.cashflow.network.services.DashboardService;
 
 public class DashboardCallback implements DashboardService.Callback {
@@ -34,7 +32,7 @@ public class DashboardCallback implements DashboardService.Callback {
     }
 
     @Override
-    public void getFinished(Dashboard dashboard) {
+    public void getFinished(Budget dashboard) {
             System.out.println("OK    DashboardService found " + dashboard);
     }
 

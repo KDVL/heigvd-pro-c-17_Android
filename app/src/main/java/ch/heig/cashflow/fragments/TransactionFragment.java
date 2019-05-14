@@ -23,6 +23,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.adapters.TransactionCardsAdapter;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SelectedDate;
@@ -87,12 +88,14 @@ public class TransactionFragment extends Fragment implements TransactionsService
     @Override
     public void getFinished(List<Transaction> transactions) {
 
+        SimpleColor sp = new SimpleColor(getContext());
+
         totalExpenses = 0;
         for (Transaction t : transactions)
             totalExpenses += t.getAmountLong();
 
         expenseView.setText(Currency.format(totalExpenses));
-        expenseView.setTextColor(type.equals(Type.EXPENSE) ? Color.RED : Color.GREEN);
+        expenseView.setTextColor(type.equals(Type.EXPENSE) ? sp.get(R.color.red) : sp.get(R.color.green));
 
         if (transactions.isEmpty()) {
             view.findViewById(R.id.expense_empty_layout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));

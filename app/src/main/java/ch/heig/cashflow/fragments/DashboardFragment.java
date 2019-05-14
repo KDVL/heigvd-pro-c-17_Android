@@ -1,6 +1,5 @@
 package ch.heig.cashflow.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,22 +17,25 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.Dashboard;
 import ch.heig.cashflow.utils.SelectedDate;
+import ch.heig.cashflow.models.Budget;
+import ch.heig.cashflow.models.BudgetCategory;
 import ch.heig.cashflow.network.services.DashboardService;
 
 
 public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
 
-    // TODO: Observable classe date update changement
-
     private static final String TAG = "DashboardFragment";
 
     private View view;
+    private ProgressBar progBar;
+    private TextView percentage;
     private TextView title;
-    private TextView budget;
+    private TextView result;
     private ListView categories;
 
     public DashboardFragment() {
@@ -55,14 +58,12 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
+        progBar = view.findViewById(R.id.progress_bar);
+        percentage = view.findViewById(R.id.percentage);
         title = view.findViewById(R.id.title);
-        budget = view.findViewById(R.id.budget);
-
+        result = view.findViewById(R.id.result);
         categories = view.findViewById(R.id.categories);
-
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -94,10 +95,20 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     @Override
-    public void getFinished(Dashboard dashboard) {
-        title.setText(dashboard.getName());
-        budget.setText(Currency.format(dashboard.getBudget()));
-        budget.setTextColor(dashboard.getBudget() >= 0 ? Color.GREEN : Color.RED);
-        categories.setAdapter(new DashboardCardsAdapter(getActivity(), dashboard.getBudgets()));
+    public void getFinished(Budget budget) {
+        SimpleColor sp = new SimpleColor(getContext());
+
+        int progress = 0;
+        if (budget.getIncome() > 0)
+            progress = (int) (Math.abs(budget.getExpense()) * 100 / budget.getIncome());
+
+        progBar.setProgress(progress);
+        progBar.setProgressBackgroundTintList(sp.getState(R.color.gray));
+        progBar.setProgressTintList(sp.getState(R.color.dark));
+
+        title.setText(budget.getName());
+        result.setText(Currency.format(budget.getBudget()));
+        percentage.setText(String.format("%s%%", progress));
+        categories.setAdapter(new DashboardCardsAdapter(getActivity(), budget.getCategories()));
     }
 }

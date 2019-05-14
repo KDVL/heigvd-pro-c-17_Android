@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.SimpleColor;
 import ch.heig.cashflow.adapters.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
@@ -56,7 +57,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         int iconImageId = this.getDrawableResIdByName(adapter.getCategory().getIconName());
         if (iconImageId != 0) {
             categoryIconName.setImageResource(iconImageId);
-            categoryIconName.getDrawable().setTint(Color.parseColor("#FFFFFF"));
+            categoryIconName.getDrawable().setTint(new SimpleColor(getContext()).get(R.color.white));
         }
 
         categoryName.setText(adapter.getCategory().getName());
