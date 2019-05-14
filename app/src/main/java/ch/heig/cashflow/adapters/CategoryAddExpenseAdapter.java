@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Type;
+import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 
 public class CategoryAddExpenseAdapter extends CategoryAddAdapter implements Serializable {

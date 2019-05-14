@@ -19,6 +19,7 @@ import java.util.List;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.CategoryDetailsActivity;
 import ch.heig.cashflow.SimpleColor;
+import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 

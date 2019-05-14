@@ -19,9 +19,17 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.CategorySelectActivity;
 import ch.heig.cashflow.adapters.CategoryAddExpenseAdapter;
 import ch.heig.cashflow.adapters.CategoryAddIncomeAdapter;
+import ch.heig.cashflow.adapters.CategoryFragmentAdapter;
+import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.DividerItemDecoration;
+import ch.heig.cashflow.utils.Type;
+import ch.heig.cashflow.network.services.CategoriesService;
+import ch.heig.cashflow.network.services.CategoryService;
 
 public class CategoriesFragmentTabHost extends Fragment {
+
     private static final String TAG = CategoriesFragmentTabHost.class.getSimpleName();
+
     private FragmentTabHost fragmentTabHost;
 
     public CategoriesFragmentTabHost() {

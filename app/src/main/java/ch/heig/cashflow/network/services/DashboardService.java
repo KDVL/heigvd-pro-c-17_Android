@@ -41,6 +41,6 @@ public class DashboardService extends APIService {
     }
 
     public interface Callback extends APICallback {
-        void getFinished(Budget dashboard);
+        void getFinished(Budget budget);
     }
 }
