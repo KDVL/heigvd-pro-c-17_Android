@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +31,10 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     private static final String TAG = "DashboardFragment";
 
     private View view;
+    private ProgressBar progBar;
+    private TextView percentage;
     private TextView title;
-    private TextView budgetResult;
+    private TextView result;
     private ListView categories;
 
     public DashboardFragment() {
@@ -54,8 +57,10 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        progBar = view.findViewById(R.id.progress_bar);
+        percentage = view.findViewById(R.id.percentage);
         title = view.findViewById(R.id.title);
-        budgetResult = view.findViewById(R.id.budget_result);
+        result = view.findViewById(R.id.result);
         categories = view.findViewById(R.id.categories);
         setHasOptionsMenu(true);
         return view;
@@ -91,9 +96,18 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     @Override
     public void getFinished(Budget budget) {
         SimpleColor sp = new SimpleColor(getContext());
+
+        int progress = 0;
+        if (budget.getIncome() > 0)
+            progress = (int) (Math.abs(budget.getExpense()) * 100 / budget.getIncome());
+
+        progBar.setProgress(progress);
+        progBar.setProgressBackgroundTintList(sp.getState(R.color.gray));
+        progBar.setProgressTintList(sp.getState(R.color.dark));
+
         title.setText(budget.getName());
-        budgetResult.setText(Currency.format(budget.getBudget()));
-        budgetResult.setTextColor(budget.getBudget() >= 0 ? sp.get(R.color.green) : sp.get(R.color.red));
+        result.setText(Currency.format(budget.getBudget()));
+        percentage.setText(String.format("%s%%", progress));
         categories.setAdapter(new DashboardCardsAdapter(getActivity(), budget.getCategories()));
     }
 }

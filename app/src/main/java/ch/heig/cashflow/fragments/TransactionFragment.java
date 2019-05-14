@@ -95,7 +95,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
             totalExpenses += t.getAmountLong();
 
         expenseView.setText(Currency.format(totalExpenses));
-        expenseView.setTextColor(type.equals(Type.EXPENSE) ? sp.get(R.color.green) : sp.get(R.color.red));
+        expenseView.setTextColor(type.equals(Type.EXPENSE) ? sp.get(R.color.red) : sp.get(R.color.green));
 
         if (transactions.isEmpty()) {
             view.findViewById(R.id.expense_empty_layout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
