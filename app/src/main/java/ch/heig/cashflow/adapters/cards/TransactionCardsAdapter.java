@@ -1,4 +1,4 @@
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.TransactionDetailsActivity;
+import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionEditExpenseAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionEditIncomeAdapter;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.utils.Type;

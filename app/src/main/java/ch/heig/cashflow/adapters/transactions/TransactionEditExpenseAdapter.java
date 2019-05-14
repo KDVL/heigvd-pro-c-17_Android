@@ -1,11 +1,11 @@
 /**
- * Adapter to edit income
+ * Adapter to edit expense
  *
  * @authors Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.transactions;
 
 import android.content.Context;
 
@@ -16,13 +16,13 @@ import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 
-public class TransactionEditIncomeAdapter extends TransactionEditAdapter implements Serializable {
+public class TransactionEditExpenseAdapter extends TransactionEditAdapter implements Serializable {
 
     /**
      * Constructor
      * @param t the category
      */
-    public TransactionEditIncomeAdapter(Transaction t) {
+    public TransactionEditExpenseAdapter(Transaction t) {
         super(t);
     }
 
@@ -33,7 +33,7 @@ public class TransactionEditIncomeAdapter extends TransactionEditAdapter impleme
      */
     @Override
     public String getViewTitle(Context context) {
-        return context.getString(R.string.title_income_details);
+        return context.getString(R.string.title_expense_details);
     }
 
     /**
@@ -41,7 +41,6 @@ public class TransactionEditIncomeAdapter extends TransactionEditAdapter impleme
      */
     @Override
     public void loadCategories() {
-        new CategoriesService(callback).getType(Type.INCOME);
+        new CategoriesService(callback).getType(Type.EXPENSE);
     }
 }
-

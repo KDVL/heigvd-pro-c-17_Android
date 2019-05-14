@@ -22,9 +22,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.TransactionAddAdapter;
-import ch.heig.cashflow.adapters.TransactionAddExpenseAdapter;
-import ch.heig.cashflow.adapters.TransactionAddIncomeAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionAddAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionAddExpenseAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionAddIncomeAdapter;
 import ch.heig.cashflow.fragments.CategoriesFragmentTabHost;
 import ch.heig.cashflow.fragments.ChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;

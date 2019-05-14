@@ -1,30 +1,29 @@
 /**
- * Adapter to add income
+ * Adapter to edit income
  *
  * @authors Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
- *
+ * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.transactions;
 
 import android.content.Context;
 
 import java.io.Serializable;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Income;
+import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
-import ch.heig.cashflow.network.utils.Date;
 
-public class TransactionAddIncomeAdapter extends TransactionAddAdapter implements Serializable {
+public class TransactionEditIncomeAdapter extends TransactionEditAdapter implements Serializable {
 
     /**
      * Constructor
+     * @param t the category
      */
-    public TransactionAddIncomeAdapter() {
-        super(new Income(0, Date.getCurrentDateServeurFormat(), null, 0, ""));
+    public TransactionEditIncomeAdapter(Transaction t) {
+        super(t);
     }
 
     /**
@@ -45,3 +44,4 @@ public class TransactionAddIncomeAdapter extends TransactionAddAdapter implement
         new CategoriesService(callback).getType(Type.INCOME);
     }
 }
+

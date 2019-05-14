@@ -3,9 +3,9 @@
  *
  * @authors Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.transactions;
 
 import android.content.Context;
 import android.widget.Spinner;

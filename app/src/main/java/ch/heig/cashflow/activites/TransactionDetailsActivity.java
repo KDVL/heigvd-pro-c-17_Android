@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.SimpleColor;
-import ch.heig.cashflow.adapters.TransactionAddOrEditAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionService;
 

@@ -29,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.TransactionAddOrEditAdapter;
+import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Transaction;

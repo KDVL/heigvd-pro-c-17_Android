@@ -3,7 +3,7 @@
  *
  * @authors Kevin DO VALE, Aleksandar MILENKOVIC
  * @version 1.0
- * @see ch.heig.cashflow.adapters.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
 
 package ch.heig.cashflow.fragments;
@@ -23,7 +23,7 @@ import java.util.Observer;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.SimpleColor;
-import ch.heig.cashflow.adapters.TransactionCardsAdapter;
+import ch.heig.cashflow.adapters.cards.TransactionCardsAdapter;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
