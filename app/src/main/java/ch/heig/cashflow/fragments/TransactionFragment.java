@@ -25,7 +25,7 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.TransactionCardsAdapter;
 import ch.heig.cashflow.utils.Currency;
-import ch.heig.cashflow.models.SelectedDate;
+import ch.heig.cashflow.utils.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.TransactionsService;

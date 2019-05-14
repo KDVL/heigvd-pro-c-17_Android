@@ -12,9 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activites.CategoryDetailsActivity"></activity>
-        <activity android:name=".activites.AddOrEditCategoryActivity" />
-        <activity android:name=".activites.TransactionDetailsActivity" />
         <activity
             android:name=".activites.MainActivity"
             android:label="@string/app_name">
@@ -33,6 +30,13 @@
         <activity
             android:name=".activites.AddOrEditActivity"
             android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".activites.CategorySelectActivity"
+            android:label="@string/title_activity_categorie_select"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activites.CategoryDetailsActivity" />
+        <activity android:name=".activites.AddOrEditCategoryActivity" />
+        <activity android:name=".activites.TransactionDetailsActivity" />
     </application>
 
 </manifest>

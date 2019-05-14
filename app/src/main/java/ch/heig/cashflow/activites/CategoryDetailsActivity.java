@@ -7,24 +7,21 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
 
-public class CategoryDetailsActivity extends AppCompatActivity implements CategoryService.Callback, CategoriesService.Callback {
-    private static final String TAG = "TransactionDetailsActivity";
+public class CategoryDetailsActivity extends AppCompatActivity implements CategoryService.Callback {
+    private static final String TAG = "CategoryDetailsActivity";
 
     private CategoryService cs;
-    private CategoriesService css;
 
     private CategoryAddOrEditAdapter adapter = null;
 
@@ -46,14 +43,10 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         }
 
         cs = new CategoryService(this);
-        css = new CategoriesService(this);
 
-        // TODO: A voir ???
-        adapter.setCallbackCategory(this);
         adapter.setCallbackCategory(this);
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
-
 
         categoryIconName = findViewById(R.id.cat_edit_icon);
         categoryName = findViewById(R.id.cat_edit_category_name);
@@ -79,33 +72,31 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu _menu) {
-        getMenuInflater().inflate(R.menu.menu_expense_edit, _menu);
-        return super.onCreateOptionsMenu(_menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_category_edit, menu);
+        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem _item) {
-        switch (_item.getItemId()) {
-            case R.id.expense_edit:
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.category_edit:
                 edit();
                 return true;
-
-            case R.id.expense_delete:
+            case R.id.category_delete:
                 delete();
                 return true;
-
             default:
-                return super.onOptionsItemSelected(_item);
+                return super.onOptionsItemSelected(item);
 
         }
     }
 
     private void edit() {
-        Intent catAdd = new Intent(this, AddOrEditCategoryActivity.class);
-        catAdd.putExtra(getResources().getString(R.string.category_adapter_key), adapter);
-        startActivity(catAdd);
-        finish();
+        Intent catAddOrEdit = new Intent(this, AddOrEditCategoryActivity.class);
+        catAddOrEdit.putExtra(getResources().getString(R.string.category_adapter_key), adapter);
+        startActivity(catAddOrEdit);
     }
 
     private void delete() {
@@ -125,7 +116,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
                     }
                 }).create();
 
-        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface arg0) {
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -158,9 +149,4 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         return getApplicationContext();
     }
 
-
-    @Override
-    public void getFinished(List<Category> categories) {
-
-    }
 }

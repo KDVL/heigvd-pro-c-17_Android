@@ -8,7 +8,7 @@
  * @see ch.heig.cashflow.fragments.MonthFragment
  */
 
-package ch.heig.cashflow.models;
+package ch.heig.cashflow.utils;
 
 import java.util.Calendar;
 import java.util.Observable;

@@ -1,9 +1,9 @@
 package ch.heig.cashflow.network.services;
 
 import ch.heig.cashflow.models.Budget;
-import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.utils.Config;
+import ch.heig.cashflow.utils.SelectedDate;
 
 public class DashboardService extends APIService {
 

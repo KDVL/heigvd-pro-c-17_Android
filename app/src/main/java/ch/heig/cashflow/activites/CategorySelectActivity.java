@@ -1,0 +1,174 @@
+package ch.heig.cashflow.activites;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewStub;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ListView;
+
+import java.util.List;
+
+import ch.heig.cashflow.R;
+import ch.heig.cashflow.adapters.CategoryAddExpenseAdapter;
+import ch.heig.cashflow.adapters.CategoryAddOrEditAdapter;
+import ch.heig.cashflow.adapters.CategorySelectGridViewAdapter;
+import ch.heig.cashflow.adapters.CategorySelectListViewAdapter;
+import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.network.services.CategoriesService;
+
+public class CategorySelectActivity extends AppCompatActivity implements CategoriesService.Callback {
+    private static final String TAG = "CategorySelectActivity";
+    private List<Category> categoriesList;
+
+    private ViewStub stubGrid;
+    private ViewStub stubList;
+    private ListView listView;
+    private GridView gridView;
+    private CategorySelectListViewAdapter listViewAdapter;
+    private CategorySelectGridViewAdapter gridViewAdapter;
+
+    private int currentViewMode = 0;
+
+    static final int VIEW_MODE_LISTVIEW = 0;
+    static final int VIEW_MODE_GRIDVIEW = 1;
+
+    private CategoryAddOrEditAdapter adapter = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_category_select);
+
+        setTitle("Choix de la catégorie");
+
+        Intent i = getIntent();
+        if (i != null) {
+            adapter = (CategoryAddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.category_adapter_key));
+            adapter.setCallbackCategorie(this);
+        }
+
+        stubList = findViewById(R.id.stub_list);
+        stubGrid = findViewById(R.id.stub_grid);
+
+        //Inflate ViewStub before get view
+        stubList.inflate();
+        stubGrid.inflate();
+
+        listView = findViewById(R.id.cat_select_listview);
+        gridView = findViewById(R.id.cat_select_gridview);
+
+        //get list of categories
+        adapter.loadCategories();
+    }
+
+
+    private void switchView() {
+
+        if (VIEW_MODE_LISTVIEW == currentViewMode) {
+            //Display listview
+            stubList.setVisibility(View.VISIBLE);
+            //Hide gridview
+            stubGrid.setVisibility(View.GONE);
+        } else {
+            //Hide listview
+            stubList.setVisibility(View.GONE);
+            //Display gridview
+            stubGrid.setVisibility(View.VISIBLE);
+        }
+        setAdapters();
+    }
+
+    private void setAdapters() {
+        if (VIEW_MODE_LISTVIEW == currentViewMode) {
+            listViewAdapter = new CategorySelectListViewAdapter(this, R.layout.category_select_list_item, categoriesList);
+            listView.setAdapter(listViewAdapter);
+        } else {
+            gridViewAdapter = new CategorySelectGridViewAdapter(this, R.layout.category_select_grid_item, categoriesList);
+            gridView.setAdapter(gridViewAdapter);
+        }
+    }
+
+    AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Category c = categoriesList.get(position);
+            Log.i(TAG, String.valueOf(c.getID()));
+            saveCategory(c);
+        }
+    };
+
+    public void saveCategory(Category c) {
+        Intent addOrEditCategory = new Intent(this, AddOrEditCategoryActivity.class);
+        addOrEditCategory.putExtra(getResources().getString(R.string.category_adapter_key), adapter);
+        startActivity(addOrEditCategory);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_category_select, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.switch_view:
+                if (VIEW_MODE_LISTVIEW == currentViewMode) {
+                    currentViewMode = VIEW_MODE_GRIDVIEW;
+                } else {
+                    currentViewMode = VIEW_MODE_LISTVIEW;
+                }
+                //Switch view
+                switchView();
+
+                //Save view mode in share reference
+                SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("currentViewMode", currentViewMode);
+                editor.commit();
+
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void getFinished(List<Category> categories) {
+        //remove disable categories
+        categoriesList = categories;
+
+        for (Category c : categoriesList) {
+            if (!c.isEnabled())
+                categoriesList.remove(c);
+        }
+
+        //Get current view mode in share reference
+        SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+        currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
+        //Register item lick
+        listView.setOnItemClickListener(onItemClick);
+        gridView.setOnItemClickListener(onItemClick);
+
+        switchView();
+    }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+}

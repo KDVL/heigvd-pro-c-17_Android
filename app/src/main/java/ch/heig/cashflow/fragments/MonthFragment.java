@@ -1,7 +1,7 @@
 /**
  * Select month/year day and store in SelectedDate
  *
- * @see ch.heig.cashflow.models.SelectedDate
+ * @see ch.heig.cashflow.utils.SelectedDate
  *
  * @authors Kevin DO VALE
  * @version 1.0
@@ -16,10 +16,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-import java.util.Calendar;
-
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.SelectedDate;
+import ch.heig.cashflow.utils.SelectedDate;
 
 public class MonthFragment extends DialogFragment {
     @NonNull

@@ -158,8 +158,6 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         adapter.performAction();
     }
 
-
-
     /**
      * get categories from service
      *
