@@ -1,5 +1,6 @@
 package ch.heig.cashflow.fragments;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,12 +18,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.DashboardCardsAdapter;
 import ch.heig.cashflow.models.Budget;
-import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.SelectedDate;
 import ch.heig.cashflow.network.services.DashboardService;
+import ch.heig.cashflow.utils.Currency;
+import ch.heig.cashflow.utils.SimpleColor;
 
 
 public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
@@ -94,19 +95,29 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
     @Override
     public void getFinished(Budget budget) {
+
+        // Define used colors
         SimpleColor sp = new SimpleColor(getContext());
+        ColorStateList gray = sp.getState(R.color.gray);
+        ColorStateList dark = sp.getState(R.color.dark);
+        ColorStateList red = sp.getState(R.color.red);
+        ColorStateList white = sp.getState(R.color.white);
 
         int progress = 0;
         if (budget.getIncome() > 0)
             progress = (int) (Math.abs(budget.getExpense()) * 100 / budget.getIncome());
 
         progBar.setProgress(progress);
-        progBar.setProgressBackgroundTintList(sp.getState(R.color.gray));
-        progBar.setProgressTintList(sp.getState(R.color.dark));
+        progBar.setProgressBackgroundTintList(gray);
+        progBar.setProgressTintList(dark);
 
         title.setText(budget.getName());
+
         result.setText(Currency.format(budget.getBudget()));
+        result.setTextColor(budget.getBudget() < 0 ? red : white);
+
         percentage.setText(String.format("%s%%", progress));
+
         categories.setAdapter(new DashboardCardsAdapter(getActivity(), budget.getCategories()));
     }
 }
