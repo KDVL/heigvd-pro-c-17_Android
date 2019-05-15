@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.CategorySelectActivity;
-import ch.heig.cashflow.adapters.CategoryAddExpenseAdapter;
-import ch.heig.cashflow.adapters.CategoryAddIncomeAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryAddExpenseAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter;
 
 public class CategoriesFragmentTabHost extends Fragment {
 

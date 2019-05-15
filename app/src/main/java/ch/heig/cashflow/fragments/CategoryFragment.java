@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.CategoryFragmentAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryFragmentAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;

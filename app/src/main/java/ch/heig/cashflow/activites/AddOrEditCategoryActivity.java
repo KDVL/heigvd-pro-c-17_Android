@@ -13,7 +13,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.CategoryAddOrEditAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 
@@ -45,12 +45,12 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
         Intent i = getIntent();
         if (i != null) {
             adapter = (CategoryAddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.category_adapter_key));
-            adapter.setCallbackCategory(this);
         }
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
 
-        // TODO : icon image
+        int iconImageId = getDrawableResIdByName(adapter.getCategory().getIconName());
+        categoryIcon.setImageResource(iconImageId);
 
         if (adapter.getCategory() != null) {
             categoryName.setText(adapter.getCategory().getName());
@@ -98,7 +98,14 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
         adapter.getCategory().setQuota(quota);
 
         // do edit or add
-        adapter.performAction();
+        adapter.performAction(this);
+    }
+
+    // Find Image ID corresponding to the name of the image (in the directory drawable).
+    public int getDrawableResIdByName(String resName) {
+        String pkgName = getContext().getPackageName();
+        // Return 0 if not found.
+        return getContext().getResources().getIdentifier(resName, "drawable", pkgName);
     }
 
     @Override

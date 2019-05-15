@@ -1,4 +1,4 @@
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
 import android.content.DialogInterface;

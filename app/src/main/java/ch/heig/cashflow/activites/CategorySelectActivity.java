@@ -15,19 +15,20 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.CategoryAddExpenseAdapter;
-import ch.heig.cashflow.adapters.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.adapters.CategorySelectGridViewAdapter;
 import ch.heig.cashflow.adapters.CategorySelectListViewAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoriesService;
 
 public class CategorySelectActivity extends AppCompatActivity implements CategoriesService.Callback {
     private static final String TAG = "CategorySelectActivity";
-    private List<Category> categoriesList;
+    private List<String> categoriesList;
 
     private ViewStub stubGrid;
     private ViewStub stubList;
@@ -47,13 +48,13 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_select);
+        categoriesList = new ArrayList<>();
 
         setTitle("Choix de la catégorie");
 
-        Intent i = getIntent();
-        if (i != null) {
-            adapter = (CategoryAddOrEditAdapter) i.getSerializableExtra(getResources().getString(R.string.category_adapter_key));
-            adapter.setCallbackCategorie(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            adapter = (CategoryAddOrEditAdapter) intent.getSerializableExtra(getResources().getString(R.string.category_adapter_key));
         }
 
         stubList = findViewById(R.id.stub_list);
@@ -67,7 +68,33 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
         gridView = findViewById(R.id.cat_select_gridview);
 
         //get list of categories
-        adapter.loadCategories();
+        //adapter.loadCategories();
+
+        // récuperer les icones de android mettre android.R
+        Field[] drawables = R.drawable.class.getFields();
+        String tab[] = new String[300];
+        int i = 0;
+
+        for (Field f : drawables) {
+            try {
+                if (f.getName().startsWith("cat_"))
+                    categoriesList.add(f.getName());
+                System.out.println("R.drawable." + f.getName());
+                tab[i++] = f.getName();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO lire dravable pour les catégories
+
+        //Get current view mode in share reference
+        SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+        currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
+        //Register item lick
+        listView.setOnItemClickListener(onItemClick);
+        gridView.setOnItemClickListener(onItemClick);
+
+        switchView();
     }
 
 
@@ -100,13 +127,14 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
     AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Category c = categoriesList.get(position);
-            Log.i(TAG, String.valueOf(c.getID()));
-            saveCategory(c);
+            String c = categoriesList.get(position);
+            Log.i(TAG, c);
+            adapter.getCategory().setIconName(c);
+            saveCategory();
         }
     };
 
-    public void saveCategory(Category c) {
+    public void saveCategory() {
         Intent addOrEditCategory = new Intent(this, AddOrEditCategoryActivity.class);
         addOrEditCategory.putExtra(getResources().getString(R.string.category_adapter_key), adapter);
         startActivity(addOrEditCategory);
@@ -144,22 +172,6 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
 
     @Override
     public void getFinished(List<Category> categories) {
-        //remove disable categories
-        categoriesList = categories;
-
-        for (Category c : categoriesList) {
-            if (!c.isEnabled())
-                categoriesList.remove(c);
-        }
-
-        //Get current view mode in share reference
-        SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
-        currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
-        //Register item lick
-        listView.setOnItemClickListener(onItemClick);
-        gridView.setOnItemClickListener(onItemClick);
-
-        switchView();
     }
 
     @Override

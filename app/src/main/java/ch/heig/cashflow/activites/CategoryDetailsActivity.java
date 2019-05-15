@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.SimpleColor;
-import ch.heig.cashflow.adapters.CategoryAddOrEditAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 
@@ -43,8 +43,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         }
 
         cs = new CategoryService(this);
-
-        adapter.setCallbackCategory(this);
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
 
