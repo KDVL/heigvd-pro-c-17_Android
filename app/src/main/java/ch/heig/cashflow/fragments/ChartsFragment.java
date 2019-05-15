@@ -70,6 +70,7 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
         // Define the chart data
         PieData data = new PieData(dataSet);
         pie.setData(data);
+        pie.invalidate();
     }
 
     @Override
