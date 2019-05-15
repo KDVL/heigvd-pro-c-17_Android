@@ -2,29 +2,33 @@ package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Budget;
 import ch.heig.cashflow.models.BudgetCategory;
-import ch.heig.cashflow.network.callbacks.TransactionsCallback;
+import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.DashboardService;
+import ch.heig.cashflow.utils.Type;
 
 public class ChartsFragment extends Fragment implements DashboardService.Callback {
 
-    private static final String TAG = ChartsFragment.class.getSimpleName();
-
-    private FragmentTabHost tabs;
+    private PieChart pie;
 
     public ChartsFragment() {
         // Required empty public constructor
-        setHasOptionsMenu(true);
     }
 
     public static ChartsFragment newInstance() {
@@ -34,27 +38,13 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TransactionsCallback tc = new TransactionsCallback(getContext(), ServicesFragment.newInstance());
-        tc.getAll();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_chart, container, false);
-
-        tabs = view.findViewById(android.R.id.tabhost);
-        tabs.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), CategoryFragment.class, null);
-        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), CategoryFragment.class, null);
-
-        setHasOptionsMenu(true);
-
+        View view = inflater.inflate(R.layout.fragment_pie_chart, container, false);
+        pie = view.findViewById(R.id.pie_chart);
         return view;
-    }
-
-    private void reload() {
-        new DashboardService(this).getAllByMonth();
     }
 
     @Override
@@ -64,22 +54,30 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.charts_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
     public void getFinished(Budget budget) {
 
-        for (BudgetCategory cat : budget.getCategories()) {
-            // TODO get each category
+        List<PieEntry> entries = new ArrayList<>();
+
+        for (BudgetCategory budgetCat : budget.getCategories()) {
+            Category cat = budgetCat.getCategory();
+            if (cat.getType() == Type.EXPENSE)
+                entries.add(new PieEntry(budgetCat.getExpense(), cat.getName()));
         }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Categories");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        // Define the chart data
+        PieData data = new PieData(dataSet);
+        pie.setData(data);
     }
 
     @Override
     public void connectionFailed(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+    }
+
+    private void reload() {
+        new DashboardService(this).getAllByMonth();
     }
 }
