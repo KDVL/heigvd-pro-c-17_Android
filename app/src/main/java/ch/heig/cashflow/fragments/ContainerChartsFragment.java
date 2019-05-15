@@ -34,18 +34,22 @@ public class ContainerChartsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Bundle bundle;
+
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
         tabs = view.findViewById(android.R.id.tabhost);
 
-        Bundle tab0 = new Bundle();
-        tab0.putInt("Type", 0);
-
-        Bundle tab1 = new Bundle();
-        tab1.putLong("Type", 1);
-
         tabs.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), ChartsFragment.class, tab0);
-        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), ChartsFragment.class, tab1);
+
+        bundle = new Bundle();
+        bundle.putSerializable("type", Type.EXPENSE);
+        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), ChartsFragment.class, bundle);
+
+        bundle = new Bundle();
+        bundle.putSerializable("type", Type.INCOME);
+        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), ChartsFragment.class, bundle);
+
         return view;
     }
 

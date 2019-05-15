@@ -26,7 +26,7 @@ import ch.heig.cashflow.utils.Type;
 public class ChartsFragment extends Fragment implements DashboardService.Callback {
 
     private PieChart pie;
-    private int tab;
+    private Type type;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -46,8 +46,8 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
         View view = inflater.inflate(R.layout.fragment_pie_chart, container, false);
         pie = view.findViewById(R.id.pie_chart);
 
-        Bundle b = getArguments();
-        tab = b.getInt("Type");
+        Bundle bundle = getArguments();
+        type = (Type) bundle.get("type");
 
         return view;
     }
@@ -65,10 +65,8 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
 
         for (BudgetCategory budgetCat : budget.getCategories()) {
             Category cat = budgetCat.getCategory();
-            if (tab == 0 && cat.getType() == Type.EXPENSE)
-                entries.add(new PieEntry(budgetCat.getExpense(), cat.getName()));
-            else
-                entries.add(new PieEntry(budgetCat.getIncome(), cat.getName()));
+            if (cat.getType().equals(type))
+                entries.add(new PieEntry(Math.abs(budgetCat.getBudget()), cat.getName()));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Categories");
