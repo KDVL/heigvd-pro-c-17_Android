@@ -14,13 +14,17 @@
     <string name="title_charts">Statistiques</string>
     <string name="title_categories">Catégories</string>
 
+    <!-- Category strings -->
     <!-- category adapters -->
     <string name="title_cat_expense_details">Categorie dépense détail</string>
     <string name="title_cat_income_details">Catégorie revenu détail</string>
     <string name="title_cat_expense_add">Nouvelle catégorie dépense</string>
     <string name="title_cat_income_add">Nouvelle catégorie revenu</string>
-    <!-- menu_categorie_choice -->
+    <!-- menu_categorie_select -->
     <string name="item_switch_view">Switch</string>
+    <string name="cat_name_hint">Nom</string>
+    <string name="cat_quota_hint">Quota</string>
+
 
     <string name="text_login">Se connecter</string>
     <string name="no_account">Pas encore de compte ? En créer un</string>

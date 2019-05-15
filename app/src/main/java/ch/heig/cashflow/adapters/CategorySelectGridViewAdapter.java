@@ -40,7 +40,7 @@ public class CategorySelectGridViewAdapter extends ArrayAdapter<String> {
         iconImage.setImageResource(iconImageId);
         iconImage.getDrawable().setTint(Color.parseColor("#000000"));
 
-        title.setText(c); // TODO nom
+        title.setText(c.substring(4));
 
         return v;
     }
