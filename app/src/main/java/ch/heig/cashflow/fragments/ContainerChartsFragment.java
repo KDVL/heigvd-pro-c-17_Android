@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.utils.Type;
 
 public class ContainerChartsFragment extends Fragment {
 
@@ -35,9 +36,16 @@ public class ContainerChartsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
         tabs = view.findViewById(android.R.id.tabhost);
+
+        Bundle tab0 = new Bundle();
+        tab0.putInt("Type", 0);
+
+        Bundle tab1 = new Bundle();
+        tab1.putLong("Type", 1);
+
         tabs.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), ChartsFragment.class, null);
-        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), ChartsFragment.class, null);
+        tabs.addTab(tabs.newTabSpec("Dépenses").setIndicator("Dépenses"), ChartsFragment.class, tab0);
+        tabs.addTab(tabs.newTabSpec("Revenus").setIndicator("Revenus"), ChartsFragment.class, tab1);
         return view;
     }
 

@@ -26,6 +26,7 @@ import ch.heig.cashflow.utils.Type;
 public class ChartsFragment extends Fragment implements DashboardService.Callback {
 
     private PieChart pie;
+    private int tab;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -44,6 +45,10 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pie_chart, container, false);
         pie = view.findViewById(R.id.pie_chart);
+
+        Bundle b = getArguments();
+        tab = b.getInt("Type");
+
         return view;
     }
 
@@ -60,8 +65,10 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
 
         for (BudgetCategory budgetCat : budget.getCategories()) {
             Category cat = budgetCat.getCategory();
-            if (cat.getType() == Type.EXPENSE)
+            if (tab == 0 && cat.getType() == Type.EXPENSE)
                 entries.add(new PieEntry(budgetCat.getExpense(), cat.getName()));
+            else
+                entries.add(new PieEntry(budgetCat.getIncome(), cat.getName()));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Categories");
@@ -70,6 +77,13 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
         // Define the chart data
         PieData data = new PieData(dataSet);
         pie.setData(data);
+
+        // Pie chart ooptions
+        pie.getDescription().setEnabled(false);
+        pie.setUsePercentValues(true);
+        pie.setRotationEnabled(false);
+        pie.animateXY(1000, 1000);
+        pie.setExtraOffsets(5, 10, 5, 5);
         pie.invalidate();
     }
 
