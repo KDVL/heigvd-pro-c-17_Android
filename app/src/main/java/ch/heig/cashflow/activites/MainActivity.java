@@ -26,7 +26,7 @@ import ch.heig.cashflow.adapters.transactions.TransactionAddAdapter;
 import ch.heig.cashflow.adapters.transactions.TransactionAddExpenseAdapter;
 import ch.heig.cashflow.adapters.transactions.TransactionAddIncomeAdapter;
 import ch.heig.cashflow.fragments.CategoriesFragmentTabHost;
-import ch.heig.cashflow.fragments.ChartsFragment;
+import ch.heig.cashflow.fragments.ContainerChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.fragments.TransactionFragment;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
                     break;
                 case R.id.navigation_charts:
                     setTitle(R.string.title_charts);
-                    fragment = ChartsFragment.newInstance();
+                    fragment = ContainerChartsFragment.newInstance();
                     break;
                 case R.id.navigation_categories:
                     setTitle(R.string.title_categories);
