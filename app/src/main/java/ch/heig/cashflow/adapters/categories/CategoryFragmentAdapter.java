@@ -94,11 +94,11 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             int enabledImageID, colorEnabled, colorIcon;
 
             if (c.isEnabled()) {
-                enabledImageID = this.getDrawableResIdByName("cat_button_remove");
+                enabledImageID = this.getDrawableResIdByName("button_remove");
                 colorEnabled = sp.get(R.color.red);
                 colorIcon = sp.get(R.color.green);
             } else {
-                enabledImageID = this.getDrawableResIdByName("cat_button_add");
+                enabledImageID = this.getDrawableResIdByName("button_add");
                 colorEnabled = sp.get(R.color.green);
                 colorIcon = sp.get(R.color.red);
             }

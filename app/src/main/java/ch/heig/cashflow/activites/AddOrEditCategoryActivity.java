@@ -95,7 +95,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
 
         //set informations
         adapter.getCategory().setName(categoryNameText);
-        adapter.getCategory().setQuota(quota);
+        adapter.getCategory().setQuota(quota * 100);
 
         // do edit or add
         adapter.performAction(this);
@@ -116,7 +116,9 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     @Override
     public void operationFinished(boolean isFinished) {
         if (isFinished) {
-            //finish();
+            Intent main = new Intent(this, MainActivity.class);
+            main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(main);
         } else {
             connectionFailed("");
         }

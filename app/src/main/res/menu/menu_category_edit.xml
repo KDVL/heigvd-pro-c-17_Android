@@ -9,10 +9,4 @@
         android:title="@string/item_edit"
         app:showAsAction="ifRoom"/>
 
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/category_delete"
-        android:icon="@drawable/appbar_delete"
-        android:title="@string/item_delete"
-        app:showAsAction="ifRoom"/>
-
 </menu>

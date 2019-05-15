@@ -68,24 +68,18 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
         gridView = findViewById(R.id.cat_select_gridview);
 
         //get list of categories
-        //adapter.loadCategories();
-
         // récuperer les icones de android mettre android.R
         Field[] drawables = R.drawable.class.getFields();
-        String tab[] = new String[300];
-        int i = 0;
 
         for (Field f : drawables) {
             try {
                 if (f.getName().startsWith("cat_"))
                     categoriesList.add(f.getName());
                 System.out.println("R.drawable." + f.getName());
-                tab[i++] = f.getName();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        // TODO lire dravable pour les catégories
 
         //Get current view mode in share reference
         SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);

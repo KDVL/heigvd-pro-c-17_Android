@@ -35,8 +35,7 @@
                 android:id="@+id/cat_input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_price"
-                android:inputType="numberDecimal"
+                android:hint="@string/cat_name_hint"
                 android:theme="@style/MyEditTextTheme" />
         </android.support.design.widget.TextInputLayout>
 
@@ -52,7 +51,8 @@
                 android:id="@+id/cat_input_quota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_description"
+                android:hint="@string/cat_quota_hint"
+                android:inputType="numberDecimal"
                 android:theme="@style/MyEditTextTheme" />
         </android.support.design.widget.TextInputLayout>
 

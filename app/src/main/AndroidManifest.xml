@@ -32,10 +32,11 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activites.CategorySelectActivity"
-            android:label="@string/title_activity_categorie_select"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_categorie_select"></activity>
         <activity android:name=".activites.CategoryDetailsActivity" />
-        <activity android:name=".activites.AddOrEditCategoryActivity" />
+        <activity
+            android:name=".activites.AddOrEditCategoryActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".activites.TransactionDetailsActivity" />
     </application>
 

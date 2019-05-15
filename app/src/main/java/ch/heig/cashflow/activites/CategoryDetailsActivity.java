@@ -82,9 +82,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
             case R.id.category_edit:
                 edit();
                 return true;
-            case R.id.category_delete:
-                delete();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -95,34 +92,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         Intent catAddOrEdit = new Intent(this, AddOrEditCategoryActivity.class);
         catAddOrEdit.putExtra(getResources().getString(R.string.category_adapter_key), adapter);
         startActivity(catAddOrEdit);
-    }
-
-    private void delete() {
-
-        final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Suppression")
-                .setMessage("Voulez-vous vraiment supprimer la category?")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        cs.disable(adapter.getCategory());
-                        finish();
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                    }
-                }).create();
-
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface arg0) {
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-
-        dialog.show();
     }
 
 

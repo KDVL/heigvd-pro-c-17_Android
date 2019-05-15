@@ -1,6 +1,7 @@
 package ch.heig.cashflow.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,18 +14,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.CategorySelectActivity;
 import ch.heig.cashflow.adapters.categories.CategoryAddExpenseAdapter;
 import ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter;
+import ch.heig.cashflow.utils.SimpleColor;
 
 public class CategoriesFragmentTabHost extends Fragment {
 
     private static final String TAG = CategoriesFragmentTabHost.class.getSimpleName();
-
     private FragmentTabHost fragmentTabHost;
+    private SimpleColor sc = new SimpleColor(getContext());
 
     public CategoriesFragmentTabHost() {
     }
@@ -86,7 +89,6 @@ public class CategoriesFragmentTabHost extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Log.i(TAG, "onActivityCreated: ");
 
-        // TODO: A checker le bundle passage
         Bundle tab0 = new Bundle();
         tab0.putLong("index", 0);
 
@@ -96,5 +98,27 @@ public class CategoriesFragmentTabHost extends Fragment {
         fragmentTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
         fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Dépenses").setIndicator("Dépenses"), CategoryFragment.class, tab0);
         fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Revenus").setIndicator("Revenus"), CategoryFragment.class, tab1);
+        decorateTabs();
+
+        fragmentTabHost.setOnTabChangedListener(new FragmentTabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                decorateTabs();
+            }
+        });
+    }
+
+    void decorateTabs() {
+        int tab = fragmentTabHost.getCurrentTab();
+        for (int i = 0; i < fragmentTabHost.getTabWidget().getChildCount(); i++) {
+            // When tab is not selected
+            fragmentTabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#FFFFFF"));
+            TextView tv = (TextView) fragmentTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(Color.BLACK);
+        }
+        // When tab is selected
+        fragmentTabHost.getTabWidget().getChildAt(fragmentTabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#708090"));
+        TextView tv = (TextView) fragmentTabHost.getTabWidget().getChildAt(tab).findViewById(android.R.id.title);
+        tv.setTextColor(Color.WHITE);
     }
 }
