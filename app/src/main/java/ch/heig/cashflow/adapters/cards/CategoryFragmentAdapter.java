@@ -1,4 +1,4 @@
-package ch.heig.cashflow.adapters.categories;
+package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +17,8 @@ import java.util.List;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.activites.CategoryDetailsActivity;
+import ch.heig.cashflow.adapters.categories.CategoryEditExpenseAdapter;
+import ch.heig.cashflow.adapters.categories.CategoryEditIncomeAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.utils.SimpleColor;

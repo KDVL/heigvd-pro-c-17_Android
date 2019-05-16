@@ -1,4 +1,4 @@
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.adapters.CategorySelectGridViewAdapter;
-import ch.heig.cashflow.adapters.CategorySelectListViewAdapter;
+import ch.heig.cashflow.adapters.cards.CategorySelectGridViewAdapter;
+import ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter;
 import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoriesService;

@@ -1,4 +1,4 @@
-package ch.heig.cashflow.adapters;
+package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,16 +13,36 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.utils.ApplicationResources;
 
+/**
+ * La classe adaptateur pour gérer l'affichage des catégories lors du choix client
+ */
 public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
+    private ApplicationResources appRes;
     private Context context;
 
+    /**
+     * Constructeur
+     *
+     * @param context    contexte de l'application
+     * @param resource   layout ressource
+     * @param categories la liste de categories à afficher
+     */
     public CategorySelectListViewAdapter(Context context, int resource, List<String> categories) {
         super(context, resource, categories);
         this.context = context;
+        appRes = new ApplicationResources(context);
     }
 
+    /**
+     * Affichage personalisé pour chaque élément de la vue
+     *
+     * @param position    position de l'élément
+     * @param convertView
+     * @param parent
+     * @return la vue
+     */
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -36,19 +56,12 @@ public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
         ImageView iconImage = v.findViewById(R.id.cat_select_image_view);
         TextView title = v.findViewById(R.id.cat_select_title);
 
-        int iconImageId = this.getDrawableResIdByName(c);
+        int iconImageId = appRes.getDrawableResIdByName(c);
         iconImage.setImageResource(iconImageId);
-        iconImage.getDrawable().setTint(Color.parseColor("#000000"));
+        iconImage.getDrawable().setTint(Color.parseColor("#000000")); // TODO: color
 
         title.setText(c.substring(4));
 
         return v;
-    }
-
-    // Find Image ID corresponding to the name of the image (in the directory drawable).
-    public int getDrawableResIdByName(String resName) {
-        String pkgName = context.getPackageName();
-        // Return 0 if not found.
-        return context.getResources().getIdentifier(resName, "drawable", pkgName);
     }
 }
