@@ -20,10 +20,11 @@
     <string name="title_cat_income_details">Catégorie revenu détail</string>
     <string name="title_cat_expense_add">Nouvelle catégorie dépense</string>
     <string name="title_cat_income_add">Nouvelle catégorie revenu</string>
-    <string name="alerte_titre_activation">Categorie dépense détail</string>
+    <string name="alerte_titre_activation">Activation</string>
     <string name="alerte_titre_desactivation">"Désactivation!"</string>
+    <!--
     <string name="title_cat_expense_add">Nouvelle catégorie dépense</string>
-    <string name="title_cat_income_add">Nouvelle catégorie revenu</string>
+    <string name="title_cat_income_add">Nouvelle catégorie revenu</string> -->
 
     <!-- menu_categorie_select -->
     <string name="item_switch_view">Switch</string>
