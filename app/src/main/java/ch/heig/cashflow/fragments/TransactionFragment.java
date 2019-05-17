@@ -32,7 +32,6 @@ import ch.heig.cashflow.network.services.TransactionsService;
 
 
 public class TransactionFragment extends Fragment implements TransactionsService.Callback, Observer {
-
     private static final String TAG = "TransactionFragment";
 
     private View view;

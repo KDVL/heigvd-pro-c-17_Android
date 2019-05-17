@@ -26,7 +26,6 @@ import ch.heig.cashflow.utils.SelectedDate;
 import ch.heig.cashflow.utils.SimpleColor;
 
 public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
-
     private static final String TAG = "DashboardFragment";
 
     private View view;

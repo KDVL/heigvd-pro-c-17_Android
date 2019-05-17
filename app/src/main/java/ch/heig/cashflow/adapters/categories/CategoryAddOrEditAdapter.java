@@ -1,9 +1,9 @@
 /**
  * Parent adapter (abstract)
  *
- * @authors Kevin DO VALE
+ * @authors Aleksandar Milenkovic
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter
  */
 package ch.heig.cashflow.adapters.categories;
 
@@ -35,22 +35,27 @@ public abstract class CategoryAddOrEditAdapter implements Serializable {
     }
 
     /**
-     * return amount as String
+     * return quota as String
      *
-     * @return String amount
+     * @return String quota
      */
-    public String getAmount() {
+    public String getQuota() {
         if (category.getQuota() == 0) return "";
         return String.valueOf(category.getQuota());
     }
 
     /**
-     * Set title view
+     * abstract methode who
+     * return the title specially adapted for adapter operation
+     * @param context the context of application
+     * @return the title
      */
     public abstract String getViewTitle(Context context);
 
     /**
-     * Add or edit
+     * abstract methode who
+     * add or edit a category
+     * @param callback
      */
     public abstract void performAction(CategoryService.Callback callback);
 

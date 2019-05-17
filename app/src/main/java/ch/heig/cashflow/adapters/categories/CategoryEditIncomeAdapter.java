@@ -1,9 +1,9 @@
 /**
- * Adapter to edit income
+ * Adapter to edit category type income
  *
- * @authors Kevin DO VALE
+ * @authors Aleksandar Milenkovic
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.categories.CategoryEditIncomeAdapter
  */
 package ch.heig.cashflow.adapters.categories;
 
@@ -26,6 +26,7 @@ public class CategoryEditIncomeAdapter extends CategoryEditAdapter implements Se
     }
 
     /**
+     * Return the title specially adapted for adapter operation type income
      * @param context the context of application
      * @return the title
      */

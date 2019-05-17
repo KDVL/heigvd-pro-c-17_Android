@@ -54,7 +54,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
 
         if (adapter.getCategory() != null) {
             categoryName.setText(adapter.getCategory().getName());
-            categoryQuota.setText(String.valueOf(adapter.getAmount()));
+            categoryQuota.setText(String.valueOf(adapter.getQuota()));
         }
     }
 

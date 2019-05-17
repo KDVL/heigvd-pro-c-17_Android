@@ -1,10 +1,11 @@
 /**
- * Adapter to add parent abstract
+ * Adapter to add category
  *
- * @authors Kevin DO VALE
+ * @authors Aleksandar Milenkovic
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.categories.CategoryAddAdapter
  */
+
 package ch.heig.cashflow.adapters.categories;
 
 import java.io.Serializable;
@@ -24,7 +25,8 @@ public abstract class CategoryAddAdapter extends CategoryAddOrEditAdapter implem
     }
 
     /**
-     * do add
+     * Do add a category
+     * @param callback callback of service
      */
     @Override
     public void performAction(CategoryService.Callback callback) {

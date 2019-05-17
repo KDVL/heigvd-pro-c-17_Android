@@ -1,10 +1,11 @@
 /**
- * Adapter to edit expense
+ * Adapter to add category type expense
  *
- * @authors Kevin DO VALE
+ * @authors Aleksandar Milenkovic
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.categories.CategoryEditExpenseAdapter
  */
+
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -26,6 +27,7 @@ public class CategoryEditExpenseAdapter extends CategoryEditAdapter implements S
     }
 
     /**
+     * Return the title specially adapted for adapter operation type expense
      * @param context the context of application
      * @return the title
      */
