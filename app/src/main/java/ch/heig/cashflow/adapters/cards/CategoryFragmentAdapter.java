@@ -1,3 +1,11 @@
+/**
+ * Adapter for category display in recycle view
+ *
+ * @authors Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategoryFragmentAdapter
+ */
+
 package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
@@ -21,9 +29,11 @@ import ch.heig.cashflow.adapters.categories.CategoryEditExpenseAdapter;
 import ch.heig.cashflow.adapters.categories.CategoryEditIncomeAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
+import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.SimpleColor;
 
 public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private ApplicationResources appRes;
     private static final int LAYOUT_ONE = 0;
     private static final int LAYOUT_TWO = 1;
 
@@ -33,13 +43,26 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private Long tabId;
 
+    /**
+     * Constructor
+     * @param callback callback of service
+     * @param context context
+     * @param categoryList the list of category to display
+     * @param tabId
+     */
     public CategoryFragmentAdapter(CategoryService.Callback callback, Context context, List<Category> categoryList, Long tabId) {
+        appRes = new ApplicationResources(context);
         this.callback = callback;
         this.context = context;
         mCategories = categoryList;
         this.tabId = tabId;
     }
 
+    /**
+     * Choose the appropriate view
+     * @param index index of item
+     * @return the appropriate view
+     */
     @Override
     public int getItemViewType(int index) {
         //if (index % 2 == 0)
@@ -48,6 +71,12 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         return LAYOUT_TWO;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -65,6 +94,11 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         return viewHolder;
     }
 
+    /**
+     *
+     * @param viewHolder
+     * @param index
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int index) {
 
@@ -79,7 +113,7 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         } else {
             final ViewHolderCategory holder = (ViewHolderCategory) viewHolder;
 
-            int imageId = this.getDrawableResIdByName(c.getIconName());
+            int imageId = appRes.getDrawableResIdByName(c.getIconName());
 
             if (imageId != 0) {
                 holder.categoryIconName.setImageResource(imageId);
@@ -96,11 +130,11 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             int enabledImageID, colorEnabled, colorIcon;
 
             if (c.isEnabled()) {
-                enabledImageID = this.getDrawableResIdByName("button_remove");
+                enabledImageID = appRes.getDrawableResIdByName("button_remove");
                 colorEnabled = sp.get(R.color.red);
                 colorIcon = sp.get(R.color.green);
             } else {
-                enabledImageID = this.getDrawableResIdByName("button_add");
+                enabledImageID = appRes.getDrawableResIdByName("button_add");
                 colorEnabled = sp.get(R.color.green);
                 colorIcon = sp.get(R.color.red);
             }
@@ -118,6 +152,10 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
+    /**
+     * Launch the activity to change the category
+     * @param c the category to edit
+     */
     private void editCategory(Category c) {
         Intent catDetails = new Intent(context, CategoryDetailsActivity.class);
 
@@ -133,15 +171,19 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         context.startActivity(catDetails);
     }
 
+    /**
+     * Enable or disable categories
+     * @param c the category to edit
+     */
     private void enableOrDisable(final Category c) {
         final String title;
         String msg;
 
         if (c.isEnabled()) {
-            title = "Désactivation!";
+            title = appRes.getString(R.string.alerte_titre_desactivation);
             msg = "Voulez-vous vraiment désactiver la catégorie?";
         } else {
-            title = "Activation!";
+            title = appRes.getString(R.string.alerte_titre_activation);
             msg = "Voulez-vous vraiment activer la catégorie?";
         }
 
@@ -174,32 +216,26 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         dialog.show();
     }
 
+    /**
+     * The count of items in recycler view
+     * @return the size of list of categories
+     */
     @Override
     public int getItemCount() {
         return mCategories.size();
     }
 
-    /**
-     * Find Image ID corresponding to the name of the image (in the directory mipmap).
-     *
-     * @param resName name of image
-     * @return id of image
-     */
-    public int getDrawableResIdByName(String resName) {
-        String pkgName = context.getPackageName();
-        // Return 0 if not found.
-        return context.getResources().getIdentifier(resName, "drawable", pkgName);
-    }
-
+    /*
     // TODO: Est-ce que ça sert à quelque chose ???
     public void refreshList(List<Category> newList) {
         this.mCategories.clear();
         this.mCategories.addAll(newList);
         notifyDataSetChanged();
     }
+    */
 
     /**
-     * Classe pour holder du Recycler view item
+     * Class of special element to present categories of different types
      */
     public class ViewHolderCategory extends RecyclerView.ViewHolder {
         public ImageView categoryIconName;
@@ -216,7 +252,7 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Classe pour holder des séparation des catégories
+     * Class of special element to separate categories of different types
      */
     static class ViewHolderText extends RecyclerView.ViewHolder {
         public TextView categoryName;
