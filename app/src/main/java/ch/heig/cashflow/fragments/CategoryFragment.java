@@ -1,3 +1,11 @@
+/**
+ * Fragment to display income or expense category recycler view list
+ *
+ * @authors Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoryFragment
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -20,17 +28,16 @@ import ch.heig.cashflow.adapters.cards.CategoryFragmentAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.CategoryService;
+import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.DividerItemDecoration;
 import ch.heig.cashflow.utils.Type;
 
-
-/**
- * Classe pour TABHOST fragments
- */
 public class CategoryFragment extends Fragment implements CategoriesService.Callback,
         CategoryService.Callback {
 
     private static final String TAG = CategoryFragment.class.getSimpleName();
+
+    private ApplicationResources appRes;
 
     private CategoriesService css;
     private CategoryService cs;
@@ -41,10 +48,19 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
 
     private Long tabId;
 
+    /**
+     * Constructor
+     */
     public CategoryFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -57,6 +73,8 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         tabId = b.getLong("index");
 
         categoriesList = new ArrayList<>();
+
+        appRes = new ApplicationResources(getContext());
 
         css = new CategoriesService(this);
         cs = new CategoryService(this);
@@ -71,6 +89,11 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         return view;
     }
 
+    /**
+     * Adjust the list according to the selected tab
+     *
+     * @param tabId id of tab
+     */
     private void updateListeFromServer(Long tabId) {
         if (tabId == 0)
             css.getType(Type.EXPENSE);
@@ -78,6 +101,10 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
             css.getType(Type.INCOME);
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -85,13 +112,12 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     /**
-     * Méthode synchronisé pour gérer les spam boutton
+     * Synchronized method to handle spam button
      *
-     * @param categories
+     * @param categories list of categories
      */
     private synchronized void refresh(List<Category> categories) {
         categoriesList = categories;
-        Toast.makeText(getActivity().getApplicationContext(), "Liste des catégories récuperée du serveur!", Toast.LENGTH_SHORT).show();
         // Create adapter passing in the sample user data
         CategoryFragmentAdapter adapter = new CategoryFragmentAdapter(this, view.getContext(), categoriesList, tabId);
         // Attach the adapter to the recyclerview to populate items
@@ -101,16 +127,20 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         // That's all!
     }
 
-    // TODO : Gerer Callbacks
+    /**
+     * Return off call API GETALL
+     *
+     * @param categories list of category
+     */
     @Override
     public void getFinished(List<Category> categories) {
         refresh(categories);
     }
 
     /**
-     * Retour de la methode GET
+     * Return off call API GET
      *
-     * @param category
+     * @param category category
      */
     @Override
     public void getFinished(Category category) {
@@ -118,20 +148,25 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     /**
-     * Retour après POST, PUT et DELETE auprès du serveur
+     * Return off call API POST, PUT and DELETE
      *
-     * @param isFinished
+     * @param isFinished state of request
      */
     @Override
     public void operationFinished(boolean isFinished) {
         if (isFinished) {
-            Toast.makeText(getActivity().getApplicationContext(), "Mise à jour reussi!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), appRes.getString(R.string.server_response_ok), Toast.LENGTH_SHORT).show();
             updateListeFromServer(tabId);
         }
     }
 
+    /**
+     * Return fail
+     *
+     * @param error error string
+     */
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getActivity().getApplicationContext(), "Problème de connexion!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), appRes.getString(R.string.server_response_nok), Toast.LENGTH_SHORT).show();
     }
 }

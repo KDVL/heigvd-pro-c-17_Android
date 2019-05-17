@@ -11,11 +11,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.utils.SimpleColor;
-import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.utils.ApplicationResources;
+import ch.heig.cashflow.utils.Currency;
 
 public class TransactionCardItemsAdapter extends BaseAdapter {
+    private ApplicationResources appRes;
 
     private List<Transaction> transactions;
     private LayoutInflater layoutInflater;
@@ -25,6 +26,7 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
         this.context = context;
         this.transactions = transactions;
         layoutInflater = LayoutInflater.from(context);
+        appRes = new ApplicationResources(context);
     }
 
     @Override
@@ -61,21 +63,14 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
         holder.noteView.setText(transaction.getDescription());
         holder.amountView.setText(Currency.format(transaction.getAmountLong()));
 
-        int imageId = this.getDrawableResIdByName(transaction.getCategory().getIconName());
+        int imageId = appRes.getDrawableResIdByName(transaction.getCategory().getIconName());
 
-        if(imageId != 0){
+        if (imageId != 0) {
             holder.categorieImageView.setImageResource(imageId);
-            holder.categorieImageView.getDrawable().setTint(new SimpleColor(context).get(R.color.black));
+            holder.categorieImageView.getDrawable().setTint(appRes.getColor(R.color.black));
         }
 
         return convertView;
-    }
-
-    // Find Image ID corresponding to the name of the image (in the directory mipmap).
-    public int getDrawableResIdByName(String resName) {
-        String pkgName = context.getPackageName();
-        // Return 0 if not found.
-        return context.getResources().getIdentifier(resName, "drawable", pkgName);
     }
 
     static class ViewHolder {

@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,7 +29,6 @@ import ch.heig.cashflow.adapters.categories.CategoryEditIncomeAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.utils.ApplicationResources;
-import ch.heig.cashflow.utils.SimpleColor;
 
 public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ApplicationResources appRes;
@@ -45,10 +43,11 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * Constructor
-     * @param callback callback of service
-     * @param context context
+     *
+     * @param callback     callback of service
+     * @param context      context
      * @param categoryList the list of category to display
-     * @param tabId
+     * @param tabId        number of tab
      */
     public CategoryFragmentAdapter(CategoryService.Callback callback, Context context, List<Category> categoryList, Long tabId) {
         appRes = new ApplicationResources(context);
@@ -60,11 +59,13 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * Choose the appropriate view
+     *
      * @param index index of item
      * @return the appropriate view
      */
     @Override
     public int getItemViewType(int index) {
+        //TODO: affichage specifique
         //if (index % 2 == 0)
         //return LAYOUT_ONE;
         //else
@@ -72,10 +73,13 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
+     * Called when RecyclerView needs a new RecyclerView.ViewHolder
+     * of the given type to represent an item.
      *
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent   The ViewGroup into which the new View will be added
+     *                 after it is bound to an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
      */
     @NonNull
     @Override
@@ -95,14 +99,16 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
+     * Called by RecyclerView to display the data at the specified position.
+     * This method should update the contents of the itemView to reflect the item at
+     * the given position.
      *
-     * @param viewHolder
-     * @param index
+     * @param viewHolder The ViewHolder which should be updated to represent the contents
+     *                   of the item at the given position in the data set.
+     * @param index      The position of the item within the adapter's data set.
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int index) {
-
-        SimpleColor sp = new SimpleColor(context);
         final Category c = mCategories.get(index);
 
         if (viewHolder.getItemViewType() == LAYOUT_ONE) {
@@ -131,12 +137,12 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             if (c.isEnabled()) {
                 enabledImageID = appRes.getDrawableResIdByName("button_remove");
-                colorEnabled = sp.get(R.color.red);
-                colorIcon = sp.get(R.color.green);
+                colorEnabled = appRes.getColor(R.color.red);
+                colorIcon = appRes.getColor(R.color.green);
             } else {
                 enabledImageID = appRes.getDrawableResIdByName("button_add");
-                colorEnabled = sp.get(R.color.green);
-                colorIcon = sp.get(R.color.red);
+                colorEnabled = appRes.getColor(R.color.green);
+                colorIcon = appRes.getColor(R.color.red);
             }
 
             holder.categoryIconName.getDrawable().setTint(colorIcon);
@@ -154,18 +160,15 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * Launch the activity to change the category
+     *
      * @param c the category to edit
      */
     private void editCategory(Category c) {
         Intent catDetails = new Intent(context, CategoryDetailsActivity.class);
 
-        String str = "N° tab = " + tabId;
-
         if (tabId == 0) {
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
             catDetails.putExtra(context.getResources().getString(R.string.category_adapter_key), new CategoryEditExpenseAdapter(c));
         } else {
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
             catDetails.putExtra(context.getResources().getString(R.string.category_adapter_key), new CategoryEditIncomeAdapter(c));
         }
         context.startActivity(catDetails);
@@ -173,6 +176,7 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * Enable or disable categories
+     *
      * @param c the category to edit
      */
     private void enableOrDisable(final Category c) {
@@ -180,26 +184,26 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         String msg;
 
         if (c.isEnabled()) {
-            title = appRes.getString(R.string.alerte_titre_desactivation);
-            msg = "Voulez-vous vraiment désactiver la catégorie?";
+            title = appRes.getString(R.string.alert_des_title);
+            msg = appRes.getString(R.string.alert_des_msg);
         } else {
-            title = appRes.getString(R.string.alerte_titre_activation);
-            msg = "Voulez-vous vraiment activer la catégorie?";
+            title = appRes.getString(R.string.alert_act_title);
+            msg = appRes.getString(R.string.alert_act_msg);
         }
 
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(msg)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(appRes.getString(R.string.button_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        if (title.equals("Désactivation!")) {
+                        if (title.equals(appRes.getString(R.string.alert_des_title))) {
                             new CategoryService(callback).disable(c);
                         } else {
                             new CategoryService(callback).enable(c);
                         }
                     }
                 })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                .setNegativeButton(appRes.getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 
                     }
@@ -218,21 +222,13 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * The count of items in recycler view
+     *
      * @return the size of list of categories
      */
     @Override
     public int getItemCount() {
         return mCategories.size();
     }
-
-    /*
-    // TODO: Est-ce que ça sert à quelque chose ???
-    public void refreshList(List<Category> newList) {
-        this.mCategories.clear();
-        this.mCategories.addAll(newList);
-        notifyDataSetChanged();
-    }
-    */
 
     /**
      * Class of special element to present categories of different types

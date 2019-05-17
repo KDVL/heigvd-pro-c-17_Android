@@ -9,12 +9,14 @@
 package ch.heig.cashflow.utils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
 public class ApplicationResources {
     private Context context;
 
     /**
      * Constructor
+     *
      * @param context context of application
      */
     public ApplicationResources(Context context) {
@@ -41,5 +43,15 @@ public class ApplicationResources {
      */
     public String getString(int str) {
         return context.getString(str);
+    }
+
+    /**
+     * Allows to request a color to the context
+     *
+     * @param color id of color
+     * @return the requested color
+     */
+    public int getColor(int color) {
+        return ContextCompat.getColor(context, color);
     }
 }

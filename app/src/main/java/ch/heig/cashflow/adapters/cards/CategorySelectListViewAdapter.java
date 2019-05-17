@@ -1,7 +1,14 @@
+/**
+ * Adapter for category display in list view
+ *
+ * @authors Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter
+ */
+
 package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +22,16 @@ import java.util.List;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.ApplicationResources;
 
-/**
- * La classe adaptateur pour gérer l'affichage des catégories lors du choix client
- */
 public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
     private ApplicationResources appRes;
     private Context context;
 
     /**
-     * Constructeur
+     * Constructor
      *
-     * @param context    contexte de l'application
-     * @param resource   layout ressource
-     * @param categories la liste de categories à afficher
+     * @param context    context of application
+     * @param resource   resource layout
+     * @param categories the list of categories
      */
     public CategorySelectListViewAdapter(Context context, int resource, List<String> categories) {
         super(context, resource, categories);
@@ -36,12 +40,13 @@ public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
     }
 
     /**
-     * Affichage personalisé pour chaque élément de la vue
+     * Get a View that displays the data at the specified position in the data set.
      *
-     * @param position    position de l'élément
-     * @param convertView
-     * @param parent
-     * @return la vue
+     * @param position    The position of the item within the adapter's data set of the
+     *                    item whose view we want.
+     * @param convertView convertView This value may be null.
+     * @param parent      parent This value must never be null.
+     * @return view This value will never be null.
      */
     @NonNull
     @Override
@@ -56,9 +61,8 @@ public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
         ImageView iconImage = v.findViewById(R.id.cat_select_image_view);
         TextView title = v.findViewById(R.id.cat_select_title);
 
-        int iconImageId = appRes.getDrawableResIdByName(c);
-        iconImage.setImageResource(iconImageId);
-        iconImage.getDrawable().setTint(Color.parseColor("#000000")); // TODO: color
+        iconImage.setImageResource(appRes.getDrawableResIdByName(c));
+        iconImage.getDrawable().setTint(appRes.getColor(R.color.black));
 
         title.setText(c.substring(4));
 

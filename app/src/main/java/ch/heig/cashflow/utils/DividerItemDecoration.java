@@ -1,3 +1,11 @@
+/**
+ * Class needed to add divider in recycle view
+ *
+ * @authors Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.utils.DividerItemDecoration
+ */
+
 package ch.heig.cashflow.utils;
 
 import android.content.Context;
@@ -8,9 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * Classe nécessaire pour le divider du recycler view
- */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
@@ -33,6 +38,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         divider = ContextCompat.getDrawable(context, resId);
     }
 
+    /**
+     * Draw the dividing line
+     * @param c canvas
+     * @param parent parent
+     * @param state state of recycler view
+     */
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         int left = parent.getPaddingLeft();

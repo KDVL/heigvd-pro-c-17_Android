@@ -5,6 +5,10 @@
     <string name="transaction_adapter_key">transaction</string>
     <string name="category_adapter_key">category</string>
 
+    <!-- Buttons strings -->
+    <string name="button_ok">Ok</string>
+    <string name="button_cancel">Annuler</string>
+
     <!-- Titre fragments -->
     <string name="title_dashboard">Dashboard</string>
     <string name="title_expenses">Dépenses</string>
@@ -20,11 +24,12 @@
     <string name="title_cat_income_details">Catégorie revenu détail</string>
     <string name="title_cat_expense_add">Nouvelle catégorie dépense</string>
     <string name="title_cat_income_add">Nouvelle catégorie revenu</string>
-    <string name="alerte_titre_activation">Activation</string>
-    <string name="alerte_titre_desactivation">"Désactivation!"</string>
-    <!--
-    <string name="title_cat_expense_add">Nouvelle catégorie dépense</string>
-    <string name="title_cat_income_add">Nouvelle catégorie revenu</string> -->
+    <string name="alert_act_title">Activation</string>
+    <string name="alert_des_title">"Désactivation!"</string>
+    <string name="alert_act_msg">Voulez-vous vraiment activer la catégorie?</string>
+    <string name="alert_des_msg">Voulez-vous vraiment désactiver la catégorie?</string>
+    <string name="server_response_ok">Mise à jour reussi!</string>
+    <string name="server_response_nok">Problème de connexion!</string>
 
     <!-- menu_categorie_select -->
     <string name="item_switch_view">Switch</string>
