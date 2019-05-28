@@ -16,8 +16,17 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
+import ch.heig.cashflow.utils.ApplicationResources;
 
+/**
+ * Activity for adding or editing a category
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.activites.AddOrEditCategoryActivity
+ */
 public class AddOrEditCategoryActivity extends AppCompatActivity implements CategoryService.Callback {
+    private ApplicationResources appRes;
 
     private CategoryAddOrEditAdapter adapter = null;
 
@@ -31,14 +40,18 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     Button addButton;
 
     /**
-     * onCreate
+     * Called when the activity is starting.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently supplied
+     *                           in onSaveInstanceState(Bundle). Note: Otherwise it is null. This value may be null.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_or_edit_category);
+
+        appRes = new ApplicationResources(getContext());
 
         ButterKnife.bind(this);
 
@@ -49,46 +62,48 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
 
         setTitle(adapter.getViewTitle(getApplicationContext()));
 
-        int iconImageId = getDrawableResIdByName(adapter.getCategory().getIconName());
-        categoryIcon.setImageResource(iconImageId);
+        categoryIcon.setImageResource(appRes.getDrawableResIdByName(adapter.getCategory().getIconName()));
 
         if (adapter.getCategory() != null) {
             categoryName.setText(adapter.getCategory().getName());
-            categoryQuota.setText(String.valueOf(adapter.getQuota()));
+            categoryQuota.setText(String.valueOf(adapter.getCategory().getQuota() / 100));
         }
     }
 
     /**
      * save data
+     * For the display we divide by 100 the quota
+     * When the user enters a quota, it is multiplied by 100
      *
      * @param view the view
      */
     public void save(View view) {
 
+        String categoryNameText = categoryName.getText().toString();
+
+        if (categoryNameText.equals("")) {
+            Toast.makeText(getApplicationContext(), appRes.getString(R.string.category_name_input), Toast.LENGTH_LONG).show();
+            return;
+
+        }
+
+
         String quotaText = categoryQuota.getText().toString();
 
         if (quotaText.equals("")) {
-            Toast.makeText(getApplicationContext(), "Quota pas saisi!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), appRes.getString(R.string.quota_input), Toast.LENGTH_LONG).show();
             return;
         }
         if (quotaText.length() > 7) {
-            Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), appRes.getString(R.string.max_size_input), Toast.LENGTH_LONG).show();
             return;
         }
 
         long quota = Long.valueOf(quotaText);
 
         if (quota <= 0) {
-            Toast.makeText(getApplicationContext(), "Montant non conforme", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), appRes.getString(R.string.amount_input), Toast.LENGTH_LONG).show();
             return;
-        }
-
-        String categoryNameText = categoryName.getText().toString();
-
-        if (categoryNameText == null || categoryNameText == "") {
-            Toast.makeText(getApplicationContext(), "Le nom de catégorie non conforme", Toast.LENGTH_LONG).show();
-            return;
-
         }
 
         addButton.setEnabled(false);
@@ -101,18 +116,21 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
         adapter.performAction(this);
     }
 
-    // Find Image ID corresponding to the name of the image (in the directory drawable).
-    public int getDrawableResIdByName(String resName) {
-        String pkgName = getContext().getPackageName();
-        // Return 0 if not found.
-        return getContext().getResources().getIdentifier(resName, "drawable", pkgName);
-    }
-
+    /**
+     * Return off call API GET
+     *
+     * @param category category
+     */
     @Override
     public void getFinished(Category category) {
 
     }
 
+    /**
+     * Return off call API POST PUT and DELETE
+     *
+     * @param isFinished the result
+     */
     @Override
     public void operationFinished(boolean isFinished) {
         if (isFinished) {
@@ -120,17 +138,24 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
             main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(main);
         } else {
-            connectionFailed("");
+            connectionFailed(appRes.getString(R.string.server_response_nok));
         }
     }
 
-    // TODO: checker utilisation de connctionFailed via operationFinished
+    /**
+     * Return off call API if failed
+     *
+     * @param error error message
+     */
     @Override
     public void connectionFailed(String error) {
         addButton.setEnabled(true);
-        Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération, vérifiez vos saisies", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * @return the context of application
+     */
     @Override
     public Context getContext() {
         return getApplicationContext();

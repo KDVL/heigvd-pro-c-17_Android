@@ -1,11 +1,3 @@
-/**
- * Adapter to add category
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddAdapter
- */
-
 package ch.heig.cashflow.adapters.categories;
 
 import java.io.Serializable;
@@ -13,6 +5,13 @@ import java.io.Serializable;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 
+/**
+ * Adapter to add category
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.categories.CategoryAddAdapter
+ */
 public abstract class CategoryAddAdapter extends CategoryAddOrEditAdapter implements Serializable {
 
     /**

@@ -1,11 +1,3 @@
-/**
- * Adapter for category display in list view
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter
- */
-
 package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
@@ -22,6 +14,13 @@ import java.util.List;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.ApplicationResources;
 
+/**
+ * Adapter for category display in list view
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter
+ */
 public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
     private ApplicationResources appRes;
     private Context context;

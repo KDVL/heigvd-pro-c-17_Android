@@ -1,11 +1,3 @@
-/**
- * Adapter to add category type expense
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddExpenseAdapter
- */
-
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -16,6 +8,14 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.utils.Type;
 
+
+/**
+ * Adapter to add category type expense
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.categories.CategoryAddExpenseAdapter
+ */
 public class CategoryAddExpenseAdapter extends CategoryAddAdapter implements Serializable {
 
 

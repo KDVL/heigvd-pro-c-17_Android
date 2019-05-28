@@ -24,12 +24,19 @@
     <string name="title_cat_income_details">Catégorie revenu détail</string>
     <string name="title_cat_expense_add">Nouvelle catégorie dépense</string>
     <string name="title_cat_income_add">Nouvelle catégorie revenu</string>
+    <string name="title_cat_choice">Choix de la catégorie</string>
     <string name="alert_act_title">Activation</string>
     <string name="alert_des_title">"Désactivation!"</string>
     <string name="alert_act_msg">Voulez-vous vraiment activer la catégorie?</string>
     <string name="alert_des_msg">Voulez-vous vraiment désactiver la catégorie?</string>
     <string name="server_response_ok">Mise à jour reussi!</string>
     <string name="server_response_nok">Problème de connexion!</string>
+    <string name="cat_start">cat_</string>
+    <!-- category inputs -->
+    <string name="quota_input">Quota pas saisi!</string>
+    <string name="max_size_input">Quota trop grande</string>
+    <string name="amount_input">Quota non conforme</string>
+    <string name="category_name_input">Le nom de catégorie non conforme</string>
 
     <!-- menu_categorie_select -->
     <string name="item_switch_view">Switch</string>

@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/cat_quota_hint"
                 android:inputType="numberDecimal"
+                android:digits="0123456789"
                 android:theme="@style/MyEditTextTheme" />
         </android.support.design.widget.TextInputLayout>
 

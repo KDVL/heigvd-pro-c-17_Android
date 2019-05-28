@@ -1,16 +1,15 @@
-/**
- * The class that provides us with the elements of the application
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.utils.ApplicationResources
- */
-
 package ch.heig.cashflow.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
+/**
+ * The class that provides us with the elements of the application
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.utils.ApplicationResources
+ */
 public class ApplicationResources {
     private Context context;
 

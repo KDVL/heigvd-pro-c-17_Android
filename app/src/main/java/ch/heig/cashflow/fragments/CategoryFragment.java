@@ -1,11 +1,3 @@
-/**
- * Fragment to display income or expense category recycler view list
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.fragments.CategoryFragment
- */
-
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -32,6 +24,13 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.DividerItemDecoration;
 import ch.heig.cashflow.utils.Type;
 
+/**
+ * Fragment to display income or expense category recycler view list
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoryFragment
+ */
 public class CategoryFragment extends Fragment implements CategoriesService.Callback,
         CategoryService.Callback {
 
@@ -56,10 +55,14 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     /**
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * Called to have the fragment instantiate its user interface view
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     *                           The fragment should not add the view itself, but this can be used to generate
+     *                           the LayoutParams of the view. This value may be null.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null.
      */
     @Nullable
     @Override
@@ -102,13 +105,15 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     /**
-     * @param view
-     * @param savedInstanceState
+     * Called immediately after onCreateView
+     *
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous
+     *                           saved state as given here. This value may be null.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG, "onViewCreated: ");
     }
 
     /**

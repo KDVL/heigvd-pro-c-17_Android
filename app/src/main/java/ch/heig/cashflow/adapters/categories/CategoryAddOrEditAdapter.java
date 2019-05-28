@@ -1,10 +1,3 @@
-/**
- * Parent adapter (abstract)
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter
- */
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -14,6 +7,13 @@ import java.io.Serializable;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 
+/**
+ * Parent adapter (abstract)
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter
+ */
 public abstract class CategoryAddOrEditAdapter implements Serializable {
 
     protected Category category;
@@ -47,6 +47,7 @@ public abstract class CategoryAddOrEditAdapter implements Serializable {
     /**
      * abstract methode who
      * return the title specially adapted for adapter operation
+     *
      * @param context the context of application
      * @return the title
      */
@@ -55,7 +56,8 @@ public abstract class CategoryAddOrEditAdapter implements Serializable {
     /**
      * abstract methode who
      * add or edit a category
-     * @param callback
+     *
+     * @param callback the service
      */
     public abstract void performAction(CategoryService.Callback callback);
 

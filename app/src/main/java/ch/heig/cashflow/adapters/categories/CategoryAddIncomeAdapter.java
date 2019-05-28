@@ -1,10 +1,3 @@
-/**
- * Adapter to add category type income
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter
- */
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -15,6 +8,13 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.utils.Type;
 
+/**
+ * Adapter to add category type income
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter
+ */
 public class CategoryAddIncomeAdapter extends CategoryAddAdapter implements Serializable {
 
     /**

@@ -1,11 +1,3 @@
-/**
- * Adapter for category display in recycle view
- *
- * @authors Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.cards.CategoryFragmentAdapter
- */
-
 package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
@@ -20,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.heig.cashflow.R;
@@ -29,7 +22,15 @@ import ch.heig.cashflow.adapters.categories.CategoryEditIncomeAdapter;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.utils.ApplicationResources;
+import ch.heig.cashflow.utils.Type;
 
+/**
+ * Adapter for category display in recycle view
+ *
+ * @author Aleksandar Milenkovic
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategoryFragmentAdapter
+ */
 public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ApplicationResources appRes;
     private static final int LAYOUT_ONE = 0;
@@ -38,6 +39,7 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     private CategoryService.Callback callback;
     private Context context;
     private final List<Category> mCategories;
+    private List<Category> orderedCategories;
 
     private Long tabId;
 
@@ -54,6 +56,20 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.callback = callback;
         this.context = context;
         mCategories = categoryList;
+
+        orderedCategories = new ArrayList<>();
+        orderedCategories.add(new Category(0, "Activées", "enabled", Type.EXPENSE, 0, true));
+        for (Category ac : mCategories) {
+            if (ac.isEnabled())
+                orderedCategories.add(ac);
+        }
+
+        orderedCategories.add(new Category(0, "Désactivées", "disabled", Type.EXPENSE, 0, true));
+        for (Category dc : mCategories) {
+            if (!dc.isEnabled())
+                orderedCategories.add(dc);
+        }
+
         this.tabId = tabId;
     }
 
@@ -65,11 +81,11 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     @Override
     public int getItemViewType(int index) {
-        //TODO: affichage specifique
-        //if (index % 2 == 0)
-        //return LAYOUT_ONE;
-        //else
-        return LAYOUT_TWO;
+        if (orderedCategories.get(index).getIconName().equals("enabled") ||
+                orderedCategories.get(index).getIconName().equals("disabled"))
+            return LAYOUT_ONE;
+        else
+            return LAYOUT_TWO;
     }
 
     /**
@@ -84,8 +100,8 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = null;
-        RecyclerView.ViewHolder viewHolder = null;
+        View view;
+        RecyclerView.ViewHolder viewHolder;
 
         if (viewType == LAYOUT_ONE) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_simpletext_item, parent, false);
@@ -109,12 +125,17 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int index) {
-        final Category c = mCategories.get(index);
+        final Category c = orderedCategories.get(index);
 
         if (viewHolder.getItemViewType() == LAYOUT_ONE) {
             ViewHolderText holder = (ViewHolderText) viewHolder;
             TextView textView = holder.categoryName;
             textView.setText(c.getName());
+            if (c.getIconName().equals("enabled")) {
+                textView.setTextColor(appRes.getColor(R.color.green));
+            } else {
+                textView.setTextColor(appRes.getColor(R.color.red));
+            }
 
         } else {
             final ViewHolderCategory holder = (ViewHolderCategory) viewHolder;
@@ -123,36 +144,33 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             if (imageId != 0) {
                 holder.categoryIconName.setImageResource(imageId);
+                holder.categoryIconName.getDrawable().setTint(appRes.getColor(R.color.black));
             }
 
             holder.categoryName.setText(c.getName());
             holder.categoryName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    editCategory(mCategories.get(holder.getAdapterPosition()));
+                    editCategory(orderedCategories.get(holder.getAdapterPosition()));
                 }
             });
 
-            int enabledImageID, colorEnabled, colorIcon;
+            int enabledImageID, colorEnabled;
 
             if (c.isEnabled()) {
                 enabledImageID = appRes.getDrawableResIdByName("button_remove");
                 colorEnabled = appRes.getColor(R.color.red);
-                colorIcon = appRes.getColor(R.color.green);
             } else {
                 enabledImageID = appRes.getDrawableResIdByName("button_add");
                 colorEnabled = appRes.getColor(R.color.green);
-                colorIcon = appRes.getColor(R.color.red);
             }
-
-            holder.categoryIconName.getDrawable().setTint(colorIcon);
 
             holder.bouttonState.setImageResource(enabledImageID);
             holder.bouttonState.getDrawable().setTint(colorEnabled);
             holder.bouttonState.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    enableOrDisable(mCategories.get(holder.getAdapterPosition()));
+                    enableOrDisable(orderedCategories.get(holder.getAdapterPosition()));
                 }
             });
         }
@@ -227,18 +245,18 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     @Override
     public int getItemCount() {
-        return mCategories.size();
+        return orderedCategories.size();
     }
 
     /**
      * Class of special element to present categories of different types
      */
     public class ViewHolderCategory extends RecyclerView.ViewHolder {
-        public ImageView categoryIconName;
-        public TextView categoryName;
-        public ImageView bouttonState;
+        ImageView categoryIconName;
+        TextView categoryName;
+        ImageView bouttonState;
 
-        public ViewHolderCategory(@NonNull View itemView) {
+        ViewHolderCategory(@NonNull View itemView) {
             super(itemView);
 
             categoryIconName = itemView.findViewById(R.id.cat_icon_name);
@@ -251,9 +269,9 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
      * Class of special element to separate categories of different types
      */
     static class ViewHolderText extends RecyclerView.ViewHolder {
-        public TextView categoryName;
+        TextView categoryName;
 
-        public ViewHolderText(@NonNull View itemView) {
+        ViewHolderText(@NonNull View itemView) {
             super(itemView);
 
             categoryName = itemView.findViewById(R.id.cat_state_title);
