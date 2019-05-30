@@ -5,6 +5,7 @@
  * @version 1.0
  * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
+
 package ch.heig.cashflow.adapters.transactions;
 
 import android.content.Context;
@@ -13,24 +14,24 @@ import java.io.Serializable;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Expense;
-import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.utils.Date;
+import ch.heig.cashflow.utils.Type;
 
 public class TransactionAddExpenseAdapter extends TransactionAddAdapter implements Serializable {
 
-
     /**
-     * Constructor
+     * The TransactionAddExpenseAdapter constructor
      */
     public TransactionAddExpenseAdapter() {
         super(new Expense(0, Date.getCurrentDateServerFormat(), null, 0, ""));
     }
 
     /**
+     * Return the title specially adapted for adapter operation type income
      *
-     * @param context the context of application
-     * @return the title
+     * @param context The application context
+     * @return String The view title
      */
     @Override
     public String getViewTitle(Context context) {
@@ -38,7 +39,7 @@ public class TransactionAddExpenseAdapter extends TransactionAddAdapter implemen
     }
 
     /**
-     * call the service
+     * Call the service
      */
     @Override
     public void loadCategories() {

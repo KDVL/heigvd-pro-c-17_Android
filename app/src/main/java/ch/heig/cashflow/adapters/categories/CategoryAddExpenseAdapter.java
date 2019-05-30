@@ -1,3 +1,10 @@
+/**
+ * Adapter to add category type expense
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -8,19 +15,10 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.utils.Type;
 
-
-/**
- * Adapter to add category type expense
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddExpenseAdapter
- */
 public class CategoryAddExpenseAdapter extends CategoryAddAdapter implements Serializable {
 
-
     /**
-     * Constructor
+     * The CategoryAddExpenseAdapter constructor
      */
     public CategoryAddExpenseAdapter() {
         super(new Category(0, "", "", Type.EXPENSE, 0, true));
@@ -28,8 +26,9 @@ public class CategoryAddExpenseAdapter extends CategoryAddAdapter implements Ser
 
     /**
      * Return the title specially adapted for adapter operation type expense
-     * @param context the context of application
-     * @return the title
+     *
+     * @param context The application context
+     * @return String The view title
      */
     @Override
     public String getViewTitle(Context context) {

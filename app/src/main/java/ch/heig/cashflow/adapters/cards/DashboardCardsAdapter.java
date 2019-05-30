@@ -1,4 +1,11 @@
-package ch.heig.cashflow.adapters;
+/**
+ * TODO
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ */
+
+package ch.heig.cashflow.adapters.cards;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,10 +21,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.models.BudgetCategory;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.utils.Currency;
+import ch.heig.cashflow.utils.SimpleColor;
 
 public class DashboardCardsAdapter extends BaseAdapter {
 
@@ -27,32 +34,62 @@ public class DashboardCardsAdapter extends BaseAdapter {
     private DashboardCardsAdapter.ViewHolder holder;
     private List<BudgetCategory> budgets;
 
+    /**
+     * The DashboardCardsAdapter constructor
+     *
+     * @param context The application context
+     * @param budgets A list of budgets
+     */
     public DashboardCardsAdapter(Context context, List<BudgetCategory> budgets) {
 
+        this.sp = new SimpleColor(context);
         this.context = context;
         this.budgets = budgets;
 
         if (context != null)
             layoutInflater = LayoutInflater.from(context);
-
-        sp = new SimpleColor(context);
     }
 
+    /**
+     * TODO
+     *
+     * @return int
+     */
     @Override
     public int getCount() {
         return budgets.size();
     }
 
+    /**
+     * TODO
+     *
+     * @param pos
+     * @return Object
+     */
     @Override
     public Object getItem(int pos) {
         return budgets.get(pos);
     }
 
+    /**
+     * TODO
+     *
+     * @param pos
+     * @return long
+     */
     @Override
     public long getItemId(int pos) {
         return pos;
     }
 
+    /**
+     * TODO
+     *
+     * @param pos
+     * @param convertView
+     * @param parent
+     * @return View
+     */
     @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
@@ -79,8 +116,8 @@ public class DashboardCardsAdapter extends BaseAdapter {
         holder.progBar.setProgress(progress);
         ColorStateList gray = sp.getState(R.color.gray);
 
-        //context no setted
-        if(gray != null) {
+        // If context no setted
+        if (gray != null) {
             holder.progBar.setProgressBackgroundTintList(gray);
 
             if (budgetCategory.getIncome() > 0)
@@ -92,7 +129,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
         holder.catName.setText(category.getName());
         holder.catResult.setText(Currency.format(Math.abs(budgetCategory.getBudget())));
 
-        
+
         String pkgName = context.getPackageName();
         int imageId = context.getResources().getIdentifier(category.getIconName(), "drawable", pkgName);
         if (imageId != 0) {
@@ -103,6 +140,9 @@ public class DashboardCardsAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * TODO
+     */
     static class ViewHolder {
         ProgressBar progBar;
         TextView percentage;

@@ -1,3 +1,10 @@
+/**
+ * TODO
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
@@ -16,34 +23,65 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
 
 public class TransactionCardItemsAdapter extends BaseAdapter {
-    private ApplicationResources appRes;
 
+    private ApplicationResources appRes;
     private List<Transaction> transactions;
     private LayoutInflater layoutInflater;
     private Context context;
 
+    /**
+     * The TransactionCardItemsAdapter constructor
+     *
+     * @param context
+     * @param transactions
+     */
     public TransactionCardItemsAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
-        layoutInflater = LayoutInflater.from(context);
-        appRes = new ApplicationResources(context);
+        this.layoutInflater = LayoutInflater.from(context);
+        this.appRes = new ApplicationResources(context);
     }
 
+    /**
+     * TODO
+     *
+     * @return int
+     */
     @Override
     public int getCount() {
         return transactions.size();
     }
 
+    /**
+     * TODO
+     *
+     * @param pos
+     * @return Object
+     */
     @Override
     public Object getItem(int pos) {
         return transactions.get(pos);
     }
 
+    /**
+     * TODO
+     *
+     * @param pos
+     * @return long
+     */
     @Override
     public long getItemId(int pos) {
         return pos;
     }
 
+    /**
+     * TODO
+     *
+     * @param pos
+     * @param convertView
+     * @param parent
+     * @return View
+     */
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -73,6 +111,9 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * TODO
+     */
     static class ViewHolder {
         ImageView categorieImageView;
         TextView noteView;

@@ -91,5 +91,5 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
      * @param categories the list
      * @param s          the spinner
      */
-    public abstract void selectCategorie(List<Category> categories, Spinner s);
+    public abstract void selectCategory(List<Category> categories, Spinner s);
 }

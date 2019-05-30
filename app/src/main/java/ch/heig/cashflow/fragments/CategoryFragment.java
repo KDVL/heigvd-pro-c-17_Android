@@ -149,16 +149,6 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     /**
-     * Return off call API GET
-     *
-     * @param category The category
-     */
-    @Override
-    public void getFinished(Category category) {
-        // TODO Aleksandar
-    }
-
-    /**
      * Return off call API POST, PUT and DELETE
      *
      * @param isFinished The state of request
@@ -180,5 +170,14 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     public void connectionFailed(String error) {
         if(getContext() != null)
             Toast.makeText(getContext(), appRes.getString(R.string.server_response_nok), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param category The category
+     */
+    @Override
+    public void getFinished(Category category) {
     }
 }

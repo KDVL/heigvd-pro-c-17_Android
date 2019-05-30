@@ -33,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
-import ch.heig.cashflow.fragments.CategoriesFragmentTabHost;
 import ch.heig.cashflow.fragments.DatePickerFragment;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Transaction;
@@ -193,7 +192,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         categoriesSpinner.setAdapter(adapter);
 
         //adapter know who will be selected
-        this.adapter.selectCategorie(this.categories, categoriesSpinner);
+        this.adapter.selectCategory(this.categories, categoriesSpinner);
     }
 
     /**
