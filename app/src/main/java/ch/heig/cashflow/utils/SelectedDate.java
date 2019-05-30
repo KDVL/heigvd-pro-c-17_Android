@@ -1,9 +1,7 @@
 /**
- * Model SelectedDate
- * <p>
- * Used to store current date application context
+ * Model SelectedDate used to store current date application context
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  * @see ch.heig.cashflow.fragments.MonthFragment
  */
@@ -17,16 +15,24 @@ import ch.heig.cashflow.network.utils.Date;
 
 public class SelectedDate extends Observable {
 
+    private static SelectedDate instance;
     private int year;
     private int month;
     private int day;
-    private static SelectedDate instance;
 
+    /**
+     * The private empty SelectedDate constructor
+     *
+     * <p>
+     * Needed to use the Singleton pattern
+     */
     private SelectedDate() {
     }
 
     /**
      * Singleton
+     *
+     * @return SelectedDate The unique SelectedDate instance
      */
     public synchronized static SelectedDate getInstance() {
 
@@ -43,24 +49,33 @@ public class SelectedDate extends Observable {
         return instance;
     }
 
+    /**
+     * @return int The year
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * @return int The month
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * @return int The day
+     */
     public int getDay() {
         return day;
     }
 
     /**
-     * Set date and notify obeservers
+     * Set date and notify observers
      *
-     * @param year
-     * @param month
-     * @param day
+     * @param year  The year
+     * @param month The month
+     * @param day   The day
      */
     public void setDate(int year, int month, int day) {
         this.year = year;
@@ -72,7 +87,7 @@ public class SelectedDate extends Observable {
     }
 
     /**
-     * @return string format
+     * @return String format
      */
     public String toString() {
         Calendar c = Calendar.getInstance();
