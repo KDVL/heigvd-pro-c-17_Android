@@ -3,7 +3,6 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
- * @see ch.heig.cashflow.activites.AddOrEditCategoryActivity
  */
 
 package ch.heig.cashflow.activites;
@@ -27,9 +26,8 @@ import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.utils.ApplicationResources;
 
 public class AddOrEditCategoryActivity extends AppCompatActivity implements CategoryService.Callback {
-    private ApplicationResources appRes;
 
-    private CategoryAddOrEditAdapter adapter = null;
+    private static final String TAG = AddOrEditCategoryActivity.class.getSimpleName();
 
     @BindView(R.id.cat_icon)
     ImageView categoryIcon;
@@ -40,12 +38,15 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     @BindView(R.id.cat_btn_add)
     Button addButton;
 
+    private ApplicationResources appRes;
+    private CategoryAddOrEditAdapter adapter = null;
+
     /**
-     * Called when the activity is starting.
+     * Called when The activity is starting
      *
-     * @param savedInstanceState If the activity is being re-initialized after previously being
-     *                           shut down then this Bundle contains the data it most recently supplied
-     *                           in onSaveInstanceState(Bundle). Note: Otherwise it is null. This value may be null.
+     * @param savedInstanceState If The activity is being re-initialized after previously being
+     *                           shut down Then this Bundle contains The data it most recently supplied
+     *                           in onSaveInstanceState(Bundle). Note: OTherwise it is null. This value may be null.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +73,13 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     }
 
     /**
-     * save data
-     * For the display we divide by 100 the quota
-     * When the user enters a quota, it is multiplied by 100
+     * Save datas
      *
-     * @param view the view
+     * <p>
+     * For the display we divide by 100 the quota.
+     * When the user enters a quota, it is multiplied by 100.
+     *
+     * @param view The view
      */
     public void save(View view) {
 
@@ -118,19 +121,9 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     }
 
     /**
-     * Return off call API GET
-     *
-     * @param category category
-     */
-    @Override
-    public void getFinished(Category category) {
-
-    }
-
-    /**
      * Return off call API POST PUT and DELETE
      *
-     * @param isFinished the result
+     * @param isFinished The result
      */
     @Override
     public void operationFinished(boolean isFinished) {
@@ -146,7 +139,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     /**
      * Return off call API if failed
      *
-     * @param error error message
+     * @param error The error message
      */
     @Override
     public void connectionFailed(String error) {
@@ -155,10 +148,22 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
     }
 
     /**
-     * @return the context of application
+     * Used by service
+     *
+     * @return Context The context of the application
      */
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param category The category
+     */
+    @Override
+    public void getFinished(Category category) {
+
     }
 }

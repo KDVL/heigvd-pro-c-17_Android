@@ -1,10 +1,10 @@
 /**
- * The signin activity
+ * The signing activity
  *
  * @author Kevin DO VALE
  * @version 1.0
  */
- 
+
 package ch.heig.cashflow.activites;
 
 import android.app.ProgressDialog;
@@ -25,7 +25,8 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.network.services.LoginService;
 
 public class LoginActivity extends AppCompatActivity implements LoginService.Callback {
-    private static final String TAG = "LoginActivity";
+
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private static final int REQUEST_SIGNUP = 0;
 
     @BindView(R.id.input_email)
@@ -36,11 +37,12 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     Button loginButton;
     @BindView(R.id.link_signup)
     TextView signupButton;
-
     ProgressDialog progressDialog;
 
     /**
-     * onCreate
+     * On activity create
+     *
+     * @param savedInstanceState The saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
 
 
     /**
-     * called to log user
+     * Called to log the user
      */
     public void login() {
         Log.d(TAG, "Login");
@@ -99,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
 
 
     /**
-     * login success
+     * The user login success
      */
     public void onLoginSuccess() {
         loginButton.setEnabled(true);
@@ -107,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     }
 
     /**
-     * login failed
+     * The user login failed
      */
     public void onLoginFailed() {
         Toast.makeText(this, getString(R.string.error_signin),
@@ -116,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     }
 
     /**
-     * called to log user
+     * Called to log the user
      */
     public boolean validate() {
         boolean valid = true;
@@ -142,38 +144,52 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
     }
 
     /**
-     * login is finished
+     * Login is finished
+     *
+     * @param isLogged The user logged flag
      */
     @Override
     public void loginFinished(boolean isLogged) {
-
         progressDialog.dismiss();
-        if (isLogged) {
+        if (isLogged)
             onLoginSuccess();
-        } else {
+        else
             onLoginFailed();
-        }
     }
 
     /**
-     * @return the Application context
+     * Disable going back to the MainActivity
+     */
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    /**
+     * Return off call API if failed
+     *
+     * @param error The error message
+     */
+    @Override
+    public void connectionFailed(String error) {
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Used by service
+     *
+     * @return Context The context of the application
      */
     @Override
     public Context getContext() {
         return getApplicationContext();
     }
 
-    @Override
-    public void onBackPressed() {
-        // Disable going back to the MainActivity
-        moveTaskToBack(true);
-    }
-
-    @Override
-    public void connectionFailed(String error) {
-
-    }
-
+    /**
+     * Needed by service but not used
+     *
+     * @param hasCapture The pointer capture flag
+     */
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 

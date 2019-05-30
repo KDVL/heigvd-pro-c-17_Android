@@ -1,7 +1,7 @@
 /**
- * TODO
+ * TODO Aleksandar
  *
- * @author Thibaud ALT
+ * @author Aleksandar MILENKOVIC
  * @version 1.0
  */
 
@@ -17,26 +17,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.utils.Currency;
-import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionService;
+import ch.heig.cashflow.utils.Currency;
+import ch.heig.cashflow.utils.SimpleColor;
 
 public class TransactionDetailsActivity extends AppCompatActivity implements TransactionService.Callback {
-    private static final String TAG = "TransactionDetailsActivity";
+
+    private static final String TAG = TransactionDetailsActivity.class.getSimpleName();
 
     private TransactionService ts;
-
     private TransactionAddOrEditAdapter adapter = null;
-
     private ImageView expenseIcon = null;
     private TextView expenseDate = null;
     private TextView expenseAmount = null;
     private TextView expenseDesc = null;
 
+    /**
+     * On activity create
+     *
+     * @param savedInstanceState The saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +67,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         expenseDesc = findViewById(R.id.edit_description);
 
         int iconImageId = this.getDrawableResIdByName(adapter.getTransaction().getCategory().getIconName());
-        if(iconImageId != 0) {
+        if (iconImageId != 0) {
             expenseIcon.setImageResource(iconImageId);
             expenseIcon.getDrawable().setTint(sp.get(R.color.white));
         }
@@ -72,21 +77,39 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         expenseDesc.setText(adapter.getTransaction().getDescription());
     }
 
+    /**
+     * TODO
+     *
+     * @param resName
+     * @return int
+     */
     public int getDrawableResIdByName(String resName) {
         String pkgName = getApplicationContext().getPackageName();
         // Return 0 if not found.
         return getApplicationContext().getResources().getIdentifier(resName, "drawable", pkgName);
     }
 
+    /**
+     * TODO
+     *
+     * @param menu
+     * @return boolean
+     */
     @Override
-    public boolean onCreateOptionsMenu(Menu _menu) {
-        getMenuInflater().inflate(R.menu.menu_expense_edit, _menu);
-        return super.onCreateOptionsMenu(_menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_expense_edit, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * TODO
+     *
+     * @param item
+     * @return boolean
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem _item) {
-        switch (_item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.expense_edit:
                 edit();
                 return true;
@@ -96,11 +119,14 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
                 return true;
 
             default:
-                return super.onOptionsItemSelected(_item);
+                return super.onOptionsItemSelected(item);
 
         }
     }
 
+    /**
+     * TODO
+     */
     private void edit() {
         Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
         categorieChoice.putExtra(getResources().getString(R.string.transaction_adapter_key), adapter);
@@ -108,6 +134,9 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         finish();
     }
 
+    /**
+     * TODO
+     */
     private void delete() {
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
@@ -125,7 +154,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
                     }
                 }).create();
 
-        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface arg0) {
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -136,23 +165,43 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         dialog.show();
     }
 
+    /**
+     * Return off call API if failed
+     *
+     * @param error The error message
+     */
     @Override
     public void connectionFailed(String error) {
-
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Used by service
+     *
+     * @return Context The context of the application
+     */
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param transaction The transaction
+     */
     @Override
     public void getFinished(Transaction transaction) {
 
     }
 
+    /**
+     * Needed by service but not used
+     *
+     * @param isFinished The operation finish flag
+     */
     @Override
     public void operationFinished(boolean isFinished) {
 
-    }
-
-    @Override
-    public Context getContext() {
-        return getApplicationContext();
     }
 }
