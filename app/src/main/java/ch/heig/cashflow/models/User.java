@@ -1,14 +1,11 @@
 /**
- * Model user
- * <p>
- * Used by Signup class
+ * Model user used by Signup class
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  * @see ch.heig.cashflow.activites.SignupActivity
  * @see ch.heig.cashflow.network.services.SignupService
  */
-
 package ch.heig.cashflow.models;
 
 public class User {

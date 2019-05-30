@@ -1,11 +1,10 @@
 /**
  * Model category
  *
- * @authors Aleksandar Milenkovic, Alt Thibaud, Kevin Do Vale
+ * @author Aleksandar MILENKOVIC, Alt Thibaud, Kevin Do Vale
  * @version 1.0
  * @see ch.heig.cashflow.models.Category
  */
-
 package ch.heig.cashflow.models;
 
 import java.io.Serializable;

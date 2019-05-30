@@ -11,7 +11,7 @@ import ch.heig.cashflow.utils.Type;
 /**
  * Adapter to add category type income
  *
- * @author Aleksandar Milenkovic
+ * @author Aleksandar MILENKOVIC
  * @version 1.0
  * @see ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter
  */

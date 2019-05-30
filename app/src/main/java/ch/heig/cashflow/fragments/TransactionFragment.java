@@ -1,7 +1,7 @@
 /**
  * Generic category fragment
  *
- * @authors Kevin DO VALE, Aleksandar MILENKOVIC
+ * @author Kevin DO VALE, Aleksandar MILENKOVIC
  * @version 1.0
  * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */

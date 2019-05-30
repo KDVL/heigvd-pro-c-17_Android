@@ -1,3 +1,11 @@
+/**
+ * Activity for adding or editing a category
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.activites.CategoryDetailsActivity
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -19,13 +27,6 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SimpleColor;
 
-/**
- * Activity for adding or editing a category
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.activites.CategoryDetailsActivity
- */
 public class CategoryDetailsActivity extends AppCompatActivity implements CategoryService.Callback {
     private ApplicationResources appRes;
 

@@ -10,7 +10,7 @@ import ch.heig.cashflow.network.services.CategoryService;
 /**
  * Parent adapter (abstract)
  *
- * @author Aleksandar Milenkovic
+ * @author Aleksandar MILENKOVIC
  * @version 1.0
  * @see ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter
  */

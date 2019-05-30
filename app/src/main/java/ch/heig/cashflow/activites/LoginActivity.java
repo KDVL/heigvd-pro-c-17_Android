@@ -1,10 +1,10 @@
 /**
  * The signin activity
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
-
+ 
 package ch.heig.cashflow.activites;
 
 import android.app.ProgressDialog;
@@ -169,4 +169,3 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
         moveTaskToBack(true);
     }
 }
-

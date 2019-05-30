@@ -1,3 +1,11 @@
+/**
+ * Fragment to display income or expense category recycler view list
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoryFragment
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -24,13 +32,6 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.DividerItemDecoration;
 import ch.heig.cashflow.utils.Type;
 
-/**
- * Fragment to display income or expense category recycler view list
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.fragments.CategoryFragment
- */
 public class CategoryFragment extends Fragment implements CategoriesService.Callback,
         CategoryService.Callback {
 

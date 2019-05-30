@@ -1,10 +1,9 @@
 /**
  * The main activity of project
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
-
 
 package ch.heig.cashflow.activites;
 

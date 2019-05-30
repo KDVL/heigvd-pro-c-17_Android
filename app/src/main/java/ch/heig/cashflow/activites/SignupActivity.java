@@ -1,7 +1,7 @@
 /**
  * The signup activity
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
 

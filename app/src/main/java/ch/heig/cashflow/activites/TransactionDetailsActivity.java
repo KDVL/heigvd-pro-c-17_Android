@@ -1,3 +1,10 @@
+/**
+ * TODO
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -149,4 +156,3 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         return getApplicationContext();
     }
 }
-
