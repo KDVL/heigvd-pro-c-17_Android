@@ -53,9 +53,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
             }
         }
 
-        //TODO: utilité???
-        //CategoryService cs = new CategoryService(this);
-
         setTitle(adapter.getViewTitle(getApplicationContext()));
 
         ImageView categoryIconName = findViewById(R.id.cat_edit_icon);
