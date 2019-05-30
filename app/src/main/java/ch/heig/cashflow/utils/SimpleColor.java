@@ -31,6 +31,7 @@ public class SimpleColor {
      * @return int The color as Android format
      */
     public int get(int color) {
+        if(context == null) return 0;
         return ContextCompat.getColor(context, color);
     }
 
@@ -41,6 +42,7 @@ public class SimpleColor {
      * @return ColorStateList The color as Android format
      */
     public ColorStateList getState(int color) {
+        if (context == null) return null;
         return ColorStateList.valueOf(ContextCompat.getColor(context, color));
     }
 }
