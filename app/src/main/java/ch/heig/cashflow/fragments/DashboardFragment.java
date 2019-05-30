@@ -1,3 +1,10 @@
+/**
+ * TODO Thibaud
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.content.res.ColorStateList;
@@ -26,7 +33,8 @@ import ch.heig.cashflow.utils.SelectedDate;
 import ch.heig.cashflow.utils.SimpleColor;
 
 public class DashboardFragment extends Fragment implements DashboardService.Callback, Observer {
-    private static final String TAG = "DashboardFragment";
+
+    private static final String TAG = DashboardFragment.class.getSimpleName();
 
     private View view;
     private ProgressBar progBar;
@@ -35,15 +43,28 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     private TextView result;
     private ListView categories;
 
+    /**
+     * The DashboardFragment consctructor
+     */
     public DashboardFragment() {
         setHasOptionsMenu(true);
         SelectedDate.getInstance().addObserver(this);
     }
 
+    /**
+     * Create a new DashboardFragment instance
+     *
+     * @return DashboardFragment A new DashboardFragment instance
+     */
     public static DashboardFragment newInstance() {
         return new DashboardFragment();
     }
 
+    /**
+     * TODO
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +72,11 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
 
     /**
      * Called to have the fragment instantiate its user interface view
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
-     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
-     *                 The fragment should not add the view itself, but this can be used to generate
-     *                 the LayoutParams of the view. This value may be null.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     *                           The fragment should not add the view itself, but this can be used to generate
+     *                           the LayoutParams of the view. This value may be null.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @return Return the View for the fragment's UI, or null.
      */
@@ -69,20 +91,33 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         title = view.findViewById(R.id.title);
         result = view.findViewById(R.id.result);
         categories = view.findViewById(R.id.categories);
+
         setHasOptionsMenu(true);
         return view;
     }
 
+    /**
+     * TODO
+     */
     private void reload() {
         new DashboardService(this).getAllByMonth();
     }
 
+    /**
+     * TODO
+     */
     @Override
     public void onResume() {
         super.onResume();
         reload();
     }
 
+    /**
+     * TODO
+     *
+     * @param menu     The menu
+     * @param inflater The menu inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
@@ -90,16 +125,32 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * TODO
+     *
+     * @param observable
+     * @param obj
+     */
     @Override
-    public void update(Observable observable, Object o) {
+    public void update(Observable observable, Object obj) {
         reload();
     }
 
+    /**
+     * TODO
+     *
+     * @param error
+     */
     @Override
     public void connectionFailed(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
+    /**
+     * TODO
+     *
+     * @param budget The budget
+     */
     @Override
     public void getFinished(Budget budget) {
 

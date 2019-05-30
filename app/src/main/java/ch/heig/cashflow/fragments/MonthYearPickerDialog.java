@@ -1,3 +1,10 @@
+/**
+ * TODO Aleksandar
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.app.AlertDialog;
@@ -15,12 +22,26 @@ import java.util.Calendar;
 import ch.heig.cashflow.R;
 
 public class MonthYearPickerDialog extends DialogFragment {
+
+    private static final String TAG = MonthYearPickerDialog.class.getSimpleName();
+
     private DatePickerDialog.OnDateSetListener listener = null;
 
-    public void setListener(DatePickerDialog.OnDateSetListener _listener) {
-        listener = _listener;
+    /**
+     * TODO
+     *
+     * @param listener
+     */
+    public void setListener(DatePickerDialog.OnDateSetListener listener) {
+        this.listener = listener;
     }
 
+    /**
+     * TODO
+     *
+     * @param savedInstanceState The saved instance state
+     * @return Dialog
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

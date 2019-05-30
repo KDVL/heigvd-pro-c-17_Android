@@ -1,3 +1,10 @@
+/**
+ * TODO Thibaud
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -25,17 +32,32 @@ import ch.heig.cashflow.utils.Type;
 
 public class ChartsFragment extends Fragment implements DashboardService.Callback {
 
+    private static final String TAG = ChartsFragment.class.getSimpleName();
+
     private PieChart pie;
     private Type type;
 
+    /**
+     * The required ChartsFragment empty public constructor
+     */
     public ChartsFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Create a new ChartsFragment instance
+     *
+     * @return ChartsFragment A new ChartsFragment instance
+     */
     public static ChartsFragment newInstance() {
         return new ChartsFragment();
     }
 
+    /**
+     * Save the parent instance state
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +65,13 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
 
     /**
      * Called to have the fragment instantiate its user interface view
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
-     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
-     *                 The fragment should not add the view itself, but this can be used to generate
-     *                 the LayoutParams of the view. This value may be null.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     *                           The fragment should not add the view itself, but this can be used to generate
+     *                           the LayoutParams of the view. This value may be null.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
-     * @return Return the View for the fragment's UI, or null.
+     * @return View Return the View for the fragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,12 +84,20 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
         return view;
     }
 
+    /**
+     * TODO
+     */
     @Override
     public void onResume() {
         super.onResume();
         reload();
     }
 
+    /**
+     * TODO
+     *
+     * @param budget The budget
+     */
     @Override
     public void getFinished(Budget budget) {
 
@@ -94,11 +125,19 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
         pie.invalidate();
     }
 
+    /**
+     * TODO
+     *
+     * @param error The error
+     */
     @Override
     public void connectionFailed(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
+    /**
+     * TODO
+     */
     private void reload() {
         new DashboardService(this).getAllByMonth();
     }

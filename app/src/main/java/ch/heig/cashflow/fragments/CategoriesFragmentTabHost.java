@@ -3,7 +3,6 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
- * @see ch.heig.cashflow.fragments.CategoriesFragmentTabHost
  */
 
 package ch.heig.cashflow.fragments;
@@ -29,18 +28,21 @@ import ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter;
 import ch.heig.cashflow.utils.ApplicationResources;
 
 public class CategoriesFragmentTabHost extends Fragment {
+
+    private static final String TAG = CategoriesFragmentTabHost.class.getSimpleName();
+
     private FragmentTabHost fragmentTabHost;
 
     /**
-     * Constructor
+     * The CategoriesFragmentTabHost constructor
      */
     public CategoriesFragmentTabHost() {
     }
 
     /**
-     * Singleton
+     * Create a new CategoriesFragmentTabHost instance
      *
-     * @return new instance
+     * @return CategoriesFragmentTabHost A new CategoriesFragmentTabHost instance
      */
     public static CategoriesFragmentTabHost newInstance() {
         return new CategoriesFragmentTabHost();
@@ -54,14 +56,13 @@ public class CategoriesFragmentTabHost extends Fragment {
      *                           The fragment should not add the view itself, but this can be used to generate
      *                           the LayoutParams of the view. This value may be null.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
-     * @return Return the View for the fragment's UI, or null.
+     * @return View Return the View for the fragment's UI, or null.
      */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-
         return inflater.inflate(R.layout.fragment_category_tabhost, container, false);
     }
 
@@ -82,7 +83,7 @@ public class CategoriesFragmentTabHost extends Fragment {
      * This hook is called whenever an item in your options menu is selected
      *
      * @param item The menu item that was selected.
-     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -91,18 +92,17 @@ public class CategoriesFragmentTabHost extends Fragment {
             Intent catSelect = new Intent(getContext(), CategorySelectActivity.class);
             int i = fragmentTabHost.getCurrentTab();
 
-            if (i == 0) {
+            if (i == 0)
                 catSelect.putExtra(getResources().getString(R.string.category_adapter_key), new CategoryAddExpenseAdapter());
-            } else {
+            else
                 catSelect.putExtra(getResources().getString(R.string.category_adapter_key), new CategoryAddIncomeAdapter());
-            }
+
             startActivity(catSelect);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
-
 
     /**
      * Called immediately after onCreateView
@@ -137,7 +137,6 @@ public class CategoriesFragmentTabHost extends Fragment {
         fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Expense").setIndicator("Expense"), CategoryFragment.class, tab0);
         fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Income").setIndicator("Income"), CategoryFragment.class, tab1);
         decorateTabs();
-
         fragmentTabHost.setOnTabChangedListener(new FragmentTabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {

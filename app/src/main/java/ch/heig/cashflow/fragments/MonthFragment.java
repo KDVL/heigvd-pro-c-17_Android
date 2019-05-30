@@ -19,19 +19,22 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.SelectedDate;
 
 public class MonthFragment extends DialogFragment {
+    /**
+     * TODO
+     *
+     * @param savedInstanceState The saved instance state
+     * @return Dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         SelectedDate d = SelectedDate.getInstance();
-
         return new DatePickerDialog(getActivity(), R.style.AppTheme_Dark_DarkDialog,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                        SelectedDate.getInstance().setDate(y,m,d);
+                        SelectedDate.getInstance().setDate(y, m, d);
                     }
-                },
-                d.getYear(), d.getMonth(), d.getDay());
+                }, d.getYear(), d.getMonth(), d.getDay());
     }
 }
