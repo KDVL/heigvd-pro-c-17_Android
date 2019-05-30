@@ -1,10 +1,9 @@
 /**
  * Date utils
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
-
 
 package ch.heig.cashflow.network.utils;
 
@@ -17,9 +16,11 @@ public class Date {
     public static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
-     * @return string current date
+     * Get the current date as server format standard
+     *
+     * @return string The current date
      */
-    public static String getCurrentDateServeurFormat() {
+    public static String getCurrentDateServerFormat() {
         Calendar c = Calendar.getInstance();
         return sdf.format(c.getTime());
     }
