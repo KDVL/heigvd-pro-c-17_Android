@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.heig.cashflow.R;
+import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.models.Transaction;
@@ -67,7 +68,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         }
 
         expenseDate.setText(adapter.getTransaction().getDate());
-        expenseAmount.setText(String.valueOf(adapter.getTransaction().getAmountFloat()));
+        expenseAmount.setText(Currency.format(adapter.getTransaction().getAmount()));
         expenseDesc.setText(adapter.getTransaction().getDescription());
     }
 

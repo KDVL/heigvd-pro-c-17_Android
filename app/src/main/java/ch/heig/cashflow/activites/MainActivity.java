@@ -165,4 +165,14 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
     public Context getContext() {
         return getApplicationContext();
     }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

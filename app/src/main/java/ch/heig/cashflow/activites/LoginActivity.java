@@ -168,4 +168,14 @@ public class LoginActivity extends AppCompatActivity implements LoginService.Cal
         // Disable going back to the MainActivity
         moveTaskToBack(true);
     }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

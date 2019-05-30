@@ -199,4 +199,14 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
     public Context getContext() {
         return getApplicationContext();
     }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
