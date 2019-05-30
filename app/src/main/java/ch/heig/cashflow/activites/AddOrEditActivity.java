@@ -2,9 +2,10 @@
  * Add or edit activity
  * works with income and expenses
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
+
 package ch.heig.cashflow.activites;
 
 import android.app.DatePickerDialog;

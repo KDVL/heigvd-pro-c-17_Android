@@ -1,9 +1,12 @@
 /**
  * Model category
+ * <i>Any of several fundamental and distinct classes to which entities or concepts belong.</i>
  *
- * @authors Aleksandar Milenkovic, Alt Thibaud, Kevin Do Vale
+ * <p>
+ * Defines a category with an id, a name, an icon, a type, a quota and a state.
+ *
+ * @author Aleksandar MILENKOVIC, Thibaud ALT, Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.models.Category
  */
 
 package ch.heig.cashflow.models;
@@ -19,111 +22,123 @@ public class Category implements Serializable {
     private String iconName;
     private Type type;
     private long quota;
-    private boolean enabled;
+    private boolean state;
 
     /**
-     * Constructor
-     * @param id id
-     * @param name name
-     * @param iconName icon name
-     * @param type type expense or income
-     * @param quota quota
-     * @param enabled state
+     * The Category constructor
+     *
+     * @param id       The category id
+     * @param name     The category name
+     * @param iconName The category icon
+     * @param type     The category {@code Type}
+     * @param quota    The category quota
+     * @param state    The category state
      */
-    public Category(long id, String name, String iconName, Type type, long quota, boolean enabled) {
+    public Category(long id, String name, String iconName, Type type, long quota, boolean state) {
         this.id = id;
         this.name = name;
         this.iconName = iconName;
         this.type = type;
         this.quota = quota;
-        this.enabled = enabled;
+        this.state = state;
     }
 
     /**
-     * get category id
-     * @return category id
+     * Get the category id
+     *
+     * @return long The id of the category
      */
     public long getID() {
         return id;
     }
 
     /**
-     * get category name
-     * @return category name
+     * Get the category name
+     *
+     * @return String The name of the category
      */
     public String getName() {
         return name;
     }
 
     /**
-     * set category name
-     * @param name name of category
+     * Set the category name
+     *
+     * @param name The name of the category
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * get category icon name
-     * @return icon name
+     * Get the category icon name
+     *
+     * @return icon The icon name of the category
      */
     public String getIconName() {
         return iconName;
     }
 
     /**
-     * set category name of icon
-     * @param iconName name of icon
+     * Set the category icon name
+     *
+     * @param iconName The icon name of the category
      */
     public void setIconName(String iconName) {
         this.iconName = iconName;
     }
 
     /**
-     * get category type
-     * @return type
+     * Get the category {@code Type}
+     *
+     * @return Type The {@code Type} of the category
      */
     public Type getType() {
         return type;
     }
 
     /**
-     * set category type
-     * @param type type of category
+     * Set the category type
+     *
+     * @param type The type of the category
      */
     public void setType(Type type) {
         this.type = type;
     }
 
     /**
-     * get category quota
-     * @return quota
+     * Get the category quota
+     *
+     * @return The quota of the category
      */
     public long getQuota() {
         return quota;
     }
 
     /**
-     * set category quota
-     * @param quota quota of category
+     * Set the category quota
+     *
+     * @param quota The quota of the category
      */
     public void setQuota(long quota) {
         this.quota = quota;
     }
 
     /**
-     * get category state
-     * @return actualy state
+     * Get the category state
+     *
+     * @return The actual state of the category
      */
     public boolean isEnabled() {
-        return enabled;
+        return state;
     }
 
     /**
-     * set category state
-     * @param enabled state of category
+     * Set the category state
+     *
+     * @param state The state of the category
      */
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setEnabled(boolean state) {
+        this.state = state;
     }
 }

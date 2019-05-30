@@ -1,3 +1,11 @@
+/**
+ * Fragment tab host to display income and expense category list
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoriesFragmentTabHost
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.content.Intent;
@@ -20,13 +28,6 @@ import ch.heig.cashflow.adapters.categories.CategoryAddExpenseAdapter;
 import ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter;
 import ch.heig.cashflow.utils.ApplicationResources;
 
-/**
- * Fragment tab host to display income and expense category list
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.fragments.CategoriesFragmentTabHost
- */
 public class CategoriesFragmentTabHost extends Fragment {
     private FragmentTabHost fragmentTabHost;
 

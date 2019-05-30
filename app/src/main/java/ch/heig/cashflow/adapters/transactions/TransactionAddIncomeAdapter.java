@@ -1,7 +1,7 @@
 /**
  * Adapter to add income
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  *
@@ -24,7 +24,7 @@ public class TransactionAddIncomeAdapter extends TransactionAddAdapter implement
      * Constructor
      */
     public TransactionAddIncomeAdapter() {
-        super(new Income(0, Date.getCurrentDateServeurFormat(), null, 0, ""));
+        super(new Income(0, Date.getCurrentDateServerFormat(), null, 0, ""));
     }
 
     /**

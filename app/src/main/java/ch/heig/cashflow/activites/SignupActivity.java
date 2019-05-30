@@ -1,7 +1,7 @@
 /**
  * The signup activity
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
 
@@ -198,5 +198,15 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

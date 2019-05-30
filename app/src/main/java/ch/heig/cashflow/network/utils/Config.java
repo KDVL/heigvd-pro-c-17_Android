@@ -1,20 +1,20 @@
 /**
- * Network config
+ * Network and API configurations
  *
- *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE, Thibaud ALT
  * @version 1.0
  */
 
 package ch.heig.cashflow.network.utils;
 
 public final class Config {
+
     public final static String BASE_URL = "https://heig-pro-cashflow-api.herokuapp.com/api/";
 
     public final static String AUTH = BASE_URL + "auth/";
-    public final static String AUTH_SIGNIN =  AUTH + "signin";
-    public final static String AUTH_SIGNUP =  AUTH + "signup";
-    public final static String AUTH_VERIF =  AUTH + "validate";
+    public final static String AUTH_SIGNIN = AUTH + "signin";
+    public final static String AUTH_SIGNUP = AUTH + "signup";
+    public final static String AUTH_VERIF = AUTH + "validate";
 
     public final static String TRANSACTIONS = BASE_URL + "transactions/";
     public final static String TRANSACTIONS_DATE = TRANSACTIONS + "date/";

@@ -1,6 +1,15 @@
-package ch.heig.cashflow.network.services;
+/**
+ * Service used to manage a specific category through the API
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/GetOneCategory
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/AddCategory
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/UpdateCategory
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/DisableCategory
+ */
 
-import com.google.gson.Gson;
+package ch.heig.cashflow.network.services;
 
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.APIManager;
@@ -8,49 +17,109 @@ import ch.heig.cashflow.network.utils.Config;
 
 public class CategoryService extends APIService {
 
-    Callback callback;
+    private Callback callback;
 
+    /**
+     * The CategoryService constructor
+     *
+     * @param callback The callback class
+     */
     public CategoryService(Callback callback) {
         super(callback);
         this.callback = callback;
     }
 
-    // GetOne : GET /api/categories/{id}
+    /**
+     * Get one category related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/categories/{id}
+     *
+     * @param id The category id
+     */
     public void get(long id) {
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.CATEGORIES + id);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.CATEGORIES + id);
     }
 
-    // Add : POST /api/categories
+    /**
+     * Add a new category related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: POST
+     * REST API URI: /api/categories
+     *
+     * @param category The {@code Category}
+     */
     public void add(Category category) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.POST);
         manager.setPostParams(gson.toJson(category, Category.class));
         manager.execute(Config.CATEGORIES);
     }
 
-    // Update : PUT /api/categories/{id}
+    /**
+     * Update a category related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: PUT
+     * REST API URI: /api/categories/{id}
+     *
+     * @param category The {@code Category}
+     */
     public void update(Category category) {
         APIManager manager = new APIManager(this, true, APIManager.METHOD.PUT);
         manager.setPostParams(gson.toJson(category, Category.class));
         manager.execute(Config.CATEGORIES + category.getID());
     }
 
-    // Update : PUT /api/categories/{id}
+    /**
+     * Enable a category related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: PUT
+     * REST API URI: /api/categories/{id}
+     *
+     * @param category The {@code Category}
+     */
     public void enable(Category category) {
         category.setEnabled(true);
         update(category);
     }
 
-    // Update : PUT /api/categories/{id}
+    /**
+     * Disable a category related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: PUT
+     * REST API URI: /api/categories/{id}
+     *
+     * @param category The {@code Category}
+     */
     public void disable(Category category) {
         category.setEnabled(false);
         update(category);
     }
 
-    // Delete : DELETE /api/categories/{id}
+    /**
+     * Disable a transaction related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: DELETE
+     * REST API URI: /api/categories/{id}
+     *
+     * @param category The {@code Category}
+     */
     public void delete(Category category) {
-        new APIManager(this, true, APIManager.METHOD.DELETE).execute(Config.CATEGORIES + category.getID());
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.DELETE);
+        manager.execute(Config.CATEGORIES + category.getID());
     }
 
+    /**
+     * Set the operation status received from the API response
+     *
+     * @param result The request result from APIManager
+     */
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
@@ -76,6 +145,9 @@ public class CategoryService extends APIService {
         }
     }
 
+    /**
+     * The callback interface used by client
+     */
     public interface Callback extends APIService.APICallback {
 
         void getFinished(Category category);

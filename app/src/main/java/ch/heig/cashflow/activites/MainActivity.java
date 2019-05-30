@@ -1,10 +1,9 @@
 /**
  * The main activity of project
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
-
 
 package ch.heig.cashflow.activites;
 
@@ -165,5 +164,15 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void connectionFailed(String error) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

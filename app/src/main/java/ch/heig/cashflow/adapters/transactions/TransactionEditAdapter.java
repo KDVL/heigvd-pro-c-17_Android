@@ -1,7 +1,7 @@
 /**
  * Adapter to edit, parent abstract
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */

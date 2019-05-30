@@ -1,7 +1,7 @@
 /**
  * Generic category fragment
  *
- * @authors Kevin DO VALE, Aleksandar MILENKOVIC
+ * @author Kevin DO VALE, Aleksandar MILENKOVIC
  * @version 1.0
  * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
@@ -99,7 +99,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
 
         totalExpenses = 0;
         for (Transaction t : transactions)
-            totalExpenses += t.getAmountLong();
+            totalExpenses += t.getAmount();
 
         expenseView.setText(Currency.format(totalExpenses));
         expenseView.setTextColor(type.equals(Type.EXPENSE) ? sp.get(R.color.red) : sp.get(R.color.green));

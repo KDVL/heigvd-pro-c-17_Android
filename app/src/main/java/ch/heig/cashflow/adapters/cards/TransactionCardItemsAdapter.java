@@ -61,7 +61,7 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
         Transaction transaction = this.transactions.get(pos);
 
         holder.noteView.setText(transaction.getDescription());
-        holder.amountView.setText(Currency.format(transaction.getAmountLong()));
+        holder.amountView.setText(Currency.format(transaction.getAmount()));
 
         int imageId = appRes.getDrawableResIdByName(transaction.getCategory().getIconName());
 

@@ -1,9 +1,12 @@
 /**
  * Model user
- * <p>
- * Used by Signup class
+ * <i>Someone that uses.</i>
  *
- * @authors Kevin DO VALE
+ * <p>
+ * Defines a simple user with a firstname, a lastname, a username, an email and a password.
+ * Used by {@code SignupActivity} class.
+ *
+ * @author Kevin DO VALE
  * @version 1.0
  * @see ch.heig.cashflow.activites.SignupActivity
  * @see ch.heig.cashflow.network.services.SignupService
@@ -20,31 +23,61 @@ public class User {
     private String password;
 
     /**
-     * Constructor
-     * @param firstname
-     * @param name
-     * @param email
-     * @param password
+     * The User constructor
+     *
+     * @param firstname The user firstname
+     * @param lastname  The user lastname
+     * @param email     The user email
+     * @param password  The user password
      */
-    public User(String firstname, String name, String email, String password) {
+    public User(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
-        this.lastname = name;
+        this.lastname = lastname;
         this.email = email;
         this.username = email;
         this.password = password;
     }
 
     /**
+     * Get the firstname of the user
      *
-     * @return email
+     * @return String The user firstname
+     */
+    public String getFirstname() {
+        return firstname;
+    }
+
+    /**
+     * Get the lastname of the user
+     *
+     * @return String The user lastname
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * Get the username of the user
+     *
+     * @return String The user username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Get the email of the user
+     *
+     * @return String The user email
      */
     public String getEmail() {
         return email;
     }
 
     /**
+     * Get the password of the user
      *
-     * @return password
+     * @return String The user password
      */
     public String getPassword() {
         return password;

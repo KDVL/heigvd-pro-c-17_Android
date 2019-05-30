@@ -1,10 +1,9 @@
 /**
  * Select month/year day and store in SelectedDate
  *
- * @see ch.heig.cashflow.utils.SelectedDate
- *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
+ * @see ch.heig.cashflow.utils.SelectedDate
  */
 
 package ch.heig.cashflow.fragments;

@@ -1,3 +1,13 @@
+/**
+ * Service used to retrieve all the transactions through the API
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/GetAllTransactions
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/GetAllByMonth
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/TransactionPerType
+ */
+
 package ch.heig.cashflow.network.services;
 
 import com.google.gson.JsonArray;
@@ -10,44 +20,89 @@ import java.util.List;
 
 import ch.heig.cashflow.models.Expense;
 import ch.heig.cashflow.models.Income;
-import ch.heig.cashflow.utils.SelectedDate;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.utils.Config;
+import ch.heig.cashflow.utils.SelectedDate;
+import ch.heig.cashflow.utils.Type;
 
 public class TransactionsService extends APIService {
 
-    Callback callback;
+    private Callback callback;
 
+    /**
+     * The TransactionsService constructor
+     *
+     * @param callback The callback class
+     */
     public TransactionsService(Callback callback) {
         super(callback);
         this.callback = callback;
     }
 
-    // GetAll : GET /api/transactions
+    /**
+     * Get all transactions related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/transactions
+     */
     public void getAll() {
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.TRANSACTIONS);
     }
 
-    // ByMonth : GET /api/transactions/date/YYYY/MM
+    /**
+     * Get all transactions by month related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/transactions/date/YYYY/MM
+     *
+     * @param year  The desired year
+     * @param month The desired month
+     */
     public void getAll(int year, int month) {
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_DATE + year + "/" + month);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.TRANSACTIONS_DATE + year + "/" + month);
     }
 
-    // PerType : GET /api/transactions/type/{type}
+    /**
+     * Get all the transactions related to a registered {@code User} in a specific {@code Type}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/transactions/type/{type}
+     *
+     * @param type The {@code Type}
+     */
     public void getType(Type type) {
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_TYPE + type);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.TRANSACTIONS_TYPE + type);
     }
 
-    // PerTypeByMonth : GET /api/transactions/type/{type}/date/YYYY/MM
+    /**
+     * Get all the transactions for a month related to a registered {@code User} in a specific {@code Type}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/transactions/type/{type}/date/YYYY/MM
+     *
+     * @param type The {@code Type}
+     */
     public void getTypeByMonth(Type type) {
         SelectedDate date = SelectedDate.getInstance();
         int year = date.getYear();
         int month = date.getMonth() + 1;
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.TRANSACTIONS_TYPE + type + "/date/" + year + "/" + month);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.TRANSACTIONS_TYPE + type + "/date/" + year + "/" + month);
     }
 
+    /**
+     * Retrieve the transactions list and push it
+     *
+     * @param result The request result from APIManager
+     */
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
@@ -83,6 +138,9 @@ public class TransactionsService extends APIService {
 
     }
 
+    /**
+     * The callback interface used by client
+     */
     public interface Callback extends APICallback {
         void getFinished(List<Transaction> transactions);
     }

@@ -97,7 +97,7 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
         transactionDailyList = new ArrayList<>();
         for (Transaction t : currentMonthTransactions) {
             if (t.getDate().equals(expense.getDate())) {
-                total += t.getAmountLong();
+                total += t.getAmount();
                 transactionDailyList.add(t);
             }
         }

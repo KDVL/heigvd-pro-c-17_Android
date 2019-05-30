@@ -1,3 +1,11 @@
+/**
+ * Service used to retrieve a dashboard of transactions/categories through the API
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ * @see https://github.com/Enophi/heigvd-pro-c-17/wiki/Dashboard
+ */
+
 package ch.heig.cashflow.network.services;
 
 import ch.heig.cashflow.models.Budget;
@@ -7,26 +15,48 @@ import ch.heig.cashflow.utils.SelectedDate;
 
 public class DashboardService extends APIService {
 
-    Callback callback;
+    private Callback callback;
 
+    /**
+     * The DashboardService constructor
+     *
+     * @param callback The callback class
+     */
     public DashboardService(Callback callback) {
         super(callback);
         this.callback = callback;
     }
 
-    // GetAll : GET /api/dashboard
+    /**
+     * Get the current month dashboard related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/dashboard
+     */
     public void getAll() {
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.DASHBOARD);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.DASHBOARD);
     }
 
-    // PerType : GET /api/dashboard/date/YYYY/MM
+    /**
+     * Get a specific month dashboard related to a registered {@code User}
+     *
+     * <p>
+     * REST API METHOD: GET
+     * REST API URI: /api/dashboard/date/YYYY/MM
+     */
     public void getAllByMonth() {
         SelectedDate date = SelectedDate.getInstance();
         int year = date.getYear();
         int month = date.getMonth() + 1;
-        new APIManager(this, true, APIManager.METHOD.GET).execute(Config.DASHBOARD_DATE + year + "/" + month);
+        APIManager manager = new APIManager(this, true, APIManager.METHOD.GET);
+        manager.execute(Config.DASHBOARD_DATE + year + "/" + month);
     }
 
+    /**
+     * @param result the result
+     */
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
@@ -39,6 +69,9 @@ public class DashboardService extends APIService {
             callback.getFinished(dashboard);
     }
 
+    /**
+     * The callback interface used by client
+     */
     public interface Callback extends APICallback {
         void getFinished(Budget budget);
     }
