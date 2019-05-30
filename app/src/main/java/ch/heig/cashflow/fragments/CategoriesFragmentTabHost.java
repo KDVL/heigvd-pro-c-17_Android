@@ -33,7 +33,6 @@ public class CategoriesFragmentTabHost extends Fragment {
     /**
      * Constructor
      */
-    //TODO: private ???
     public CategoriesFragmentTabHost() {
     }
 

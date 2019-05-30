@@ -128,7 +128,6 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         dialog.show();
     }
 
-    //TODO: Gerer Calback
     @Override
     public void connectionFailed(String error) {
 
