@@ -2,6 +2,7 @@ package ch.heig.cashflow.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,13 +77,17 @@ public class DashboardCardsAdapter extends BaseAdapter {
             progress = (int) (Math.abs(budgetCategory.getBudget()) * 100 / category.getQuota());
 
         holder.progBar.setProgress(progress);
-        holder.progBar.setProgressBackgroundTintList(sp.getState(R.color.gray));
+        ColorStateList gray = sp.getState(R.color.gray);
 
-        if (budgetCategory.getIncome() > 0)
-            holder.progBar.setProgressTintList(sp.getState(R.color.green));
-        else
-            holder.progBar.setProgressTintList(sp.getState(R.color.red));
+        //context no setted
+        if(gray != null) {
+            holder.progBar.setProgressBackgroundTintList(gray);
 
+            if (budgetCategory.getIncome() > 0)
+                holder.progBar.setProgressTintList(sp.getState(R.color.green));
+            else
+                holder.progBar.setProgressTintList(sp.getState(R.color.red));
+        }
         holder.percentage.setText(String.format("%s%%", progress));
         holder.catName.setText(category.getName());
         holder.catResult.setText(Currency.format(Math.abs(budgetCategory.getBudget())));

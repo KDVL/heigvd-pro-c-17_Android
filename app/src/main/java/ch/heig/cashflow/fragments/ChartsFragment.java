@@ -132,7 +132,8 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
      */
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+        if(getContext() != null)
+             Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
     /**

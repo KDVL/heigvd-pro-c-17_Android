@@ -143,7 +143,8 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
      */
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+        if(getContext() != null)
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
     /**
@@ -161,18 +162,24 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         ColorStateList red = sp.getState(R.color.red);
         ColorStateList white = sp.getState(R.color.white);
 
+
         int progress = 0;
         if (budget.getIncome() > 0)
             progress = (int) (Math.abs(budget.getExpense()) * 100 / budget.getIncome());
 
         progBar.setProgress(progress);
-        progBar.setProgressBackgroundTintList(gray);
-        progBar.setProgressTintList(dark);
+        if(gray != null)
+            progBar.setProgressBackgroundTintList(gray);
+
+        if(dark != null)
+         progBar.setProgressTintList(dark);
 
         title.setText(budget.getName());
 
         result.setText(Currency.format(budget.getBudget()));
-        result.setTextColor(budget.getBudget() < 0 ? red : white);
+
+        if(red != null && white != null)
+            result.setTextColor(budget.getBudget() < 0 ? red : white);
 
         percentage.setText(String.format("%s%%", progress));
 
