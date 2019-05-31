@@ -3,6 +3,7 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoriesFragmentTabHost
  */
 
 package ch.heig.cashflow.fragments;

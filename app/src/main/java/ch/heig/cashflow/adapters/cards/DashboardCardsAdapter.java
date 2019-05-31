@@ -1,8 +1,9 @@
 /**
- * TODO
+ * Adapter for correctly display dashboard cards
  *
  * @author Thibaud ALT
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.BaseAdapter
  */
 
 package ch.heig.cashflow.adapters.cards;
@@ -51,9 +52,9 @@ public class DashboardCardsAdapter extends BaseAdapter {
     }
 
     /**
-     * TODO
+     * Get the size of the budget list
      *
-     * @return int
+     * @return int The size of the budget list
      */
     @Override
     public int getCount() {
@@ -61,38 +62,39 @@ public class DashboardCardsAdapter extends BaseAdapter {
     }
 
     /**
-     * TODO
+     * Get an item of the budget list
      *
-     * @param pos
-     * @return Object
+     * @param position The item position
+     * @return Object The corresponding object
      */
     @Override
-    public Object getItem(int pos) {
-        return budgets.get(pos);
+    public Object getItem(int position) {
+        return budgets.get(position);
     }
 
     /**
-     * TODO
+     * Get an item id from his position
      *
-     * @param pos
-     * @return long
+     * @param position The item position
+     * @return long The corresponding item id
      */
     @Override
-    public long getItemId(int pos) {
-        return pos;
+    public long getItemId(int position) {
+        return position;
     }
 
     /**
-     * TODO
+     * Get a View that displays the data at the specified position in the data set.
      *
-     * @param pos
-     * @param convertView
-     * @param parent
-     * @return View
+     * @param position    The position of the item within the adapter's data set of the
+     *                    item whose view we want.
+     * @param convertView convertView This value may be null.
+     * @param parent      parent This value must never be null.
+     * @return View This value will never be null.
      */
     @SuppressLint("ResourceAsColor")
     @Override
-    public View getView(int pos, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.fragment_dashboard_list_item, null);
@@ -106,7 +108,7 @@ public class DashboardCardsAdapter extends BaseAdapter {
         } else
             holder = (DashboardCardsAdapter.ViewHolder) convertView.getTag();
 
-        BudgetCategory budgetCategory = budgets.get(pos);
+        BudgetCategory budgetCategory = budgets.get(position);
         Category category = budgetCategory.getCategory();
 
         int progress = 0;
@@ -141,9 +143,9 @@ public class DashboardCardsAdapter extends BaseAdapter {
     }
 
     /**
-     * TODO
+     * A static class that define different view elements
      */
-    static class ViewHolder {
+    private static class ViewHolder {
         ProgressBar progBar;
         TextView percentage;
         ImageView catIcon;

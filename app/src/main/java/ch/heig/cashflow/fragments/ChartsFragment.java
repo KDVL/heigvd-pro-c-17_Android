@@ -1,8 +1,9 @@
 /**
- * TODO Thibaud
+ * Fragment to display a pie chart of income or expense in a recycler view list
  *
  * @author Thibaud ALT
  * @version 1.0
+ * @see ch.heig.cashflow.fragments.ContainerChartsFragment
  */
 
 package ch.heig.cashflow.fragments;
@@ -56,7 +57,7 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     /**
      * Save the parent instance state
      *
-     * @param savedInstanceState
+     * @param savedInstanceState The saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     }
 
     /**
-     * TODO
+     * On view resume, refresh datas
      */
     @Override
     public void onResume() {
@@ -94,9 +95,12 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     }
 
     /**
-     * TODO
+     * Executed when the API call is done
      *
-     * @param budget The budget
+     * <p>
+     * Create the pie charts with the datas received from the server through an API call
+     *
+     * @param budget The returned budget
      */
     @Override
     public void getFinished(Budget budget) {
@@ -126,18 +130,18 @@ public class ChartsFragment extends Fragment implements DashboardService.Callbac
     }
 
     /**
-     * TODO
+     * Display an error message if the API call failed
      *
      * @param error The error
      */
     @Override
     public void connectionFailed(String error) {
-        if(getContext() != null)
-             Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+        if (getContext() != null)
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
     /**
-     * TODO
+     * Call the dashboard service and ask him fresh datas
      */
     private void reload() {
         new DashboardService(this).getAllByMonth();

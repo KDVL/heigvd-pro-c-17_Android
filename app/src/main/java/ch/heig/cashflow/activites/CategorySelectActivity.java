@@ -1,9 +1,8 @@
 /**
- * Activity for adding or editing a category
+ * Activity for adding or editing a category select
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
- * @see ch.heig.cashflow.activites.CategorySelectActivity
  */
 
 package ch.heig.cashflow.activites;
@@ -187,7 +186,7 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
             SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("currentViewMode", currentViewMode);
-            editor.apply(); //TODO: commit or apply ???
+            editor.apply(); //TODO: Aleksandar commit or apply ???
         }
         return true;
     }

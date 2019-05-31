@@ -1,5 +1,5 @@
 /**
- * The signing activity
+ * The sign in activity
  *
  * @author Kevin DO VALE
  * @version 1.0

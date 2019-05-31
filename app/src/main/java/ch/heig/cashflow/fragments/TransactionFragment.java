@@ -58,7 +58,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * Save the parent instance state
      *
      * @param savedInstanceState The saved instance state
      */
@@ -68,7 +68,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * On view resume, refresh datas
      */
     @Override
     public void onResume() {
@@ -78,7 +78,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * Call the transaction service and ask him fresh datas by month for a {@code Type}
      */
     private void reload() {
         new TransactionsService(this).getTypeByMonth(type);
@@ -108,7 +108,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * Display an error message if the API call failed
      *
      * @param error The error
      */
@@ -118,7 +118,10 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * Executed when the API call is done
+     *
+     * <p>
+     * Set and display the expenses list view with new fresh datas
      *
      * @param transactions The transactions list
      */
@@ -142,7 +145,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * Set the transaction type
      *
      * @param type The {@code Type} to set
      */
@@ -151,10 +154,10 @@ public class TransactionFragment extends Fragment implements TransactionsService
     }
 
     /**
-     * TODO
+     * On observable update
      *
-     * @param observable
-     * @param obj
+     * @param observable The observable
+     * @param obj        The object
      */
     @Override
     public void update(Observable observable, Object obj) {

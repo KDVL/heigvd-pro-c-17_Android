@@ -1,5 +1,5 @@
 /**
- * TODO Thibaud
+ * Fragment to display a resume of income or expense grouped by categories
  *
  * @author Thibaud ALT
  * @version 1.0
@@ -61,9 +61,9 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     /**
-     * TODO
+     * Save the parent instance state
      *
-     * @param savedInstanceState
+     * @param savedInstanceState The saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,14 +97,14 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     /**
-     * TODO
+     * Call the dashboard service and ask him fresh datas
      */
     private void reload() {
         new DashboardService(this).getAllByMonth();
     }
 
     /**
-     * TODO
+     * On view resume, refresh datas
      */
     @Override
     public void onResume() {
@@ -113,10 +113,10 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     /**
-     * TODO
+     * Initialize the contents of the Activity's standard options menu.
      *
-     * @param menu     The menu
-     * @param inflater The menu inflater
+     * @param menu     The options menu in which you place your items.
+     * @param inflater The inflater menu
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -126,10 +126,10 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     /**
-     * TODO
+     * On observable update
      *
-     * @param observable
-     * @param obj
+     * @param observable The observable
+     * @param obj        The object
      */
     @Override
     public void update(Observable observable, Object obj) {
@@ -137,18 +137,21 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
     }
 
     /**
-     * TODO
+     * Display an error message if the API call failed
      *
      * @param error
      */
     @Override
     public void connectionFailed(String error) {
-        if(getContext() != null)
+        if (getContext() != null)
             Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
     /**
-     * TODO
+     * Executed when the API call is done
+     *
+     * <p>
+     * Set and display the progress bar with new fresh datas
      *
      * @param budget The budget
      */
@@ -168,17 +171,17 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
             progress = (int) (Math.abs(budget.getExpense()) * 100 / budget.getIncome());
 
         progBar.setProgress(progress);
-        if(gray != null)
+        if (gray != null)
             progBar.setProgressBackgroundTintList(gray);
 
-        if(dark != null)
-         progBar.setProgressTintList(dark);
+        if (dark != null)
+            progBar.setProgressTintList(dark);
 
         title.setText(budget.getName());
 
         result.setText(Currency.format(budget.getBudget()));
 
-        if(red != null && white != null)
+        if (red != null && white != null)
             result.setTextColor(budget.getBudget() < 0 ? red : white);
 
         percentage.setText(String.format("%s%%", progress));

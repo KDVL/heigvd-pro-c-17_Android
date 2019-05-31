@@ -3,6 +3,7 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategoryFragmentAdapter
  */
 
 package ch.heig.cashflow.adapters.cards;
@@ -40,7 +41,7 @@ public class CategorySelectGridViewAdapter extends ArrayAdapter<String> {
     }
 
     /**
-     * Get a View that displays the data at the specified position in the data set.
+     * Get a View that displays the data at the specified position in the data set
      *
      * @param position    The position of the item within the adapter's data set of the
      *                    item whose view we want.

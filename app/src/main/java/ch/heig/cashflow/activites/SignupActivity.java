@@ -1,5 +1,5 @@
 /**
- * The signup activity
+ * The sign up activity
  *
  * @author Kevin DO VALE
  * @version 1.0

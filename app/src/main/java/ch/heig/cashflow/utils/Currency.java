@@ -16,8 +16,9 @@ public class Currency {
      * Format a decimal currency number as Switzerland standard
      *
      * <p>
-     * TODO : Afficher toujours 2 zero
-     * TODO : Separateur de milliers
+     * It would be nice to have :
+     * - Always show 2 zero
+     * - a Separator of thousands
      *
      * @param decimal The decimal to format
      * @return String The decimal formatted as standard

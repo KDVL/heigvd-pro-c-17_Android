@@ -3,6 +3,7 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.transactions.CategoryAddAdapter
  */
 
 package ch.heig.cashflow.adapters.categories;

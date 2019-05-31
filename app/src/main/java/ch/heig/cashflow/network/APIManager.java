@@ -236,7 +236,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
      * !!! Used in dev environment only to trust everyone and bypass certificates
      *
      * <p>
-     * TODO : Delete in PROD
+     * TODO Kevin : Delete in PROD
      */
     private void trustEveryone() {
         try {

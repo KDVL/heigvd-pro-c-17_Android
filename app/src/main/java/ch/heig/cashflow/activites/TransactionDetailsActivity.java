@@ -78,7 +78,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO
+     * TODO Aleksandar
      *
      * @param resName
      * @return int
@@ -90,7 +90,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO
+     * TODO Aleksandar
      *
      * @param menu
      * @return boolean
@@ -102,7 +102,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO
+     * TODO Aleksandar
      *
      * @param item
      * @return boolean
@@ -125,7 +125,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO
+     * TODO Aleksandar
      */
     private void edit() {
         Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
@@ -135,7 +135,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO
+     * TODO Aleksandar
      */
     private void delete() {
 

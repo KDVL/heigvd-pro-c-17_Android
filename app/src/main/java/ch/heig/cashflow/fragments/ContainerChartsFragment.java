@@ -1,8 +1,9 @@
 /**
- * TODO Thibaud
+ * Fragment tab host to display a pie chart of income or expense in a recycler view list
  *
  * @author Thibaud ALT
  * @version 1.0
+ * @see ch.heig.cashflow.fragments.ChartsFragment
  */
 
 package ch.heig.cashflow.fragments;
@@ -42,7 +43,7 @@ public class ContainerChartsFragment extends Fragment {
     }
 
     /**
-     * TODO
+     * Called to have the fragment instantiate
      *
      * @param savedInstanceState The saved instance state
      */
@@ -82,10 +83,10 @@ public class ContainerChartsFragment extends Fragment {
     }
 
     /**
-     * TODO
+     * Initialize the contents of the Activity's standard options menu.
      *
-     * @param menu     The menu
-     * @param inflater The menu inflater
+     * @param menu     The options menu in which you place your items.
+     * @param inflater The inflater menu
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

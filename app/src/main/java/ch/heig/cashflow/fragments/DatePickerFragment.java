@@ -19,7 +19,7 @@ import ch.heig.cashflow.R;
 
 public class DatePickerFragment extends DialogFragment {
     /**
-     * TODO
+     * TODO Aleksandar
      *
      * @param savedInstanceState The saved instance state
      * @return Dialog

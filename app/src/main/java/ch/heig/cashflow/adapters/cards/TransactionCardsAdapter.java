@@ -1,8 +1,9 @@
 /**
- * TODO
+ * Adapter for correctly display transactions cards
  *
  * @author Thibaud ALT
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.TransactionCardItemsAdapter
  */
 
 package ch.heig.cashflow.adapters.cards;
@@ -61,7 +62,7 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     }
 
     /**
-     * TODO
+     * Group transactions by month then by day
      */
     private void groupByDay() {
         for (int i = 0; i < currentMonthTransactions.size(); ++i) {
@@ -80,9 +81,9 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     }
 
     /**
-     * TODO
+     * Get the size of the transactions list
      *
-     * @return int
+     * @return int The size of the transactions list
      */
     @Override
     public int getCount() {
@@ -90,38 +91,39 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     }
 
     /**
-     * TODO
+     * Get an item of the transactions list
      *
-     * @param pos
-     * @return Object
+     * @param position The item position
+     * @return Object The corresponding object
      */
     @Override
-    public Object getItem(int pos) {
-        return currentMonthTransactionsGroupeByDay.get(pos);
+    public Object getItem(int position) {
+        return currentMonthTransactionsGroupeByDay.get(position);
     }
 
     /**
-     * TODO
+     * Get an item id from his position
      *
-     * @param pos
-     * @return long
+     * @param position The item position
+     * @return long The corresponding item id
      */
     @Override
-    public long getItemId(int pos) {
-        return pos;
+    public long getItemId(int position) {
+        return position;
     }
 
     /**
-     * TODO
+     * Get a View that displays the data at the specified position in the data set.
      *
-     * @param pos
-     * @param convertView
-     * @param parent
-     * @return View
+     * @param position    The position of the item within the adapter's data set of the
+     *                    item whose view we want.
+     * @param convertView convertView This value may be null.
+     * @param parent      parent This value must never be null.
+     * @return View This value will never be null.
      */
     @SuppressLint("SetTextI18n")
     @Override
-    public View getView(int pos, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         final ViewHolder holder;
 
@@ -136,7 +138,7 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Transaction expense = currentMonthTransactionsGroupeByDay.get(pos);
+        Transaction expense = currentMonthTransactionsGroupeByDay.get(position);
 
         long total = 0;
         transactionDailyList = new ArrayList<>();
@@ -178,9 +180,9 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     }
 
     /**
-     * TODO
+     * Display a specific transaction details
      *
-     * @param transaction The transaction
+     * @param transaction The transaction to display
      */
     private void showTransactionDetail(Transaction transaction) {
         Intent transactionDetails = new Intent(context, TransactionDetailsActivity.class);
@@ -225,9 +227,9 @@ public class TransactionCardsAdapter extends BaseAdapter implements Transactions
     }
 
     /**
-     * TODO
+     * A static class that define different view elements
      */
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView dateView;
         ListView dayList;
     }

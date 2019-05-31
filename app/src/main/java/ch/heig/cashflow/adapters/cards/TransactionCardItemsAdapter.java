@@ -1,8 +1,9 @@
 /**
- * TODO
+ * Adapter for correctly display transactions cards items
  *
  * @author Thibaud ALT
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.TransactionCardsAdapter
  */
 
 package ch.heig.cashflow.adapters.cards;
@@ -32,8 +33,8 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
     /**
      * The TransactionCardItemsAdapter constructor
      *
-     * @param context
-     * @param transactions
+     * @param context      The application context
+     * @param transactions A list of transactions
      */
     public TransactionCardItemsAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
@@ -43,9 +44,9 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
     }
 
     /**
-     * TODO
+     * Get the size of the transactions list
      *
-     * @return int
+     * @return int The size of the transactions list
      */
     @Override
     public int getCount() {
@@ -53,37 +54,38 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
     }
 
     /**
-     * TODO
+     * Get an item of the transactions list
      *
-     * @param pos
-     * @return Object
+     * @param position The item position
+     * @return Object The corresponding object
      */
     @Override
-    public Object getItem(int pos) {
-        return transactions.get(pos);
+    public Object getItem(int position) {
+        return transactions.get(position);
     }
 
     /**
-     * TODO
+     * Get an item id from his position
      *
-     * @param pos
-     * @return long
+     * @param position The item position
+     * @return long The corresponding item id
      */
     @Override
-    public long getItemId(int pos) {
-        return pos;
+    public long getItemId(int position) {
+        return position;
     }
 
     /**
-     * TODO
+     * Get a View that displays the data at the specified position in the data set.
      *
-     * @param pos
-     * @param convertView
-     * @param parent
-     * @return View
+     * @param position    The position of the item within the adapter's data set of the
+     *                    item whose view we want.
+     * @param convertView convertView This value may be null.
+     * @param parent      parent This value must never be null.
+     * @return View This value will never be null.
      */
     @Override
-    public View getView(int pos, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.fragment_transaction_listview, null);
@@ -96,7 +98,7 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Transaction transaction = this.transactions.get(pos);
+        Transaction transaction = this.transactions.get(position);
 
         holder.noteView.setText(transaction.getDescription());
         holder.amountView.setText(Currency.format(transaction.getAmount()));
@@ -112,9 +114,9 @@ public class TransactionCardItemsAdapter extends BaseAdapter {
     }
 
     /**
-     * TODO
+     * A static class that define different view elements
      */
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView categorieImageView;
         TextView noteView;
         TextView amountView;

@@ -3,6 +3,8 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategorySelectGridViewAdapter
+ * @see ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter
  */
 
 package ch.heig.cashflow.adapters.cards;
@@ -89,8 +91,7 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Called when RecyclerView needs a new RecyclerView.ViewHolder
-     * of the given type to represent an item.
+     * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item
      *
      * @param parent   The ViewGroup into which the new View will be added
      *                 after it is bound to an adapter position.
@@ -116,6 +117,8 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * Called by RecyclerView to display the data at the specified position.
+     *
+     * <p>
      * This method should update the contents of the itemView to reflect the item at
      * the given position.
      *

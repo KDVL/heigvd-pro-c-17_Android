@@ -1,9 +1,8 @@
 /**
- * Activity for adding or editing a category
+ * Activity for adding or editing a category details
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
- * @see ch.heig.cashflow.activites.CategoryDetailsActivity
  */
 
 package ch.heig.cashflow.activites;

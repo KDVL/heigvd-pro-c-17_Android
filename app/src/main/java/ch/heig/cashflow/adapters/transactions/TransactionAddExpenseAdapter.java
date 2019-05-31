@@ -3,7 +3,7 @@
  *
  * @author Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.transactions.TransactionAddAdapter
  */
 
 package ch.heig.cashflow.adapters.transactions;

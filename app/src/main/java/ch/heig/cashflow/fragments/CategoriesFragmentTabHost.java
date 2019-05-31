@@ -3,6 +3,7 @@
  *
  * @author Aleksandar MILENKOVIC
  * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoryFragment
  */
 
 package ch.heig.cashflow.fragments;
@@ -70,7 +71,7 @@ public class CategoriesFragmentTabHost extends Fragment {
      * Initialize the contents of the Activity's standard options menu.
      *
      * @param menu     The options menu in which you place your items.
-     * @param inflater MenuInflater
+     * @param inflater The inflater menu
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

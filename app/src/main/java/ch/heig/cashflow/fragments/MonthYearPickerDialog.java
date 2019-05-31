@@ -28,7 +28,7 @@ public class MonthYearPickerDialog extends DialogFragment {
     private DatePickerDialog.OnDateSetListener listener = null;
 
     /**
-     * TODO
+     * TODO Aleksandar
      *
      * @param listener
      */
@@ -37,7 +37,7 @@ public class MonthYearPickerDialog extends DialogFragment {
     }
 
     /**
-     * TODO
+     * TODO Aleksandar
      *
      * @param savedInstanceState The saved instance state
      * @return Dialog
