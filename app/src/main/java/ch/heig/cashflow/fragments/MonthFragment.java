@@ -20,10 +20,10 @@ import ch.heig.cashflow.utils.SelectedDate;
 
 public class MonthFragment extends DialogFragment {
     /**
-     * TODO Kevin
+     * Constructor
      *
      * @param savedInstanceState The saved instance state
-     * @return Dialog
+     * @return Dialog the dialog
      */
     @NonNull
     @Override
