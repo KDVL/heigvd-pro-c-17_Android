@@ -2,7 +2,7 @@
 
 ## General information
 
-This android application helps you to track efficiently in the simplest manner your personal budget (expense, income) in order to ease your life.
+Cashflow, an Android application, helps you to track efficiently in the simplest manner your personal budget (expense, income) in order to ease your life.
 
 ## Why this project took place and who was involved
 
