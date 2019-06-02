@@ -10,6 +10,6 @@
         android:layout_margin="@dimen/layout_small_margin"
         android:cacheColorHint="#00000000"
         android:divider="@color/iron"
-        android:dividerHeight="2.0sp"/>
+        android:dividerHeight="1.0sp"/>
 
 </FrameLayout>

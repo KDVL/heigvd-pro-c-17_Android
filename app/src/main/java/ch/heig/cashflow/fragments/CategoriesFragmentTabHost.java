@@ -134,8 +134,8 @@ public class CategoriesFragmentTabHost extends Fragment {
         tab1.putLong("index", 1);
 
         fragmentTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Expense").setIndicator("Expense"), CategoryFragment.class, tab0);
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Income").setIndicator("Income"), CategoryFragment.class, tab1);
+        fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Dépenses").setIndicator("Dépenses"), CategoryFragment.class, tab0);
+        fragmentTabHost.addTab(fragmentTabHost.newTabSpec("Revenus").setIndicator("Revenus"), CategoryFragment.class, tab1);
         decorateTabs();
 
         fragmentTabHost.setOnTabChangedListener(new FragmentTabHost.OnTabChangeListener() {
@@ -154,13 +154,13 @@ public class CategoriesFragmentTabHost extends Fragment {
         int tab = fragmentTabHost.getCurrentTab();
         for (int i = 0; i < fragmentTabHost.getTabWidget().getChildCount(); i++) {
             // When tab is not selected
-            fragmentTabHost.getTabWidget().getChildAt(i).setBackgroundColor(appRes.getColor(R.color.white));
+            fragmentTabHost.getTabWidget().getChildAt(i).setBackgroundColor(appRes.getColor(R.color.colorPrimary));
             TextView tv = fragmentTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-            tv.setTextColor(appRes.getColor(R.color.black));
+            tv.setTextColor(appRes.getColor(R.color.white));
         }
         // When tab is selected
-        fragmentTabHost.getTabWidget().getChildAt(fragmentTabHost.getCurrentTab()).setBackgroundColor(appRes.getColor(R.color.colorPrimary));
+        fragmentTabHost.getTabWidget().getChildAt(fragmentTabHost.getCurrentTab()).setBackgroundColor(appRes.getColor(R.color.colorAccent));
         TextView tv = fragmentTabHost.getTabWidget().getChildAt(tab).findViewById(android.R.id.title);
-        tv.setTextColor(appRes.getColor(R.color.white));
+        tv.setTextColor(appRes.getColor(R.color.black));
     }
 }
