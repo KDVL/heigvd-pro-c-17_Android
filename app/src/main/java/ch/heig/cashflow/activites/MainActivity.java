@@ -37,8 +37,6 @@ import ch.heig.cashflow.network.utils.TokenHolder;
 
 public class MainActivity extends AppCompatActivity implements AuthValidationService.Callback {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     private TransactionAddAdapter transactionAddAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

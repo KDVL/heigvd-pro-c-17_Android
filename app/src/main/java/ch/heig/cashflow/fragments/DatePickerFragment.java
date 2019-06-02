@@ -1,10 +1,3 @@
-/**
- * TODO Aleksandar
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
-
 package ch.heig.cashflow.fragments;
 
 import android.app.DatePickerDialog;
@@ -17,11 +10,18 @@ import java.util.Calendar;
 
 import ch.heig.cashflow.R;
 
+/**
+ * A simple dialog containing an DatePicker.
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
 public class DatePickerFragment extends DialogFragment {
     /**
-     * TODO Aleksandar
+     * Override to build your own custom Dialog container.
      *
-     * @param savedInstanceState The saved instance state
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     *                           this is the state. This value may be null.
      * @return Dialog
      */
     @NonNull

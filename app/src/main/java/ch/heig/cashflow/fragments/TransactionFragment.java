@@ -26,15 +26,12 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.cards.TransactionCardsAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionsService;
+import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SelectedDate;
-import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.utils.Type;
 
 public class TransactionFragment extends Fragment implements TransactionsService.Callback, Observer {
-
-    private static final String TAG = TransactionFragment.class.getSimpleName();
-
     private View view;
     private TextView expenseView;
     private ListView expensesListView;
@@ -114,7 +111,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
      */
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+        Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -128,17 +125,19 @@ public class TransactionFragment extends Fragment implements TransactionsService
     @Override
     public void getFinished(List<Transaction> transactions) {
 
-        SimpleColor sp = new SimpleColor(getContext());
+        ApplicationResources appRes = new ApplicationResources(getContext());
 
         totalExpenses = 0;
         for (Transaction t : transactions)
             totalExpenses += t.getAmount();
 
         expenseView.setText(Currency.format(totalExpenses));
-        expenseView.setTextColor(type.equals(Type.EXPENSE) ? sp.get(R.color.red) : sp.get(R.color.green));
+        expenseView.setTextColor(type.equals(Type.EXPENSE) ? appRes.getColor(R.color.red) : appRes.getColor(R.color.green));
 
         if (transactions.isEmpty()) {
             view.findViewById(R.id.expense_empty_layout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));
+        } else {
+            view.findViewById(R.id.expense_empty_layout).setBackgroundColor(appRes.getColor(R.color.white));
         }
 
         expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), transactions, type));

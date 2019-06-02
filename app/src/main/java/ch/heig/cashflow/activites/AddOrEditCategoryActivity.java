@@ -88,9 +88,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity implements Cate
         if (categoryNameText.equals("")) {
             Toast.makeText(getApplicationContext(), appRes.getString(R.string.category_name_input), Toast.LENGTH_LONG).show();
             return;
-
         }
-
 
         String quotaText = categoryQuota.getText().toString();
 
