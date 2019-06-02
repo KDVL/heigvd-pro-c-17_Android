@@ -1,22 +1,23 @@
+/**
+ * The class that provides us with the elements of the application
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.utils.ApplicationResources
+ */
+
 package ch.heig.cashflow.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
-/**
- * The class that provides us with the elements of the application
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.utils.ApplicationResources
- */
 public class ApplicationResources {
     private Context context;
 
     /**
-     * Constructor
+     * The ApplicationResources constructor
      *
-     * @param context context of application
+     * @param context The context of the application
      */
     public ApplicationResources(Context context) {
         this.context = context;
@@ -25,9 +26,8 @@ public class ApplicationResources {
     /**
      * Look for the id of the element in the folder drawable
      *
-     * @param resName Name of item
-     * @return The id of item
-     * @note Return 0 if not found
+     * @param resName The name of item
+     * @return int The id of item, 0 if not found
      */
     public int getDrawableResIdByName(String resName) {
         String pkgName = context.getPackageName();
@@ -37,8 +37,8 @@ public class ApplicationResources {
     /**
      * Allows to request a string to the context
      *
-     * @param str id of string
-     * @return the requested string
+     * @param str The id of string
+     * @return String The requested string
      */
     public String getString(int str) {
         return context.getString(str);
@@ -47,8 +47,8 @@ public class ApplicationResources {
     /**
      * Allows to request a color to the context
      *
-     * @param color id of color
-     * @return the requested color
+     * @param color The id of color
+     * @return int The requested color
      */
     public int getColor(int color) {
         return ContextCompat.getColor(context, color);

@@ -1,3 +1,11 @@
+/**
+ * Fragment tab host to display a pie chart of income or expense in a recycler view list
+ *
+ * @author Thibaud ALT
+ * @version 1.0
+ * @see ch.heig.cashflow.fragments.ChartsFragment
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -18,15 +26,27 @@ public class ContainerChartsFragment extends Fragment {
 
     private FragmentTabHost tabs;
 
+    /**
+     * The ContainerChartsFragment constructor
+     */
     public ContainerChartsFragment() {
-        // Required empty public constructor
         setHasOptionsMenu(true);
     }
 
+    /**
+     * Create a new ContainerChartsFragment instance
+     *
+     * @return ContainerChartsFragment A new ContainerChartsFragment instance
+     */
     public static ContainerChartsFragment newInstance() {
         return new ContainerChartsFragment();
     }
 
+    /**
+     * Called to have the fragment instantiate
+     *
+     * @param savedInstanceState The saved instance state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +54,13 @@ public class ContainerChartsFragment extends Fragment {
 
     /**
      * Called to have the fragment instantiate its user interface view
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
-     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
-     *                 The fragment should not add the view itself, but this can be used to generate
-     *                 the LayoutParams of the view. This value may be null.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     *                           The fragment should not add the view itself, but this can be used to generate
+     *                           the LayoutParams of the view. This value may be null.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
-     * @return Return the View for the fragment's UI, or null.
+     * @return View Return the View for the fragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +69,6 @@ public class ContainerChartsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
         tabs = view.findViewById(android.R.id.tabhost);
-
         tabs.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
         bundle = new Bundle();
@@ -62,6 +82,12 @@ public class ContainerChartsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu     The options menu in which you place your items.
+     * @param inflater The inflater menu
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();

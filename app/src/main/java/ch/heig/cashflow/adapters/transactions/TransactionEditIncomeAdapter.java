@@ -1,10 +1,11 @@
 /**
  * Adapter to edit income
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
+ * @see ch.heig.cashflow.adapters.transactions.TransactionEditAdapter
  */
+
 package ch.heig.cashflow.adapters.transactions;
 
 import android.content.Context;
@@ -13,23 +14,25 @@ import java.io.Serializable;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Transaction;
-import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.CategoriesService;
+import ch.heig.cashflow.utils.Type;
 
 public class TransactionEditIncomeAdapter extends TransactionEditAdapter implements Serializable {
 
     /**
-     * Constructor
-     * @param t the category
+     * the TransactionEditIncomeAdapter constructor
+     *
+     * @param transaction The transaction
      */
-    public TransactionEditIncomeAdapter(Transaction t) {
-        super(t);
+    public TransactionEditIncomeAdapter(Transaction transaction) {
+        super(transaction);
     }
 
     /**
+     * Return the title specially adapted for adapter operation type income
      *
-     * @param context the context of application
-     * @return the title
+     * @param context The application context
+     * @return String The view title
      */
     @Override
     public String getViewTitle(Context context) {
@@ -37,7 +40,7 @@ public class TransactionEditIncomeAdapter extends TransactionEditAdapter impleme
     }
 
     /**
-     * call the service
+     * Call the service
      */
     @Override
     public void loadCategories() {

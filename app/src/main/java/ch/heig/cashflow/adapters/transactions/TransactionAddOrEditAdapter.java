@@ -1,10 +1,10 @@
 /**
- * Parent adapter (abstract)
+ * Abstract parent adapter
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
- * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
+
 package ch.heig.cashflow.adapters.transactions;
 
 import android.content.Context;
@@ -17,6 +17,7 @@ import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.TransactionService;
+import ch.heig.cashflow.utils.Currency;
 
 public abstract class TransactionAddOrEditAdapter implements Serializable {
 
@@ -26,6 +27,7 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
 
     /**
      * Constructor
+     *
      * @param t the category
      */
     public TransactionAddOrEditAdapter(Transaction t) {
@@ -33,7 +35,8 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
     }
 
     /**
-     *  set callback categorie
+     * set callback categorie
+     *
      * @param callback the callback
      */
     public void setCallbackCategorie(CategoriesService.Callback callback) {
@@ -43,6 +46,7 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
 
     /**
      * set callback category
+     *
      * @param callback the callback
      */
     public void setCallbackTransaction(TransactionService.Callback callback) {
@@ -50,7 +54,6 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
     }
 
     /**
-     *
      * @return category
      */
     public Transaction getTransaction() {
@@ -59,11 +62,12 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
 
     /**
      * return amount as String
+     *
      * @return String amount
      */
     public String getAmount() {
-        if (transaction.getAmountLong() == 0) return "";
-        return String.valueOf(transaction.getAmountFloat());
+        if (transaction.getAmount() == 0) return "";
+        return Currency.format(transaction.getAmount());
     }
 
     /**
@@ -83,8 +87,9 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
 
     /**
      * select spinner's categorie
+     *
      * @param categories the list
-     * @param s the spinner
+     * @param s          the spinner
      */
-    public abstract void selectCategorie(List<Category> categories, Spinner s);
+    public abstract void selectCategory(List<Category> categories, Spinner s);
 }

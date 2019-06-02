@@ -1,10 +1,9 @@
 /**
  * The main activity of project
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
-
 
 package ch.heig.cashflow.activites;
 
@@ -20,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.transactions.TransactionAddAdapter;
@@ -36,7 +36,9 @@ import ch.heig.cashflow.network.utils.TokenHolder;
 
 
 public class MainActivity extends AppCompatActivity implements AuthValidationService.Callback {
-    private static final String TAG = "MainActivity";
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private TransactionAddAdapter transactionAddAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -80,9 +82,10 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         }
     };
 
-
     /**
-     * onCreate
+     * On activity create
+     *
+     * @param savedInstanceState The saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
     }
 
     /**
-     * show login Activity
+     * Show the login activity
      */
     private void showLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -126,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
      * onCreateOptionsMenu
      *
      * @param menu the menu
+     * @return boolean
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
 
     /**
      * @param item menuitem selected
+     * @return boolean
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -156,14 +161,43 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
         }
     }
 
+    /**
+     *
+     * @param isLogged The user logged flag
+     */
     @Override
     public void authVerification(boolean isLogged) {
         if (!isLogged && TokenHolder.isLogged(getApplicationContext()))
             showLogin();
     }
 
+    /**
+     * Return off call API if failed
+     *
+     * @param error The error message
+     */
+    @Override
+    public void connectionFailed(String error) {
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Used by service
+     *
+     * @return Context The context of the application
+     */
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param hasCapture The pointer capture flag
+     */
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

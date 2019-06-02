@@ -1,7 +1,7 @@
 /**
  * The API manager, handle requests
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
 
@@ -40,23 +40,23 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     private String postParams;
 
     /**
-     * Constructor
+     * The APIManager constructor
      *
-     * @param callback   the callback object
-     * @param authNeeded true if authentification is need with this endpont
-     * @param m          the HTTP method
+     * @param callback   The callback object
+     * @param authNeeded True if authentication is need with this endpoint
+     * @param method     The HTTP method
      */
-    public APIManager(DownloadCallback<APIManager.Result> callback, boolean authNeeded, METHOD m) {
+    public APIManager(DownloadCallback<APIManager.Result> callback, boolean authNeeded, METHOD method) {
         mCallback = callback;
         this.authNeeded = authNeeded;
-        method = m;
+        this.method = method;
 
         //Used with https fragment_category_old server (localhost)
         trustEveryone();
     }
 
     /**
-     * set a JSON String to post
+     * Set a JSON String to post
      *
      * @param postParams the string
      */
@@ -65,14 +65,14 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Cancel background network operation if we do not have network connectivity.
+     * Cancel background network operation if we do not have network connectivity
      */
     @Override
     protected void onPreExecute() {
         if (mCallback != null) {
             Context c = mCallback.getContext();
 
-            try{
+            try {
                 ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
 
                 NetworkInfo networkInfo = cm.getActiveNetworkInfo();
@@ -83,7 +83,7 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
                     mCallback.updateFromDownload(null);
                     cancel(true);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 mCallback.updateFromDownload(null);
                 cancel(true);
             }
@@ -92,7 +92,10 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Defines work to perform on the background thread.
+     * Defines work to perform on the background thread
+     *
+     * @param urls The urls
+     * @return Result The obtained result
      */
     @Override
     protected APIManager.Result doInBackground(String... urls) {
@@ -114,7 +117,9 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Updates the DownloadCallback with the result.
+     * Updates the DownloadCallback with the result
+     *
+     * @param result The result
      */
     @Override
     protected void onPostExecute(Result result) {
@@ -123,14 +128,20 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Override to add special behavior for cancelled AsyncTask.
+     * Override to add special behavior for cancelled AsyncTask
+     *
+     * @param result The result
      */
     @Override
     protected void onCancelled(Result result) {
     }
 
     /**
-     * Given a URL, sets up a connection and gets the HTTP response body from the server.
+     * Given a URL, sets up a connection and gets the HTTP response body from the server
+     *
+     * @param url The specific url
+     * @return Result The obtained result
+     * @throws IOException
      */
     private Result downloadUrl(URL url) throws IOException {
         InputStream stream = null;
@@ -196,7 +207,13 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Converts the contents of an InputStream to a String.
+     * Converts the contents of an InputStream to a String
+     *
+     * @param stream      The InputStream
+     * @param maxReadSize The max size to read
+     * @return String The read stream
+     * @throws IOException
+     * @throws UnsupportedEncodingException
      */
     public String readStream(InputStream stream, int maxReadSize)
             throws IOException, UnsupportedEncodingException {
@@ -216,8 +233,8 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Used in dev environment only !
-     * TODO : Delete in PROD
+     * !!! Used in dev environment only to trust everyone and bypass certificates
+     *
      */
     private void trustEveryone() {
         try {
@@ -247,6 +264,9 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
         }
     }
 
+    /**
+     * Enum that defines the possible HTTP requests
+     */
     public enum METHOD {
         GET,
         POST,
@@ -255,19 +275,33 @@ public class APIManager extends AsyncTask<String, Integer, APIManager.Result> {
     }
 
     /**
-     * Wrapper class that serves the result informations
+     * The Result inner class
+     *
+     * <p>
+     * Wrapper class that serves the result datas
      */
     static public class Result {
+
         public Exception exception;
         public String resultString;
-        public int responseCode;
         public METHOD method;
         public String tag;
+        public int responseCode;
 
+        /**
+         * A Result constructor
+         *
+         * @param result The result
+         */
         public Result(String result) {
             resultString = result;
         }
 
+        /**
+         * A Result constructor
+         *
+         * @param e The exception
+         */
         public Result(Exception e) {
             exception = e;
         }

@@ -1,3 +1,10 @@
+/**
+ * The category abstract parent adapter
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -7,57 +14,51 @@ import java.io.Serializable;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoryService;
 
-/**
- * Parent adapter (abstract)
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter
- */
 public abstract class CategoryAddOrEditAdapter implements Serializable {
 
     protected Category category;
 
     /**
-     * Constructor
+     * The CategoryAddOrEditAdapter constructor
      *
-     * @param c the category
+     * @param category The category
      */
-    public CategoryAddOrEditAdapter(Category c) {
-        category = c;
+    public CategoryAddOrEditAdapter(Category category) {
+        this.category = category;
     }
 
     /**
-     * @return category
+     * Get the category
+     *
+     * @return Category The category
      */
     public Category getCategory() {
         return category;
     }
 
     /**
-     * return quota as String
+     * Return quota as String
      *
-     * @return String quota
+     * @return String The quota
      */
     public String getQuota() {
-        if (category.getQuota() == 0) return "";
+        if (category.getQuota() == 0)
+            return "";
         return String.valueOf(category.getQuota());
     }
 
     /**
-     * abstract methode who
-     * return the title specially adapted for adapter operation
+     * Abstract methode who return the title specially adapted for adapter operation
      *
-     * @param context the context of application
-     * @return the title
+     * @param context The application context
+     * @return String The title
      */
     public abstract String getViewTitle(Context context);
 
     /**
-     * abstract methode who
-     * add or edit a category
+     * Abstract methode who add or edit a category
      *
-     * @param callback the service
+     * @param callback The service
      */
     public abstract void performAction(CategoryService.Callback callback);
 

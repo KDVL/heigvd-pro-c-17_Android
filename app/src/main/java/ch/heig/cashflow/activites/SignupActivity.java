@@ -1,7 +1,7 @@
 /**
- * The signup activity
+ * The sign up activity
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  */
 
@@ -27,8 +27,8 @@ import ch.heig.cashflow.network.services.LoginService;
 import ch.heig.cashflow.network.services.SignupService;
 
 public class SignupActivity extends AppCompatActivity implements LoginService.Callback {
-    private static final String TAG = "SignupActivity";
 
+    private static final String TAG = SignupActivity.class.getSimpleName();
 
     @BindView(R.id.input_firstname)
     EditText firstnameText;
@@ -45,10 +45,10 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
     @BindView(R.id.link_login)
     TextView loginButton;
 
-
     /**
-     * onCreate
+     * On activity create
      *
+     * @param savedInstanceState The saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,7 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
 
 
     /**
-     * try to signup
-     *
+     * Try to signup
      */
     public void signup() {
         Log.d(TAG, "Signup");
@@ -102,8 +101,7 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
 
 
     /**
-     * success signup
-     *
+     * Success signup
      */
     public void onSignupSuccess() {
         signupButton.setEnabled(true);
@@ -113,8 +111,7 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
 
 
     /**
-     * signup failed
-     *
+     * Signup failed
      */
     public void onSignupFailed() {
         Toast.makeText(this, getString(R.string.error_signup),
@@ -125,8 +122,8 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
 
 
     /**
-     * validate signup informations
-     *
+     * Validate signup informations
+     * @return boolean
      */
     public boolean validate() {
         boolean valid = true;
@@ -176,10 +173,10 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
         return valid;
     }
 
-
     /**
-     * on login finished
+     * On login finished
      *
+     * @param isLogged The user logged flag
      */
     @Override
     public void loginFinished(boolean isLogged) {
@@ -190,13 +187,33 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
         }
     }
 
+    /**
+     * Return off call API if failed
+     *
+     * @param error The error message
+     */
+    @Override
+    public void connectionFailed(String error) {
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
 
     /**
-     * @return context of application
+     * Used by service
      *
+     * @return Context The context of the application
      */
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param hasCapture The pointer capture flag
+     */
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

@@ -1,10 +1,13 @@
 /**
- * Add or edit activity
- * works with income and expenses
+ * Add or edit an activity
  *
- * @authors Kevin DO VALE
+ * <p>
+ * Works with The incomes and The expenses.
+ *
+ * @author Kevin DO VALE
  * @version 1.0
  */
+
 package ch.heig.cashflow.activites;
 
 import android.app.DatePickerDialog;
@@ -37,11 +40,9 @@ import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.network.services.TransactionService;
 import ch.heig.cashflow.network.utils.Date;
 
-
 public class AddOrEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TransactionService.Callback, CategoriesService.Callback {
-    private List<Category> categories;
 
-    private TransactionAddOrEditAdapter adapter = null;
+    private static final String TAG = AddOrEditActivity.class.getSimpleName();
 
     @BindView(R.id.input_categorie)
     Spinner categoriesSpinner;
@@ -54,10 +55,13 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     @BindView(R.id.btn_add)
     Button addButton;
 
+    private List<Category> categories;
+    private TransactionAddOrEditAdapter adapter = null;
+
     /**
      * onCreate
      *
-     * @param savedInstanceState
+     * @param savedInstanceState The saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +96,12 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     /**
-     * set date
+     * Set the date
      *
-     * @param datePicker the picker
-     * @param year       the year
-     * @param month      the month
-     * @param dayOfMonth the day
+     * @param datePicker The picker
+     * @param year       The year
+     * @param month      The month
+     * @param dayOfMonth The day
      */
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -114,9 +118,9 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     /**
-     * save data
+     * Save datas
      *
-     * @param view the view
+     * @param view The view
      */
     public void save(View view) {
 
@@ -126,6 +130,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
             Toast.makeText(getApplicationContext(), "Montant pas saisi!", Toast.LENGTH_LONG).show();
             return;
         }
+
         if (amountText.length() > 7) {
             Toast.makeText(getApplicationContext(), "Max 7 caractères depassé", Toast.LENGTH_LONG).show();
             return;
@@ -140,7 +145,7 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         String note = descriptionText.getText().toString();
 
-        if(note == null || note == ""){
+        if (note == null || note == "") {
             Toast.makeText(getApplicationContext(), "Description non conforme", Toast.LENGTH_LONG).show();
             return;
 
@@ -150,19 +155,19 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
 
         addButton.setEnabled(false);
 
-        //set informations
+        // Set informations
         adapter.getTransaction().setAmount(amount);
         adapter.getTransaction().setCategory(c);
         adapter.getTransaction().setDescription(note);
 
-        // do edit or add
+        // Do edit or add
         adapter.performAction();
     }
 
     /**
-     * get categories from service
+     * Get categories from service
      *
-     * @param cat the list
+     * @param cat The list
      */
     @Override
     public void getFinished(List<Category> cat) {
@@ -187,13 +192,13 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         categoriesSpinner.setAdapter(adapter);
 
         //adapter know who will be selected
-        this.adapter.selectCategorie(this.categories, categoriesSpinner);
+        this.adapter.selectCategory(this.categories, categoriesSpinner);
     }
 
     /**
-     * service finished
+     * Service finished
      *
-     * @param isFinished true if insert or add works
+     * @param isFinished True if insert or add works
      */
     @Override
     public void operationFinished(boolean isFinished) {
@@ -205,9 +210,9 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     /**
-     * service finished with error
+     * Service finished with error
      *
-     * @param error the error
+     * @param error The error
      */
     @Override
     public void connectionFailed(String error) {
@@ -215,9 +220,10 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
         Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette opération, vérifiez vos saisies", Toast.LENGTH_LONG).show();
     }
 
-
     /**
-     * used by service
+     * Used by service
+     *
+     * @return Context The context of the application
      */
     @Override
     public Context getContext() {
@@ -225,10 +231,11 @@ public class AddOrEditActivity extends AppCompatActivity implements DatePickerDi
     }
 
     /**
-     * Not used here
+     * Needed by service but not used
      *
-     * @param transaction
+     * @param transaction The transaction
      */
     @Override
-    public void getFinished(Transaction transaction) {}
+    public void getFinished(Transaction transaction) {
+    }
 }

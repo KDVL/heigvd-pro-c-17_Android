@@ -1,3 +1,11 @@
+/**
+ * Fragment to display income or expense category recycler view list
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.fragments.CategoriesFragmentTabHost
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.os.Bundle;
@@ -24,34 +32,33 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.DividerItemDecoration;
 import ch.heig.cashflow.utils.Type;
 
-/**
- * Fragment to display income or expense category recycler view list
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.fragments.CategoryFragment
- */
 public class CategoryFragment extends Fragment implements CategoriesService.Callback,
         CategoryService.Callback {
 
     private static final String TAG = CategoryFragment.class.getSimpleName();
 
     private ApplicationResources appRes;
-
     private CategoriesService css;
     private CategoryService cs;
     private List<Category> categoriesList;
     private RecyclerView recyclerView;
-
     private View view;
-
     private Long tabId;
 
     /**
-     * Constructor
+     * The required CategoryFragment empty public constructor
      */
     public CategoryFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Create a new CategoryFragment instance
+     *
+     * @return CategoryFragment A new ChartsFragment instance
+     */
+    public static CategoryFragment newInstance() {
+        return new CategoryFragment();
     }
 
     /**
@@ -62,7 +69,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
      *                           The fragment should not add the view itself, but this can be used to generate
      *                           the LayoutParams of the view. This value may be null.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
-     * @return Return the View for the fragment's UI, or null.
+     * @return View Return the View for the fragment's UI, or null.
      */
     @Nullable
     @Override
@@ -95,7 +102,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     /**
      * Adjust the list according to the selected tab
      *
-     * @param tabId id of tab
+     * @param tabId The id of tab
      */
     private void updateListeFromServer(Long tabId) {
         if (tabId == 0)
@@ -119,7 +126,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     /**
      * Synchronized method to handle spam button
      *
-     * @param categories list of categories
+     * @param categories The list of categories
      */
     private synchronized void refresh(List<Category> categories) {
         categoriesList = categories;
@@ -135,7 +142,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     /**
      * Return off call API GETALL
      *
-     * @param categories list of category
+     * @param categories The list of category
      */
     @Override
     public void getFinished(List<Category> categories) {
@@ -143,19 +150,9 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     }
 
     /**
-     * Return off call API GET
-     *
-     * @param category category
-     */
-    @Override
-    public void getFinished(Category category) {
-
-    }
-
-    /**
      * Return off call API POST, PUT and DELETE
      *
-     * @param isFinished state of request
+     * @param isFinished The state of request
      */
     @Override
     public void operationFinished(boolean isFinished) {
@@ -168,10 +165,20 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     /**
      * Return fail
      *
-     * @param error error string
+     * @param error The error string
      */
     @Override
     public void connectionFailed(String error) {
-        Toast.makeText(getContext(), appRes.getString(R.string.server_response_nok), Toast.LENGTH_SHORT).show();
+        if(getContext() != null)
+            Toast.makeText(getContext(), appRes.getString(R.string.server_response_nok), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param category The category
+     */
+    @Override
+    public void getFinished(Category category) {
     }
 }

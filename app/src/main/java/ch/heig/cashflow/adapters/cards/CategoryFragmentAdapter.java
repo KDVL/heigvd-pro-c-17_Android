@@ -1,3 +1,12 @@
+/**
+ * Adapter for category display in recycle view
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.cards.CategorySelectGridViewAdapter
+ * @see ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter
+ */
+
 package ch.heig.cashflow.adapters.cards;
 
 import android.content.Context;
@@ -24,38 +33,31 @@ import ch.heig.cashflow.network.services.CategoryService;
 import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Type;
 
-/**
- * Adapter for category display in recycle view
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.cards.CategoryFragmentAdapter
- */
 public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ApplicationResources appRes;
+
     private static final int LAYOUT_ONE = 0;
     private static final int LAYOUT_TWO = 1;
+    private final List<Category> mCategories;
 
+    private ApplicationResources appRes;
     private CategoryService.Callback callback;
     private Context context;
-    private final List<Category> mCategories;
     private List<Category> orderedCategories;
-
     private Long tabId;
 
     /**
-     * Constructor
+     * The CategoryFragmentAdapter constructor
      *
-     * @param callback     callback of service
-     * @param context      context
-     * @param categoryList the list of category to display
-     * @param tabId        number of tab
+     * @param callback     The callback of service
+     * @param context      The context
+     * @param categoryList The list of category to display
+     * @param tabId        The number of tab
      */
     public CategoryFragmentAdapter(CategoryService.Callback callback, Context context, List<Category> categoryList, Long tabId) {
-        appRes = new ApplicationResources(context);
+        this.appRes = new ApplicationResources(context);
         this.callback = callback;
         this.context = context;
-        mCategories = categoryList;
+        this.mCategories = categoryList;
 
         orderedCategories = new ArrayList<>();
         orderedCategories.add(new Category(0, "Activées", "enabled", Type.EXPENSE, 0, true));
@@ -76,8 +78,8 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     /**
      * Choose the appropriate view
      *
-     * @param index index of item
-     * @return the appropriate view
+     * @param index The index of item
+     * @return int The appropriate view
      */
     @Override
     public int getItemViewType(int index) {
@@ -89,13 +91,12 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Called when RecyclerView needs a new RecyclerView.ViewHolder
-     * of the given type to represent an item.
+     * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item
      *
      * @param parent   The ViewGroup into which the new View will be added
      *                 after it is bound to an adapter position.
      * @param viewType The view type of the new View.
-     * @return A new ViewHolder that holds a View of the given view type.
+     * @return RecyclerView.ViewHolder A new ViewHolder that holds a View of the given view type.
      */
     @NonNull
     @Override
@@ -116,6 +117,8 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * Called by RecyclerView to display the data at the specified position.
+     *
+     * <p>
      * This method should update the contents of the itemView to reflect the item at
      * the given position.
      *
@@ -179,15 +182,15 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     /**
      * Launch the activity to change the category
      *
-     * @param c the category to edit
+     * @param category The category to edit
      */
-    private void editCategory(Category c) {
+    private void editCategory(Category category) {
         Intent catDetails = new Intent(context, CategoryDetailsActivity.class);
 
         if (tabId == 0) {
-            catDetails.putExtra(context.getResources().getString(R.string.category_adapter_key), new CategoryEditExpenseAdapter(c));
+            catDetails.putExtra(context.getResources().getString(R.string.category_adapter_key), new CategoryEditExpenseAdapter(category));
         } else {
-            catDetails.putExtra(context.getResources().getString(R.string.category_adapter_key), new CategoryEditIncomeAdapter(c));
+            catDetails.putExtra(context.getResources().getString(R.string.category_adapter_key), new CategoryEditIncomeAdapter(category));
         }
         context.startActivity(catDetails);
     }
@@ -195,13 +198,13 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     /**
      * Enable or disable categories
      *
-     * @param c the category to edit
+     * @param category The category to edit
      */
-    private void enableOrDisable(final Category c) {
+    private void enableOrDisable(final Category category) {
         final String title;
         String msg;
 
-        if (c.isEnabled()) {
+        if (category.isEnabled()) {
             title = appRes.getString(R.string.alert_des_title);
             msg = appRes.getString(R.string.alert_des_msg);
         } else {
@@ -215,9 +218,9 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                 .setPositiveButton(appRes.getString(R.string.button_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if (title.equals(appRes.getString(R.string.alert_des_title))) {
-                            new CategoryService(callback).disable(c);
+                            new CategoryService(callback).disable(category);
                         } else {
-                            new CategoryService(callback).enable(c);
+                            new CategoryService(callback).enable(category);
                         }
                     }
                 })
@@ -241,7 +244,7 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     /**
      * The count of items in recycler view
      *
-     * @return the size of list of categories
+     * @return int The size of list of categories
      */
     @Override
     public int getItemCount() {
@@ -249,32 +252,32 @@ public class CategoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Class of special element to present categories of different types
+     * Class of special element to separate categories of different types
      */
-    public class ViewHolderCategory extends RecyclerView.ViewHolder {
-        ImageView categoryIconName;
-        TextView categoryName;
-        ImageView bouttonState;
+    public static class ViewHolderText extends RecyclerView.ViewHolder {
 
-        ViewHolderCategory(@NonNull View itemView) {
+        private TextView categoryName;
+
+        ViewHolderText(@NonNull View itemView) {
             super(itemView);
-
-            categoryIconName = itemView.findViewById(R.id.cat_icon_name);
-            categoryName = itemView.findViewById(R.id.cat_name);
-            bouttonState = itemView.findViewById(R.id.cat_icon_enable_state);
+            categoryName = itemView.findViewById(R.id.cat_state_title);
         }
     }
 
     /**
-     * Class of special element to separate categories of different types
+     * Class of special element to present categories of different types
      */
-    static class ViewHolderText extends RecyclerView.ViewHolder {
-        TextView categoryName;
+    public class ViewHolderCategory extends RecyclerView.ViewHolder {
 
-        ViewHolderText(@NonNull View itemView) {
+        private ImageView categoryIconName;
+        private TextView categoryName;
+        private ImageView bouttonState;
+
+        ViewHolderCategory(@NonNull View itemView) {
             super(itemView);
-
-            categoryName = itemView.findViewById(R.id.cat_state_title);
+            categoryIconName = itemView.findViewById(R.id.cat_icon_name);
+            categoryName = itemView.findViewById(R.id.cat_name);
+            bouttonState = itemView.findViewById(R.id.cat_icon_enable_state);
         }
     }
 }

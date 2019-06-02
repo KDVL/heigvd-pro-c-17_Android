@@ -1,7 +1,7 @@
 /**
  * Class needed to add divider in recycle view
  *
- * @authors Aleksandar Milenkovic
+ * @author Aleksandar MILENKOVIC
  * @version 1.0
  * @see ch.heig.cashflow.utils.DividerItemDecoration
  */
@@ -19,11 +19,15 @@ import android.view.View;
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
-
     private Drawable divider;
 
     /**
+     * A DividerItemDecoration constructor
+     *
+     * <p>
      * Default divider will be used
+     *
+     * @param context The context of the application
      */
     public DividerItemDecoration(Context context) {
         final TypedArray styledAttributes = context.obtainStyledAttributes(ATTRS);
@@ -32,7 +36,13 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     /**
+     * A DividerItemDecoration constructor
+     *
+     * <p>
      * Custom divider will be used
+     *
+     * @param context The context of the application
+     * @param resId   The res id
      */
     public DividerItemDecoration(Context context, int resId) {
         divider = ContextCompat.getDrawable(context, resId);
@@ -40,12 +50,13 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Draw the dividing line
-     * @param c canvas
-     * @param parent parent
-     * @param state state of recycler view
+     *
+     * @param canvas The canvas
+     * @param parent The RecyclerView parent
+     * @param state  The state of recycler view
      */
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
 
@@ -59,7 +70,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             int bottom = top + divider.getIntrinsicHeight();
 
             divider.setBounds(left, top, right, bottom);
-            divider.draw(c);
+            divider.draw(canvas);
         }
     }
 }

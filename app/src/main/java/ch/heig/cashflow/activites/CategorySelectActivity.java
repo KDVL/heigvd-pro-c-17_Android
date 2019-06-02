@@ -1,3 +1,10 @@
+/**
+ * Activity for adding or editing a category select
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -24,29 +31,22 @@ import ch.heig.cashflow.adapters.cards.CategorySelectGridViewAdapter;
 import ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter;
 import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
+import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.utils.ApplicationResources;
 
-/**
- * Activity for adding or editing a category
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.activites.CategorySelectActivity
- */
 public class CategorySelectActivity extends AppCompatActivity implements CategoriesService.Callback {
-    private List<String> categoriesList;
 
+    private static final String TAG = CategorySelectActivity.class.getSimpleName();
+    private static final int VIEW_MODE_LISTVIEW = 0;
+    private static final int VIEW_MODE_GRIDVIEW = 1;
+
+    private int currentViewMode = 0;
     private ViewStub stubGrid;
     private ViewStub stubList;
     private ListView listView;
     private GridView gridView;
-
-    private int currentViewMode = 0;
-
-    static final int VIEW_MODE_LISTVIEW = 0;
-    static final int VIEW_MODE_GRIDVIEW = 1;
-
+    private List<String> categoriesList;
     private CategoryAddOrEditAdapter adapter = null;
 
     /**
@@ -156,6 +156,7 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
      * Initialize the contents of the Activity's standard options menu.
      *
      * @param menu The options menu in which you place your items.
+     * @return boolean
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -168,7 +169,7 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
      * This hook is called whenever an item in your options menu is selected
      *
      * @param item The menu item that was selected.
-     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -185,26 +186,15 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
             SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("currentViewMode", currentViewMode);
-            editor.apply(); //TODO: commit or apply ???
+            editor.apply(); //TODO: Aleksandar commit or apply ???
         }
         return true;
-    }
-
-    //TODO: callbacks
-
-    /**
-     * Return of call API GET_All or GET_BY_TYPE
-     *
-     * @param categories list of categories
-     */
-    @Override
-    public void getFinished(List<Category> categories) {
     }
 
     /**
      * Return off call API if failed
      *
-     * @param error error message
+     * @param error The error message
      */
     @Override
     public void connectionFailed(String error) {
@@ -212,10 +202,22 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
     }
 
     /**
-     * @return the context of application
+     * Used by service
+     *
+     * @return Context The context of the application
      */
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param categories The categories list
+     */
+    @Override
+    public void getFinished(List<Category> categories) {
+
     }
 }

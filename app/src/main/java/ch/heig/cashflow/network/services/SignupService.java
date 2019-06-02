@@ -1,13 +1,12 @@
 /**
  * Signup service used by SignupActivity
  *
- * @authors Kevin DO VALE
+ * @author Kevin DO VALE
  * @version 1.0
  * @see ch.heig.cashflow.activites.SignupActivity
  */
-package ch.heig.cashflow.network.services;
 
-import android.content.Context;
+package ch.heig.cashflow.network.services;
 
 import com.google.gson.Gson;
 
@@ -16,18 +15,20 @@ import ch.heig.cashflow.network.APIManager;
 import ch.heig.cashflow.network.callbacks.DownloadCallback;
 import ch.heig.cashflow.network.utils.Config;
 
-public class SignupService implements DownloadCallback<APIManager.Result> {
+public class SignupService extends APIService implements DownloadCallback<APIManager.Result> {
 
     private LoginService.Callback callback;
     private User user;
 
     /**
-     * Constructor
-     * @param call the callback
-     * @param user user informations
+     * The SignupService constructor
+     *
+     * @param callback The callback class
+     * @param user     The user
      */
-    public SignupService(LoginService.Callback call, User user) {
-        callback = call;
+    public SignupService(LoginService.Callback callback, User user) {
+        super(callback);
+        this.callback = callback;
         this.user = user;
 
         APIManager manager = new APIManager(this,
@@ -41,26 +42,18 @@ public class SignupService implements DownloadCallback<APIManager.Result> {
     }
 
     /**
-     * call LoginService if user is correctly Signup
-     * @param result the request result from APIManager
+     * Call LoginService if user is correctly signed up
+     *
+     * @param result The request result from APIManager
      */
     @Override
     public void updateFromDownload(APIManager.Result result) {
 
-        if(callback == null) return;
+        if (callback == null) return;
         if (result != null && result.responseCode == 201) {
             new LoginService(callback, user.getEmail(), user.getPassword());
         } else {
             callback.loginFinished(false);
         }
-    }
-
-
-    /**
-     * get context application
-     */
-    @Override
-    public Context getContext() {
-        return callback.getContext();
     }
 }

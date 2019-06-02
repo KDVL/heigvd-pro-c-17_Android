@@ -1,7 +1,7 @@
 /**
- * Generic category fragment
+ * Generic transaction fragment
  *
- * @authors Kevin DO VALE, Aleksandar MILENKOVIC
+ * @author Kevin DO VALE, Aleksandar MILENKOVIC
  * @version 1.0
  * @see ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter
  */
@@ -16,23 +16,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import ch.heig.cashflow.R;
-import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.adapters.cards.TransactionCardsAdapter;
+import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.network.services.TransactionsService;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SelectedDate;
-import ch.heig.cashflow.models.Transaction;
+import ch.heig.cashflow.utils.SimpleColor;
 import ch.heig.cashflow.utils.Type;
-import ch.heig.cashflow.network.services.TransactionsService;
-
 
 public class TransactionFragment extends Fragment implements TransactionsService.Callback, Observer {
-    private static final String TAG = "TransactionFragment";
+
+    private static final String TAG = TransactionFragment.class.getSimpleName();
 
     private View view;
     private TextView expenseView;
@@ -40,20 +41,35 @@ public class TransactionFragment extends Fragment implements TransactionsService
     private Type type = Type.EXPENSE;
     private long totalExpenses;
 
+    /**
+     * The required TransactionFragment empty public constructor
+     */
     public TransactionFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Create a new TransactionFragment instance
+     *
+     * @return TransactionFragment A new TransactionFragment instance
+     */
     public static TransactionFragment newInstance() {
         return new TransactionFragment();
     }
 
+    /**
+     * Save the parent instance state
+     *
+     * @param savedInstanceState The saved instance state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-
+    /**
+     * On view resume, refresh datas
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -61,16 +77,20 @@ public class TransactionFragment extends Fragment implements TransactionsService
         reload();
     }
 
+    /**
+     * Call the transaction service and ask him fresh datas by month for a {@code Type}
+     */
     private void reload() {
         new TransactionsService(this).getTypeByMonth(type);
     }
 
     /**
      * Called to have the fragment instantiate its user interface view
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
-     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
-     *                 The fragment should not add the view itself, but this can be used to generate
-     *                 the LayoutParams of the view. This value may be null.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     *                           The fragment should not add the view itself, but this can be used to generate
+     *                           the LayoutParams of the view. This value may be null.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @return Return the View for the fragment's UI, or null.
      */
@@ -87,11 +107,24 @@ public class TransactionFragment extends Fragment implements TransactionsService
         return view;
     }
 
+    /**
+     * Display an error message if the API call failed
+     *
+     * @param error The error
+     */
     @Override
     public void connectionFailed(String error) {
-        //Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
+        Toast.makeText(getContext(), error, Toast.LENGTH_LONG);
     }
 
+    /**
+     * Executed when the API call is done
+     *
+     * <p>
+     * Set and display the expenses list view with new fresh datas
+     *
+     * @param transactions The transactions list
+     */
     @Override
     public void getFinished(List<Transaction> transactions) {
 
@@ -99,7 +132,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
 
         totalExpenses = 0;
         for (Transaction t : transactions)
-            totalExpenses += t.getAmountLong();
+            totalExpenses += t.getAmount();
 
         expenseView.setText(Currency.format(totalExpenses));
         expenseView.setTextColor(type.equals(Type.EXPENSE) ? sp.get(R.color.red) : sp.get(R.color.green));
@@ -111,14 +144,23 @@ public class TransactionFragment extends Fragment implements TransactionsService
         expensesListView.setAdapter(new TransactionCardsAdapter(getActivity(), transactions, type));
     }
 
-
+    /**
+     * Set the transaction type
+     *
+     * @param type The {@code Type} to set
+     */
     public void setType(Type type) {
         this.type = type;
     }
 
-
+    /**
+     * On observable update
+     *
+     * @param observable The observable
+     * @param obj        The object
+     */
     @Override
-    public void update(Observable observable, Object o) {
+    public void update(Observable observable, Object obj) {
         reload();
     }
 }

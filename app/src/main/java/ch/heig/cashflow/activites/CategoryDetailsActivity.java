@@ -1,3 +1,10 @@
+/**
+ * Activity for adding or editing a category details
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -19,16 +26,11 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SimpleColor;
 
-/**
- * Activity for adding or editing a category
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.activites.CategoryDetailsActivity
- */
 public class CategoryDetailsActivity extends AppCompatActivity implements CategoryService.Callback {
-    private ApplicationResources appRes;
 
+    private static final String TAG = CategoryDetailsActivity.class.getSimpleName();
+
+    private ApplicationResources appRes;
     private CategoryAddOrEditAdapter adapter;
 
     /**
@@ -52,9 +54,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
             }
         }
 
-        //TODO: utilité???
-        //CategoryService cs = new CategoryService(this);
-
         setTitle(adapter.getViewTitle(getApplicationContext()));
 
         ImageView categoryIconName = findViewById(R.id.cat_edit_icon);
@@ -77,7 +76,8 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     /**
      * Initialize the contents of the Activity's standard options menu.
      *
-     * @param menu The options menu in which you place your items.
+     * @param menu The options menu in which you place your items
+     * @return boolean
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,7 +90,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
      * This hook is called whenever an item in your options menu is selected
      *
      * @param item The menu item that was selected.
-     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,33 +111,10 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         startActivity(catAddOrEdit);
     }
 
-
-    //TODO: Gerer Calback
-
-    /**
-     * Return off call API GET
-     *
-     * @param category category
-     */
-    @Override
-    public void getFinished(Category category) {
-
-    }
-
-    /**
-     * Return off call API POST PUT and DELETE
-     *
-     * @param isFinished the result
-     */
-    @Override
-    public void operationFinished(boolean isFinished) {
-
-    }
-
     /**
      * Return off call API if failed
      *
-     * @param error error message
+     * @param error The error message
      */
     @Override
     public void connectionFailed(String error) {
@@ -145,11 +122,33 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     }
 
     /**
-     * @return the context of application
+     * Used by service
+     *
+     * @return Context The context of the application
      */
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param category The category
+     */
+    @Override
+    public void getFinished(Category category) {
+
+    }
+
+    /**
+     * Needed by service but not used
+     *
+     * @param isFinished The operation finished flag
+     */
+    @Override
+    public void operationFinished(boolean isFinished) {
+
     }
 
 }

@@ -1,3 +1,11 @@
+/**
+ * Adapter to add category type income
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ * @see ch.heig.cashflow.adapters.transactions.CategoryAddAdapter
+ */
+
 package ch.heig.cashflow.adapters.categories;
 
 import android.content.Context;
@@ -8,17 +16,10 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.utils.Type;
 
-/**
- * Adapter to add category type income
- *
- * @author Aleksandar Milenkovic
- * @version 1.0
- * @see ch.heig.cashflow.adapters.categories.CategoryAddIncomeAdapter
- */
 public class CategoryAddIncomeAdapter extends CategoryAddAdapter implements Serializable {
 
     /**
-     * Constructor
+     * The CategoryAddIncomeAdapter constructor
      */
     public CategoryAddIncomeAdapter() {
         super(new Category(0, "", "", Type.INCOME, 0, true));
@@ -26,8 +27,9 @@ public class CategoryAddIncomeAdapter extends CategoryAddAdapter implements Seri
 
     /**
      * Return the title specially adapted for adapter operation type income
-     * @param context the context of application
-     * @return the title
+     *
+     * @param context The application context
+     * @return String The view title
      */
     @Override
     public String getViewTitle(Context context) {
