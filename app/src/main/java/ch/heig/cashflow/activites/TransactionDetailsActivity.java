@@ -1,10 +1,3 @@
-/**
- * TODO Aleksandar
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
-
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -23,13 +16,16 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.adapters.transactions.TransactionAddOrEditAdapter;
 import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.TransactionService;
+import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
-import ch.heig.cashflow.utils.SimpleColor;
 
+/**
+ * Activity to see transaction details
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
 public class TransactionDetailsActivity extends AppCompatActivity implements TransactionService.Callback {
-
-    private static final String TAG = TransactionDetailsActivity.class.getSimpleName();
-
     private TransactionService ts;
     private TransactionAddOrEditAdapter adapter = null;
     private ImageView expenseIcon = null;
@@ -38,15 +34,17 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     private TextView expenseDesc = null;
 
     /**
-     * On activity create
+     * Called when the activity is starting.
      *
-     * @param savedInstanceState The saved instance state
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently supplied
+     *                           in onSaveInstanceState(Bundle). Note: Otherwise it is null. This value may be null.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SimpleColor sp = new SimpleColor(getContext());
+        ApplicationResources appRes = new ApplicationResources(getContext());
 
         setContentView(R.layout.activity_transaction_details);
 
@@ -66,10 +64,10 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         expenseAmount = findViewById(R.id.edit_amount);
         expenseDesc = findViewById(R.id.edit_description);
 
-        int iconImageId = this.getDrawableResIdByName(adapter.getTransaction().getCategory().getIconName());
+        int iconImageId = appRes.getDrawableResIdByName(adapter.getTransaction().getCategory().getIconName());
         if (iconImageId != 0) {
             expenseIcon.setImageResource(iconImageId);
-            expenseIcon.getDrawable().setTint(sp.get(R.color.white));
+            expenseIcon.getDrawable().setTint(appRes.getColor(R.color.white));
         }
 
         expenseDate.setText(adapter.getTransaction().getDate());
@@ -78,21 +76,9 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO Aleksandar
+     * Initialize the contents of the Activity's standard options menu.
      *
-     * @param resName
-     * @return int
-     */
-    public int getDrawableResIdByName(String resName) {
-        String pkgName = getApplicationContext().getPackageName();
-        // Return 0 if not found.
-        return getApplicationContext().getResources().getIdentifier(resName, "drawable", pkgName);
-    }
-
-    /**
-     * TODO Aleksandar
-     *
-     * @param menu
+     * @param menu The options menu in which you place your items
      * @return boolean
      */
     @Override
@@ -102,10 +88,10 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO Aleksandar
+     * This hook is called whenever an item in your options menu is selected
      *
-     * @param item
-     * @return boolean
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -125,7 +111,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO Aleksandar
+     * Starts the activity for modifying a transaction
      */
     private void edit() {
         Intent categorieChoice = new Intent(this, AddOrEditActivity.class);
@@ -135,7 +121,7 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
     }
 
     /**
-     * TODO Aleksandar
+     * The dialog for confirmation of deletion of a transaction
      */
     private void delete() {
 

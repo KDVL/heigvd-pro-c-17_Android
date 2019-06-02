@@ -1,10 +1,3 @@
-/**
- * TODO Aleksandar
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
-
 package ch.heig.cashflow.fragments;
 
 import android.app.AlertDialog;
@@ -21,6 +14,12 @@ import java.util.Calendar;
 
 import ch.heig.cashflow.R;
 
+/**
+ * The class for the custom dialog management of the month and year
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
 public class MonthYearPickerDialog extends DialogFragment {
 
     private static final String TAG = MonthYearPickerDialog.class.getSimpleName();
@@ -28,18 +27,19 @@ public class MonthYearPickerDialog extends DialogFragment {
     private DatePickerDialog.OnDateSetListener listener = null;
 
     /**
-     * TODO Aleksandar
+     * Add the event listener
      *
-     * @param listener
+     * @param listener event listener
      */
     public void setListener(DatePickerDialog.OnDateSetListener listener) {
         this.listener = listener;
     }
 
     /**
-     * TODO Aleksandar
+     * Override to build your own custom Dialog container.
      *
-     * @param savedInstanceState The saved instance state
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     *                           this is the state. This value may be null.
      * @return Dialog
      */
     @Override
