@@ -38,8 +38,6 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
     private static final String TAG = CategoryFragment.class.getSimpleName();
 
     private ApplicationResources appRes;
-    private CategoriesService css;
-    private CategoryService cs;
     private List<Category> categoriesList;
     private RecyclerView recyclerView;
     private View view;
@@ -83,11 +81,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
         tabId = b.getLong("index");
 
         categoriesList = new ArrayList<>();
-
         appRes = new ApplicationResources(getContext());
-
-        css = new CategoriesService(this);
-        cs = new CategoryService(this);
 
         // Lookup the recyclerview in activity layout
         recyclerView = view.findViewById(R.id.cat_type_recyclerview);
@@ -106,9 +100,9 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
      */
     private void updateListeFromServer(Long tabId) {
         if (tabId == 0)
-            css.getType(Type.EXPENSE);
+            new CategoriesService(this).getType(Type.EXPENSE);
         else
-            css.getType(Type.INCOME);
+            new CategoriesService(this).getType(Type.INCOME);
     }
 
     /**
