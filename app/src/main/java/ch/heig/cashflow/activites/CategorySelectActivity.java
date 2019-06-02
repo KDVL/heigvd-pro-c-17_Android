@@ -31,7 +31,6 @@ import ch.heig.cashflow.adapters.cards.CategorySelectGridViewAdapter;
 import ch.heig.cashflow.adapters.cards.CategorySelectListViewAdapter;
 import ch.heig.cashflow.adapters.categories.CategoryAddOrEditAdapter;
 import ch.heig.cashflow.models.Category;
-import ch.heig.cashflow.models.Transaction;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.utils.ApplicationResources;
 
@@ -48,6 +47,14 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
     private GridView gridView;
     private List<String> categoriesList;
     private CategoryAddOrEditAdapter adapter = null;
+    AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String c = categoriesList.get(position);
+            adapter.getCategory().setIconName(c);
+            saveCategory();
+        }
+    };
 
     /**
      * Called when the activity is starting.
@@ -74,14 +81,14 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
         stubList = findViewById(R.id.stub_list);
         stubGrid = findViewById(R.id.stub_grid);
 
-        //Inflate ViewStub before get view
+        // Inflate ViewStub before get view
         stubList.inflate();
         stubGrid.inflate();
 
         listView = findViewById(R.id.cat_select_listview);
         gridView = findViewById(R.id.cat_select_gridview);
 
-        //get list of categories
+        // Get list of categories
         Field[] drawables = R.drawable.class.getFields();
 
         for (Field f : drawables) {
@@ -93,16 +100,18 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
             }
         }
 
-        //Get current view mode in share reference
+        // Get current view mode in share reference
         SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
-        currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
-        //Register item lick
+
+        // Default is view listview
+        currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);
+
+        // Register item lick
         listView.setOnItemClickListener(onItemClick);
         gridView.setOnItemClickListener(onItemClick);
 
         switchView();
     }
-
 
     /**
      * Change the view after reading the user's preference
@@ -133,15 +142,6 @@ public class CategorySelectActivity extends AppCompatActivity implements Categor
             gridView.setAdapter(new CategorySelectGridViewAdapter(this, R.layout.category_select_grid_item, categoriesList));
         }
     }
-
-    AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String c = categoriesList.get(position);
-            adapter.getCategory().setIconName(c);
-            saveCategory();
-        }
-    };
 
     /**
      * Launch activity AddOrEditCategoryActivity
