@@ -20,7 +20,9 @@ Development team:
 | Thibaud Alt                          | thibaud.alt@heig-vd.ch             | thibaudalt   |
 
 ## App installation (lambda users)
-TODO
+
+Installer l'apk sur un téléphone depuis le lien suivant : 
+https://github.com/KDVL/heigvd-pro-c-17_Android/releases/download/1.0/app-release.apk
 
 ## App development
 The source code of this app is Open Source and you are free to fork this project to continue the development as you wish. As this app depends on a Backend server, here is the link of the Backend server code: https://github.com/Enophi/heigvd-pro-c-17
