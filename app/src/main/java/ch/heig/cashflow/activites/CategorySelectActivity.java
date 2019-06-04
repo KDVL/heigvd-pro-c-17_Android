@@ -1,3 +1,10 @@
+/**
+ * Activity for adding or editing a category select
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -27,12 +34,6 @@ import ch.heig.cashflow.models.Category;
 import ch.heig.cashflow.network.services.CategoriesService;
 import ch.heig.cashflow.utils.ApplicationResources;
 
-/**
- * Activity for adding or editing a category select
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
 public class CategorySelectActivity extends AppCompatActivity implements CategoriesService.Callback {
 
     private static final String TAG = CategorySelectActivity.class.getSimpleName();

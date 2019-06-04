@@ -163,7 +163,7 @@ public class CategoryFragment extends Fragment implements CategoriesService.Call
      */
     @Override
     public void connectionFailed(String error) {
-        if(getContext() != null)
+        if (getContext() != null)
             Toast.makeText(getContext(), appRes.getString(R.string.server_response_nok), Toast.LENGTH_SHORT).show();
     }
 

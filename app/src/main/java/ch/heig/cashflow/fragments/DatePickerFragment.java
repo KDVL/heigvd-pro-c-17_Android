@@ -1,3 +1,10 @@
+/**
+ * A simple dialog containing an DatePicker.
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.app.DatePickerDialog;
@@ -10,12 +17,6 @@ import java.util.Calendar;
 
 import ch.heig.cashflow.R;
 
-/**
- * A simple dialog containing an DatePicker.
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
 public class DatePickerFragment extends DialogFragment {
     /**
      * Override to build your own custom Dialog container.

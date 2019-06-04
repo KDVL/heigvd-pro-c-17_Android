@@ -1,3 +1,10 @@
+/**
+ * Activity to see category details
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -19,12 +26,6 @@ import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
 import ch.heig.cashflow.utils.SimpleColor;
 
-/**
- * Activity to see category details
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
 public class CategoryDetailsActivity extends AppCompatActivity implements CategoryService.Callback {
 
     private static final String TAG = CategoryDetailsActivity.class.getSimpleName();

@@ -1,3 +1,10 @@
+/**
+ * The class for the custom dialog management of the month and year
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.fragments;
 
 import android.app.AlertDialog;
@@ -14,12 +21,6 @@ import java.util.Calendar;
 
 import ch.heig.cashflow.R;
 
-/**
- * The class for the custom dialog management of the month and year
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
 public class MonthYearPickerDialog extends DialogFragment {
 
     private static final String TAG = MonthYearPickerDialog.class.getSimpleName();

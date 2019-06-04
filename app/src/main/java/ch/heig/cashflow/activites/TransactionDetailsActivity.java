@@ -1,3 +1,10 @@
+/**
+ * Activity to see transaction details
+ *
+ * @author Aleksandar MILENKOVIC
+ * @version 1.0
+ */
+
 package ch.heig.cashflow.activites;
 
 import android.content.Context;
@@ -19,12 +26,6 @@ import ch.heig.cashflow.network.services.TransactionService;
 import ch.heig.cashflow.utils.ApplicationResources;
 import ch.heig.cashflow.utils.Currency;
 
-/**
- * Activity to see transaction details
- *
- * @author Aleksandar MILENKOVIC
- * @version 1.0
- */
 public class TransactionDetailsActivity extends AppCompatActivity implements TransactionService.Callback {
     private TransactionService ts;
     private TransactionAddOrEditAdapter adapter = null;

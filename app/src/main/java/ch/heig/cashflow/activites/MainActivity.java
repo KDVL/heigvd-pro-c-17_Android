@@ -30,10 +30,9 @@ import ch.heig.cashflow.fragments.ContainerChartsFragment;
 import ch.heig.cashflow.fragments.DashboardFragment;
 import ch.heig.cashflow.fragments.MonthFragment;
 import ch.heig.cashflow.fragments.TransactionFragment;
-import ch.heig.cashflow.utils.Type;
 import ch.heig.cashflow.network.services.AuthValidationService;
 import ch.heig.cashflow.network.utils.TokenHolder;
-
+import ch.heig.cashflow.utils.Type;
 
 public class MainActivity extends AppCompatActivity implements AuthValidationService.Callback {
 
@@ -160,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements AuthValidationSer
     }
 
     /**
-     *
      * @param isLogged The user logged flag
      */
     @Override

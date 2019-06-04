@@ -23,6 +23,7 @@ import ch.heig.cashflow.R;
 import ch.heig.cashflow.utils.ApplicationResources;
 
 public class CategorySelectListViewAdapter extends ArrayAdapter<String> {
+
     private ApplicationResources appRes;
     private Context context;
 

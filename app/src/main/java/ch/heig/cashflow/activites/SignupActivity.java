@@ -7,7 +7,6 @@
 
 package ch.heig.cashflow.activites;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -123,6 +122,7 @@ public class SignupActivity extends AppCompatActivity implements LoginService.Ca
 
     /**
      * Validate signup informations
+     *
      * @return boolean
      */
     public boolean validate() {
