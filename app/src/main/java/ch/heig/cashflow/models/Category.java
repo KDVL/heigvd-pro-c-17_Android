@@ -22,7 +22,7 @@ public class Category implements Serializable {
     private String iconName;
     private Type type;
     private long quota;
-    private boolean state;
+    private boolean enabled;
 
     /**
      * The Category constructor
@@ -40,7 +40,7 @@ public class Category implements Serializable {
         this.iconName = iconName;
         this.type = type;
         this.quota = quota;
-        this.state = state;
+        this.enabled = state;
     }
 
     /**
@@ -130,7 +130,7 @@ public class Category implements Serializable {
      * @return The actual state of the category
      */
     public boolean isEnabled() {
-        return state;
+        return enabled;
     }
 
     /**
@@ -139,6 +139,6 @@ public class Category implements Serializable {
      * @param state The state of the category
      */
     public void setEnabled(boolean state) {
-        this.state = state;
+        this.enabled = state;
     }
 }
