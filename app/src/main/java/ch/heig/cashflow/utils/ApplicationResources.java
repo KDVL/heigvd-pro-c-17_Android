@@ -51,6 +51,7 @@ public class ApplicationResources {
      * @return int The requested color
      */
     public int getColor(int color) {
+        if(context ==  null) return 0;
         return ContextCompat.getColor(context, color);
     }
 }

@@ -111,6 +111,7 @@ public class TransactionFragment extends Fragment implements TransactionsService
      */
     @Override
     public void connectionFailed(String error) {
+        if(getContext() == null) return;
         Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
     }
 
@@ -133,6 +134,8 @@ public class TransactionFragment extends Fragment implements TransactionsService
 
         expenseView.setText(Currency.format(totalExpenses));
         expenseView.setTextColor(type.equals(Type.EXPENSE) ? appRes.getColor(R.color.red) : appRes.getColor(R.color.green));
+
+        if(getContext() == null) return;
 
         if (transactions.isEmpty()) {
             view.findViewById(R.id.expense_empty_layout).setBackground(getResources().getDrawable(R.drawable.emptyscreen));

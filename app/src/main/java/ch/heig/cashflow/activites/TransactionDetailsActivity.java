@@ -10,6 +10,7 @@ package ch.heig.cashflow.activites;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -68,7 +69,11 @@ public class TransactionDetailsActivity extends AppCompatActivity implements Tra
         int iconImageId = appRes.getDrawableResIdByName(adapter.getTransaction().getCategory().getIconName());
         if (iconImageId != 0) {
             expenseIcon.setImageResource(iconImageId);
-            expenseIcon.getDrawable().setTint(appRes.getColor(R.color.white));
+
+            int white = appRes.getColor(R.color.white);
+
+            if(white != 0)
+                expenseIcon.getDrawable().setTint(white);
         }
 
         expenseDate.setText(adapter.getTransaction().getDate());
