@@ -66,8 +66,9 @@ public abstract class TransactionAddOrEditAdapter implements Serializable {
      * @return String amount
      */
     public String getAmount() {
-        if (transaction.getAmount() == 0) return "";
-        return Currency.format(transaction.getAmount());
+        if (transaction.getAmount() == 0)
+            return "";
+        return transaction.getAmount() / 100 + "." + transaction.getAmount() % 100;
     }
 
     /**
