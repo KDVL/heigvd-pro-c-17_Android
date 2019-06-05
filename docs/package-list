@@ -1,0 +1,11 @@
+ch.heig.cashflow.activites
+ch.heig.cashflow.adapters.cards
+ch.heig.cashflow.adapters.categories
+ch.heig.cashflow.adapters.transactions
+ch.heig.cashflow.fragments
+ch.heig.cashflow.models
+ch.heig.cashflow.network
+ch.heig.cashflow.network.callbacks
+ch.heig.cashflow.network.services
+ch.heig.cashflow.network.utils
+ch.heig.cashflow.utils
