@@ -170,6 +170,9 @@ public class DashboardFragment extends Fragment implements DashboardService.Call
         if (budget.getIncome() > 0)
             progress = (int) (Math.abs(budget.getExpense()) * 100 / budget.getIncome());
 
+        // Check limits
+        progress = (progress > 100 ? 100 : (progress < 0 ? 0 : progress));
+
         progBar.setProgress(progress);
         if (gray != null)
             progBar.setProgressBackgroundTintList(gray);
